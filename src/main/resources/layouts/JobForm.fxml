@@ -1,97 +1,57 @@
-<!--<?xml version="1.0" encoding="UTF-8"?>-->
+<?xml version="1.0" encoding="UTF-8"?>
 
-<!--<?import javafx.geometry.Insets?>-->
-<!--<?import javafx.scene.control.*?>-->
-<!--<?import javafx.scene.layout.*?>-->
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
-<!--<VBox xmlns="http://javafx.com/javafx/20" xmlns:fx="http://javafx.com/fxml/1"-->
-<!--      fx:controller="com.jobsphere.controller.JobFormController"-->
-<!--      spacing="15" padding="20">-->
+<VBox xmlns="http://javafx.com/javafx/20" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.jobsphere.controller.JobFormController"
+      spacing="15">
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
 
-<!--    <Label text="Add New Job" style="-fx-font-size: 20px; -fx-font-weight: bold;"/>-->
-<!--    <GridPane hgap="10" vgap="10">-->
-<!--        &lt;!&ndash; Job Title &ndash;&gt;-->
-<!--        <Label text="Job Title:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>-->
-<!--        <TextField fx:id="titleField" promptText="Enter job title" GridPane.rowIndex="0" GridPane.columnIndex="1"/>-->
+    <Label text="Add New Job" style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
+    <GridPane hgap="10" vgap="10">
+        <Label text="Job Title:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+        <TextField fx:id="titleField" promptText="Enter job title" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
 
-<!--        &lt;!&ndash; Description &ndash;&gt;-->
-<!--        <Label text="Description:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>-->
-<!--        <TextArea fx:id="descriptionArea" promptText="Enter job description" prefRowCount="4"-->
-<!--                  GridPane.rowIndex="1" GridPane.columnIndex="1"/>-->
+        <Label text="Description:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+        <TextArea fx:id="descriptionArea" promptText="Enter job description" prefRowCount="4"
+                  GridPane.rowIndex="1" GridPane.columnIndex="1"/>
 
-<!--        &lt;!&ndash; Requirements &ndash;&gt;-->
-<!--        <Label text="Requirements:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>-->
-<!--        <TextArea fx:id="requirementsArea" promptText="Enter requirements" prefRowCount="3"-->
-<!--                  GridPane.rowIndex="2" GridPane.columnIndex="1"/>-->
+        <Label text="Requirements:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+        <TextArea fx:id="requirementsArea" promptText="Enter requirements" prefRowCount="3"
+                  GridPane.rowIndex="2" GridPane.columnIndex="1"/>
 
-<!--        &lt;!&ndash; Career Level &ndash;&gt;-->
-<!--        <Label text="Career Level:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>-->
-<!--        <ComboBox fx:id="careerLevelCombo" GridPane.rowIndex="3" GridPane.columnIndex="1">-->
-<!--            <items>-->
-<!--                <FXCollections fx:factory="observableArrayList">-->
-<!--                    <String fx:value="Entry Level"/>-->
-<!--                    <String fx:value="Mid Level"/>-->
-<!--                    <String fx:value="Senior Level"/>-->
-<!--                    <String fx:value="Manager"/>-->
-<!--                </FXCollections>-->
-<!--            </items>-->
-<!--        </ComboBox>-->
+        <Label text="Job Category:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+        <ComboBox fx:id="jobCategoryCombo" GridPane.rowIndex="3" GridPane.columnIndex="1">
+        </ComboBox>
 
-<!--        &lt;!&ndash; Job Type &ndash;&gt;-->
-<!--        <Label text="Job Type:" GridPane.rowIndex="4" GridPane.columnIndex="0"/>-->
-<!--        <ComboBox fx:id="jobTypeCombo" GridPane.rowIndex="4" GridPane.columnIndex="1">-->
-<!--            <items>-->
-<!--                <FXCollections fx:factory="observableArrayList">-->
-<!--                    <String fx:value="Full-Time"/>-->
-<!--                    <String fx:value="Part-Time"/>-->
-<!--                    <String fx:value="Internship"/>-->
-<!--                </FXCollections>-->
-<!--            </items>-->
-<!--        </ComboBox>-->
+        <Label text="Career Level:" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+        <ComboBox fx:id="careerLevelCombo" GridPane.rowIndex="4" GridPane.columnIndex="1">
+        </ComboBox>
 
-<!--        &lt;!&ndash; Workplace &ndash;&gt;-->
-<!--        <Label text="Workplace:" GridPane.rowIndex="5" GridPane.columnIndex="0"/>-->
-<!--        <ComboBox fx:id="workplaceCombo" GridPane.rowIndex="5" GridPane.columnIndex="1">-->
-<!--            <items>-->
-<!--                <FXCollections fx:factory="observableArrayList">-->
-<!--                    <String fx:value="Onsite"/>-->
-<!--                    <String fx:value="Remote"/>-->
-<!--                    <String fx:value="Hybrid"/>-->
-<!--                </FXCollections>-->
-<!--            </items>-->
-<!--        </ComboBox>-->
+        <Label text="Job Type:" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
+        <ComboBox fx:id="jobTypeCombo" GridPane.rowIndex="5" GridPane.columnIndex="1">
+        </ComboBox>
 
-<!--        &lt;!&ndash; Country &ndash;&gt;-->
-<!--        <Label text="Country:" GridPane.rowIndex="6" GridPane.columnIndex="0"/>-->
-<!--        <TextField fx:id="countryField" promptText="Enter country" GridPane.rowIndex="6" GridPane.columnIndex="1"/>-->
+        <Label text="Workplace:" GridPane.rowIndex="6" GridPane.columnIndex="0"/>
+        <ComboBox fx:id="workplaceCombo" GridPane.rowIndex="6" GridPane.columnIndex="1">
+        </ComboBox>
 
-<!--        &lt;!&ndash; City &ndash;&gt;-->
-<!--        <Label text="City:" GridPane.rowIndex="7" GridPane.columnIndex="0"/>-->
-<!--        <TextField fx:id="cityField" promptText="Enter city" GridPane.rowIndex="7" GridPane.columnIndex="1"/>-->
+        <Label text="Country:" GridPane.rowIndex="7" GridPane.columnIndex="0"/>
+        <TextField fx:id="countryField" promptText="Enter country" GridPane.rowIndex="7" GridPane.columnIndex="1"/>
 
-<!--        &lt;!&ndash; Job Category &ndash;&gt;-->
-<!--        <Label text="Job Category:" GridPane.rowIndex="8" GridPane.columnIndex="0"/>-->
-<!--        <ComboBox fx:id="jobCategoryCombo" GridPane.rowIndex="8" GridPane.columnIndex="1">-->
-<!--            <items>-->
-<!--                <FXCollections fx:factory="observableArrayList">-->
-<!--                    <String fx:value="IT/Software Development"/>-->
-<!--                    <String fx:value="Engineering"/>-->
-<!--                    <String fx:value="Design/Art"/>-->
-<!--                    <String fx:value="Marketing"/>-->
-<!--                    <String fx:value="Finance"/>-->
-<!--                    <String fx:value="HR"/>-->
-<!--                    <String fx:value="Sales"/>-->
-<!--                </FXCollections>-->
-<!--            </items>-->
-<!--        </ComboBox>-->
+        <Label text="City:" GridPane.rowIndex="8" GridPane.columnIndex="0"/>
+        <TextField fx:id="cityField" promptText="Enter city" GridPane.rowIndex="8" GridPane.columnIndex="1"/>
 
+    </GridPane>
 
-<!--    </GridPane>-->
+    <!-- Buttons -->
+    <HBox spacing="10">
+        <Button text="Submit" fx:id="submitButton" onAction="#onSubmit"/>
+        <Button text="Cancel" fx:id="cancelButton" onAction="#onCancel"/>
+    </HBox>
 
-<!--    &lt;!&ndash; Buttons &ndash;&gt;-->
-<!--    <HBox spacing="10">-->
-<!--        <Button text="Submit" fx:id="submitButton" onAction="#handleSubmit"/>-->
-<!--        <Button text="Cancel" fx:id="cancelButton" onAction="#handleCancel"/>-->
-<!--    </HBox>-->
-
-<!--</VBox>-->
+</VBox>
