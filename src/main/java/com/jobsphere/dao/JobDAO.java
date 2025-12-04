@@ -21,9 +21,6 @@ public class JobDAO {
         return instance;
     }
 
-    //we will use singleton here too to jsut dealing with just one object from it
-    private static JobDAO instance;
-
     private JobDAO() {}
 
     public static JobDAO getInstance() {
