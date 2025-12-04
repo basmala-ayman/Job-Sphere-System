@@ -10,6 +10,7 @@ public class Job {
   private String jobType;
   private String workplace;
   private String country;
+
   private String city;
   private String jobCategory;
 
