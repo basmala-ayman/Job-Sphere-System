@@ -20,6 +20,6 @@ FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/layouts/main.fxm
     }
 
     public static void main(String[] args) {
-        launch();
+        launch(args);
     }
 }
