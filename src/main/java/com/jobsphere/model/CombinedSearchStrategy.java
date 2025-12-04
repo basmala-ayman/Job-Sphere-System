@@ -17,9 +17,9 @@ public class CombinedSearchStrategy implements JobSearchStrategy {
 
     @Override
     public List<Job> search(JobDAO dao) {
-        List<Job> filtered = dao.filterJobs(country, jobType);
-        return filtered.stream()
-                .filter(j -> j.getTitle().toLowerCase().contains(keyword.toLowerCase()))
+        List<Job> filteredJobs = dao.filterJobs(country, jobType);
+        return filteredJobs.stream()
+                .filter(job -> job.getTitle().toLowerCase().contains(keyword.toLowerCase()))
                 .toList();
     }
 }
