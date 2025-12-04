@@ -14,9 +14,9 @@ public class DBConnection {
 
     public static Connection getConnection() throws SQLException {
         if (connection == null || connection.isClosed()) {
-          String url = "jdbc:postgresql://localhost:5432/jobsphere";
-          String user = "postgres";
-            String password = "habiba";
+            String url = "jdbc:postgresql://ep-round-union-ah4bjfx4-pooler.c-3.us-east-1.aws.neon.tech:5432/neondb?sslmode=require";
+            String user = "neondb_owner";
+            String password = "npg_YyxqMKTA6c7e";
             connection = DriverManager.getConnection(url, user, password);
         }
         return connection;

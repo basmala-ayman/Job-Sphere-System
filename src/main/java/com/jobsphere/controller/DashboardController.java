@@ -2,10 +2,13 @@ package com.jobsphere.controller;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
+import javafx.event.ActionEvent;
 import java.io.IOException;
+
 
 public class DashboardController {
     @FXML
@@ -34,4 +37,15 @@ public class DashboardController {
             System.out.println("Error loading Manage Jobs page!");
         }
     }
+
+    @FXML
+    private void goToSearch(ActionEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/layouts/JobSearch.fxml"));
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(new Scene(root));
+        stage.setTitle("Job Search");
+        stage.show();
+    }
+
+
 }

@@ -6,6 +6,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class JobDAO {
+    private static JobDAO instance;
+    private Connection conn;
+
+    // private constructor
+    private JobDAO(Connection conn) {
+        this.conn = conn;
+    }
+
+    public static JobDAO getInstance(Connection conn) {
+        if (instance == null) {
+            instance = new JobDAO(conn);
+        }
+        return instance;
+    }
 
     //  for getting all the current active jobs  and return list of Job objects
     public List<Job> getAllJobs() {
