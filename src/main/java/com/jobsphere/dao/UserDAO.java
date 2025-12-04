@@ -2,8 +2,6 @@ package com.jobsphere.dao;
 
 import com.jobsphere.model.User;
 import java.sql.*;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import org.mindrot.jbcrypt.BCrypt;
 
 
