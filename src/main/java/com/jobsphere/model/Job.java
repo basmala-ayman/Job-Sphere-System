@@ -19,7 +19,7 @@ public class Job {
   private String responsibilities;
   private String salary;
   private String status; // active / paused
-  private LocalDateTime postedAt;//and this too
+
 
   // Getters and setters for the new fields
   public int getId() {
@@ -34,6 +34,7 @@ public class Job {
     return companyId;
   }
 
+  //to be changed (must be taken from db)
   public void setCompanyId(int companyId) {
     this.companyId = companyId;
   }
@@ -60,14 +61,6 @@ public class Job {
 
   public void setStatus(String status) {
     this.status = status;
-  }
-
-  public LocalDateTime getPostedAt() {
-    return postedAt;
-  }
-
-  public void setPostedAt(LocalDateTime postedAt) {
-    this.postedAt = postedAt;
   }
 
   public void setTitle(String title) {

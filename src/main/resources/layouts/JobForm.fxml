@@ -46,6 +46,15 @@
         <Label text="City:" GridPane.rowIndex="8" GridPane.columnIndex="0"/>
         <TextField fx:id="cityField" promptText="Enter city" GridPane.rowIndex="8" GridPane.columnIndex="1"/>
 
+        <!-- Responsibilities -->
+        <Label text="Responsibilities:" GridPane.rowIndex="9" GridPane.columnIndex="0"/>
+        <TextArea fx:id="responsibilitiesArea" promptText="Enter responsibilities" prefRowCount="3"
+                  GridPane.rowIndex="9" GridPane.columnIndex="1"/>
+
+        <!-- Salary -->
+        <Label text="Salary:" GridPane.rowIndex="10" GridPane.columnIndex="0"/>
+        <TextField fx:id="salaryField" promptText="Enter salary"
+                   GridPane.rowIndex="10" GridPane.columnIndex="1"/>
     </GridPane>
 
     <!-- Buttons -->

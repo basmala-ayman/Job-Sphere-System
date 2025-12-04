@@ -7,6 +7,17 @@ import java.util.List;
 
 public class JobDAO {
 
+    //we will use singleton here too to jsut dealing with just one object from it
+    private static JobDAO instance;
+
+    private JobDAO() {}
+
+    public static JobDAO getInstance() {
+        if (instance == null) {
+            instance = new JobDAO();
+        }
+        return instance;
+    }
     //  for getting all the current active jobs  and return list of Job objects
     public List<Job> getAllJobs() {
         List<Job> jobs = new ArrayList<>();
@@ -159,39 +170,53 @@ public class JobDAO {
         job.setJobCategory(rs.getString("job_category"));
         job.setSalary(rs.getString("salary"));
         job.setStatus(rs.getString("status"));
-        job.setPostedAt(rs.getTimestamp("posted_at").toLocalDateTime());
         return job;
     }
 
     // this is for inserting new record for a job in the jobs table
-public boolean insertJob(Job job) {
-  String sql = "INSERT INTO jobs (company_id, title, description, responsibilities, requirements, career_level, job_type, workplace, country, city, job_category, salary, status, posted_at) " +
-               "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-  try (Connection conn = DBConnection.getConnection();
-       PreparedStatement stmt = conn.prepareStatement(sql)) {
+    public boolean insertJob(Job job) {
+        String sql = "INSERT INTO jobs (company_id, title, description, responsibilities, requirements, career_level, job_type, workplace, country, city, job_category, salary, status) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
-      stmt.setInt(1, job.getCompanyId());
-      stmt.setString(2, job.getTitle());
-      stmt.setString(3, job.getDescription());
-      stmt.setString(4, job.getResponsibilities());
-      stmt.setString(5, job.getRequirements());
-      stmt.setString(6, job.getCareerLevel());
-      stmt.setString(7, job.getJobType());
-      stmt.setString(8, job.getWorkplace());
-      stmt.setString(9, job.getCountry());
-      stmt.setString(10, job.getCity());
-      stmt.setString(11, job.getJobCategory());
-      stmt.setString(12, job.getSalary());
-      stmt.setString(13, job.getStatus());
-      stmt.setTimestamp(14, Timestamp.valueOf(job.getPostedAt()));
+            // Set parameters
+            stmt.setInt(1, job.getCompanyId());
+            stmt.setString(2, job.getTitle());
+            stmt.setString(3, job.getDescription());
+            stmt.setString(4, job.getResponsibilities());
+            stmt.setString(5, job.getRequirements());
+            stmt.setString(6, job.getCareerLevel());
+            stmt.setString(7, job.getJobType());
+            stmt.setString(8, job.getWorkplace());
+            stmt.setString(9, job.getCountry());
+            stmt.setString(10, job.getCity());
+            stmt.setString(11, job.getJobCategory());
+            stmt.setString(12, job.getSalary());
+            stmt.setString(13, job.getStatus());
 
-      stmt.executeUpdate();
-      return true;
-  } catch (SQLException e) {
-      e.printStackTrace();
-      return false;
-  }
-}
+            // Execute insert
+            int affectedRows = stmt.executeUpdate();
+
+            if (affectedRows == 0) {
+                throw new SQLException("Creating job failed, no rows affected.");
+            }
+
+            // Retrieve the auto-generated job ID
+            try (ResultSet rs = stmt.getGeneratedKeys()) {
+                if (rs.next()) {
+                    job.setId(rs.getInt(1)); // set Job.id after insertion
+                }
+            }
+
+            return true;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
 
 // here update all the fields of specific job
 public boolean updateJob(Job job) {

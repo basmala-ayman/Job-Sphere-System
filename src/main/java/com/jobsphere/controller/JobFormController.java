@@ -1,5 +1,6 @@
 package com.jobsphere.controller;
 
+import com.jobsphere.dao.JobDAO;
 import com.jobsphere.model.CompanyJobBuilder;
 import com.jobsphere.model.Job;
 import javafx.fxml.FXML;
@@ -36,6 +37,11 @@ public class JobFormController {
 
     @FXML
     private ComboBox<String> jobCategoryCombo;
+    @FXML
+    private TextArea responsibilitiesArea;
+
+    @FXML
+    private TextField salaryField;
 
     @FXML
     public void initialize() {
@@ -53,11 +59,11 @@ public class JobFormController {
     @FXML
     private void onSubmit() {
         // check that main field are not missing
-        if (titleField.getText().isEmpty() || descriptionArea.getText().isEmpty() || requirementsArea.getText().isEmpty()) {
+        if (titleField.getText().isEmpty()  || responsibilitiesArea.getText().isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Error");
             alert.setHeaderText("Missing Fields");
-            alert.setContentText("Please fill in the title , description and requirements!");
+            alert.setContentText("Please fill in the title and responsibilities!");
             alert.showAndWait();
             return;
         }
@@ -68,7 +74,28 @@ public class JobFormController {
                 .setJobDetails(careerLevelCombo.getValue(), jobTypeCombo.getValue(), workplaceCombo.getValue())
                 .setLocation(countryField.getText(), cityField.getText())
                 .setCategory(jobCategoryCombo.getValue())
+                .setResponsibilities(responsibilitiesArea.getText())
+                .setSalary(salaryField.getText())
                 .build();
+
+        // set the company ID dynamically
+        //job.setCompanyId(loggedCompanyId);
+        boolean check=JobDAO.getInstance().insertJob(job);
+
+
+        if(check){
+            System.out.println("Job inserted with ID: " + job.getId());
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Successfully inserted");
+            alert.setContentText("New Job Added!");
+            alert.show();
+        }
+        else{
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Error");
+            alert.setHeaderText("Failed to insert job!");
+            alert.showAndWait();
+        }
 
         clearForm();
     }
@@ -88,5 +115,7 @@ public class JobFormController {
         countryField.clear();
         cityField.clear();
         jobCategoryCombo.getSelectionModel().clearSelection();
+        responsibilitiesArea.clear();
+        salaryField.clear();
     }
 }
