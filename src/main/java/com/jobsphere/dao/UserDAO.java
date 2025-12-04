@@ -4,29 +4,39 @@ import com.jobsphere.model.User;
 import java.sql.*;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import org.mindrot.jbcrypt.BCrypt;
+
 
 public class UserDAO {
 
   //this function is taking User object and add this new user into our database 
-    public void registerUser(User user) {
-        Connection conn = null;
-        PreparedStatement stmt = null;
-        try {
-            conn = DBConnection.getConnection();//using the connection we already define by using singleton
-            String sql = "INSERT INTO users (name, email, password, role) VALUES (?, ?, ?, ?)";
-            stmt = conn.prepareStatement(sql);
-            stmt.setString(1, user.getUsername());
-            stmt.setString(2, user.getEmail());
-            stmt.setString(3, hashPassword(user.getPassword())); // تشفير كلمة المرور
-            stmt.setString(4, user.getRole());
-            stmt.executeUpdate();
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            try { if (stmt != null) stmt.close(); } catch (Exception e) {}
-            try { if (conn != null) conn.close(); } catch (Exception e) {}
+  public boolean registerUser(User user) {
+    String sql = "INSERT INTO users (name, email, password, role) VALUES (?, ?, ?, ?)";
+
+    try (Connection conn = DBConnection.getConnection();
+         PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+        stmt.setString(1, user.getUsername());
+        stmt.setString(2, user.getEmail());
+        stmt.setString(3, hashPassword(user.getPassword()));
+        stmt.setString(4, user.getRole());
+
+        stmt.executeUpdate();
+        return true; // success
+
+    } catch (SQLException e) {
+
+        // 23505 = UNIQUE constraint violated (email already exists)
+        if ("23505".equals(e.getSQLState())) {
+            System.out.println("Email already exists in the database.");
+            return false;
         }
+//this is for the other errors may happened like network or from sql anything 
+        e.printStackTrace();
+        return false;
+
     }
+}
 
     //and this function is for using in the login and it take the email and the password and return the user object itself if the user 
     //existed or just returned null if it isnot existed 
@@ -44,7 +54,7 @@ public class UserDAO {
             //if the user is existed
             if (rs.next()) {
                 String storedHash = rs.getString("password");//get its stored hashed pass from the db
-                if (storedHash.equals(hashPassword(password))) {
+                if (checkPassword(password, storedHash)) {
                     User user = new User();//creating object to return it 
                     user.setId(rs.getInt("id"));
                     user.setUsername(rs.getString("name"));
@@ -64,18 +74,14 @@ public class UserDAO {
     }
 
     // this is for storing the passwords in the database hashed
+    //and we give it the plain text password and it will gerate salt for it
     private String hashPassword(String password) {
-        try {
-            MessageDigest md = MessageDigest.getInstance("SHA-256");//this is to define the type of the hashing 
-            byte[] hashBytes = md.digest(password.getBytes());
-            StringBuilder sb = new StringBuilder();
-            for (byte b : hashBytes) {
-                sb.append(String.format("%02x", b));
-            }
-            return sb.toString();
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
+      return BCrypt.hashpw(password, BCrypt.gensalt());
+  }
+
+  //and here this function to check you give it the original hashed password and the plain text one and it check with the built in function
+  private boolean checkPassword(String password, String hashed) {
+      return BCrypt.checkpw(password, hashed);
+  }
+  
 }
