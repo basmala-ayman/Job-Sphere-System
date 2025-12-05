@@ -8,6 +8,17 @@ import java.util.List;
 
 public class ApplicationsDAO {
 
+  //we will use singleton here too to jsut dealing with just one object from it
+  private static ApplicationsDAO instance;
+
+  private ApplicationsDAO() {}
+
+  public static ApplicationsDAO getInstance() {
+      if (instance == null) {
+          instance = new ApplicationsDAO();
+      }
+      return instance;
+  }
     // Apply for a job and it needs this 3 things to be passed to go to make a record for it in the database
   public boolean applyForJob(int applicantId, int jobId, String resumeUrl) {
     String sql = "INSERT INTO applications (job_id, applicant_id, resume_url) VALUES (?, ?, ?)";

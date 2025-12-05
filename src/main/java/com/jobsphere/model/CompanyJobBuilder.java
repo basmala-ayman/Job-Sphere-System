@@ -10,6 +10,8 @@ public class CompanyJobBuilder extends JobBuilder {
     private String country;
     private String city;
     private String jobCategory;
+    private String responsibilities;
+    private String salary;
 
     public CompanyJobBuilder setMainInfo(String title, String description, String requirements) {
         this.title = title;
@@ -33,6 +35,15 @@ public class CompanyJobBuilder extends JobBuilder {
         this.jobCategory = jobCategory;
         return this;
     }
+    public JobBuilder setResponsibilities(String responsibilities) {
+        this.responsibilities = responsibilities;
+        return this;
+    }
+
+    public JobBuilder setSalary(String salary) {
+        this.salary = salary;
+        return this;
+    }
     public Job build() {
         Job job = new Job();
         job.setTitle(title);
@@ -44,6 +55,12 @@ public class CompanyJobBuilder extends JobBuilder {
         job.setCountry(country);
         job.setCity(city);
         job.setJobCategory(jobCategory);
+        job.setResponsibilities(responsibilities);
+        job.setSalary(salary);
+
+        // must be changed
+        job.setCompanyId(3); //to be checked
+
         return job;
     }
 }

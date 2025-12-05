@@ -6,7 +6,17 @@ import java.sql.*;
 
 public class ApplicantDAO {
     //the applicant its skills is array of strings
+//we will use singleton here too to jsut dealing with just one object from it
+private static ApplicantDAO instance;
 
+private ApplicantDAO() {}
+
+public static ApplicantDAO getInstance() {
+    if (instance == null) {
+        instance = new ApplicantDAO();
+    }
+    return instance;
+}
     // Get applicant profile by its user ID
     public Applicant getProfile(int userId) {
         String sql = "SELECT * FROM applicant_profiles WHERE user_id = ?";
