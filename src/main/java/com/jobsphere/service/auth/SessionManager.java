@@ -21,8 +21,13 @@ public class SessionManager {
         this.currentUser = currentUser;
     }
 
-    public User getCurrentUser() {
-        return currentUser;
+    public String getCurrentUserRole() {
+        return currentUser.getRole();
+    }
+
+    // SessionManager.getInstance.getCurrentUserId()
+    public int getCurrentUserId() {
+        return currentUser.getId();
     }
 
     public void clearCurrentUser() {
