@@ -59,7 +59,7 @@ public class CompanyJobBuilder extends JobBuilder {
         job.setSalary(salary);
 
         // must be changed
-        job.setCompanyId(3); //to be checked
+        //job.setCompanyId(3); //to be checked
 
         return job;
     }

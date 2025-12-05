@@ -19,7 +19,7 @@ public class Job {
   private int companyId; // it is a id reference to the company that post that job
   private String responsibilities;
   private String salary;
-  private String status; // active / paused
+  private String status="active"; // active / paused
 
 
   // Getters and setters for the new fields
