@@ -2,6 +2,8 @@ package com.jobsphere.service;
 
 
 import com.jobsphere.dao.*;
+
+import java.sql.SQLException;
 import java.util.ArrayList;
 import com.jobsphere.model.*;
 
@@ -14,7 +16,7 @@ public class ApplicationsService {
   private ApplicationsDAO applicationsDAO = ApplicationsDAO.getInstance();
   private ApplicantDAO applicantDAO = ApplicantDAO.getInstance();
 
-  public List<ApplicationWithApplicant> getApplicationsForCompany(int companyId) {
+  public List<ApplicationWithApplicant> getApplicationsForCompany(int companyId) throws SQLException {
       List<Application> applications = applicationsDAO.getApplicationsForCompany(companyId);
       List<ApplicationWithApplicant> list = new ArrayList<>();
       for(Application app : applications) {

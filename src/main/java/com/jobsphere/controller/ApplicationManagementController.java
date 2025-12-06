@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public class ApplicationManagementController {
@@ -24,7 +25,7 @@ public class ApplicationManagementController {
     private ApplicationsService service = new ApplicationsService();
 
     @FXML
-    public void initialize() {
+    public void initialize() throws SQLException {
         
         nameCol.setCellValueFactory(data ->
             new SimpleStringProperty(data.getValue().applicant.getId() + "")
@@ -46,7 +47,7 @@ public class ApplicationManagementController {
         loadApplications(3);
     }
 
-    private void loadApplications(int companyId) {
+    private void loadApplications(int companyId) throws SQLException {
         List<ApplicationWithApplicant> apps = service.getApplicationsForCompany(companyId);
         applicationsTable.getItems().setAll(apps);
     }
