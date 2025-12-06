@@ -12,13 +12,13 @@ public class Applicant extends User {
     }
 
     // Getters and Setters
-    public int getUserId() {
-        return userId;
-    }
+//    public int getUserId() {
+//        return userId;
+//    }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
+//    public void setUserId(int userId) {
+//        this.userId = userId;
+//    }
 
     public String getPhone() {
         return phone;

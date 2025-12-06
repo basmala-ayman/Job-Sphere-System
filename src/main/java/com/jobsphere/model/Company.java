@@ -11,13 +11,13 @@ public class Company extends User {
     }
 
     // Getters and Setters
-    public int getUserId() {
-        return userId;
-    }
+//    public int getUserId() {
+//        return userId;
+//    }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
+//    public void setUserId(int userId) {
+//        this.userId = userId;
+//    }
 
     public String getWebsite() {
         return website;
