@@ -68,7 +68,7 @@ public class JobDAO {
     //this function for return list of distinct  country names to display them in the countery filter spinner to give the user options to choose one of them 
     public List<String> getDistinctCountries() {
         List<String> countries = new ArrayList<>();
-        String sql = "SELECT DISTINCT country FROM jobs WHERE status='active'";
+        String sql = "SELECT DISTINCT country FROM jobs ";
         try (Connection conn = DBConnection.getConnection();
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
@@ -85,7 +85,7 @@ public class JobDAO {
     //and this is the same the previous one but for the job types 
     public List<String> getDistinctJobTypes() {
         List<String> types = new ArrayList<>();
-        String sql = "SELECT DISTINCT job_type FROM jobs WHERE status='active'";
+        String sql = "SELECT DISTINCT job_type FROM jobs ";
         try (Connection conn = DBConnection.getConnection();
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
@@ -100,14 +100,46 @@ public class JobDAO {
     }
 
 
-    //and this function will return the active current jobs based on just one filter or both or even if the user not choose any filter it will return all the jobs without any restriction 
-    public List<Job> filterJobs(String country, String jobType) {
-      List<Job> jobs = new ArrayList<>();
-  
-      StringBuilder sql = new StringBuilder("SELECT * FROM jobs WHERE status='active'");
-      List<String> params = new ArrayList<>();
+// Get all distinct job statuses for active jobs
+public List<String> getDistinctJobStatuses() {
+  List<String> statuses = new ArrayList<>();
+  String sql = "SELECT DISTINCT status FROM jobs";
+  try (Connection conn = DBConnection.getConnection();
+       Statement stmt = conn.createStatement();
+       ResultSet rs = stmt.executeQuery(sql)) {
 
-      //ANY here means i do not want to filter by this field 
+      while (rs.next()) {
+          statuses.add(rs.getString("status"));
+      }
+  } catch (SQLException e) {
+      e.printStackTrace();
+  }
+  return statuses;
+}
+
+// Get all distinct career levels for active jobs
+public List<String> getDistinctCareerLevels() {
+  List<String> levels = new ArrayList<>();
+  String sql = "SELECT DISTINCT career_level FROM jobs";
+  try (Connection conn = DBConnection.getConnection();
+       Statement stmt = conn.createStatement();
+       ResultSet rs = stmt.executeQuery(sql)) {
+
+      while (rs.next()) {
+          levels.add(rs.getString("career_level"));
+      }
+  } catch (SQLException e) {
+      e.printStackTrace();
+  }
+  return levels;
+}
+
+
+    //and this function will return the active current jobs based on just one filter or both or even if the user not choose any filter it will return all the jobs without any restriction 
+    public List<Job> filterJobs(String country, String jobType, String jobStatus, String careerLevel) {
+      List<Job> jobs = new ArrayList<>();
+      StringBuilder sql = new StringBuilder("SELECT * FROM jobs WHERE 1=1"); //to can add to it easily
+      List<String> params = new ArrayList<>();
   
       if (country != null && !country.isEmpty() && !country.equals("Any")) {
           sql.append(" AND country = ?");
@@ -119,10 +151,19 @@ public class JobDAO {
           params.add(jobType);
       }
   
+      if (jobStatus != null && !jobStatus.isEmpty() && !jobStatus.equals("Any")) {
+          sql.append(" AND status = ?");
+          params.add(jobStatus);
+      }
+  
+      if (careerLevel != null && !careerLevel.isEmpty() && !careerLevel.equals("Any")) {
+          sql.append(" AND career_level = ?");
+          params.add(careerLevel);
+      }
+  
       try (Connection conn = DBConnection.getConnection();
            PreparedStatement stmt = conn.prepareStatement(sql.toString())) {
-
-  //cause now the params is dynamic 
+  
           for (int i = 0; i < params.size(); i++) {
               stmt.setString(i + 1, params.get(i));
           }
@@ -138,6 +179,8 @@ public class JobDAO {
   
       return jobs;
   }
+  
+  
   
 
     //this function is take the job id input and return the all information about this specified job and it returns Job object 

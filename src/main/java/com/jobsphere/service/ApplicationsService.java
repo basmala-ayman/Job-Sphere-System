@@ -1,44 +1,20 @@
 package com.jobsphere.service;
 
-
-import com.jobsphere.dao.*;
-
-import java.sql.SQLException;
-import java.util.ArrayList;
-import com.jobsphere.model.*;
-
+import com.jobsphere.dao.ApplicationsDAO;
+import com.jobsphere.model.ApplicationFullInfo; // <-- your new model
 import java.util.List;
-import java.util.ArrayList;
 
-//in this part we use facade pattern 
 public class ApplicationsService {
 
-  private ApplicationsDAO applicationsDAO = ApplicationsDAO.getInstance();
-  private ApplicantDAO applicantDAO = ApplicantDAO.getInstance();
+    private ApplicationsDAO applicationsDAO = ApplicationsDAO.getInstance();
 
-    public List<ApplicationWithApplicant> getApplicationsForCompany(int companyId) {
-        List<ApplicationWithApplicant> list = new ArrayList<>();
-        List<Application> applications = applicationsDAO.getApplicationsForCompany(companyId); // no need to catch SQLException
-        for(Application app : applications) {
-            try {
-                Applicant applicant = applicantDAO.getProfile(app.getApplicantId());
-                list.add(new ApplicationWithApplicant(app, applicant));
-            } catch (SQLException e) {
-                e.printStackTrace(); // handle the exception for this applicant
-            }
-        }
-        return list;
+    // Simply fetch all applications with full info for a company
+    public List<ApplicationFullInfo> getApplicationsForCompany(int companyId) {
+        return applicationsDAO.getApplicationsFullInfoForCompany(companyId);
     }
-//we will use this temporary class to enhance the performance cause we know that the application having the applicant id and 
-//by using that we can get the applicant and it will be worked correctly but the performance will not be the best option cause that means more queries to db
-//rather than here we just make few database queries and then store all infor needed in the same thing
-  public static class ApplicationWithApplicant {
-      public Application application;
-      public Applicant applicant;
 
-      public ApplicationWithApplicant(Application application, Applicant applicant) {
-          this.application = application;
-          this.applicant = applicant;
-      }
-  }
+    // Update status of an application
+    public boolean updateApplicationStatus(int applicationId, String newStatus) {
+        return applicationsDAO.updateStatus(applicationId, newStatus);
+    }
 }
