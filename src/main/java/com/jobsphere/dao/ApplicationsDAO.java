@@ -130,32 +130,35 @@ public List<Application> getApplicationsForCompany(int companyId) {
   return applications;
 }
 
-public List<SearchCompany> searchCandidates(int companyId, String keyword) {
+public List<SearchCompany> searchCandidatesByExperienceAndSkill(int companyId, int experienceYears, String skill) {
   List<SearchCompany> results = new ArrayList<>();
-  
 
-  String sql = "SELECT u.name, u.email, j.title, ap.skills, a.status, a.resume_url " +
+  // Use @> operator to check if the JSON array contains the skill
+  String sql = "SELECT u.name, u.email, j.title, ap.skills, a.status, a.resume_url, ap.experience_years " +
                "FROM applications a " +
                "JOIN jobs j ON a.job_id = j.id " +
                "JOIN users u ON a.applicant_id = u.id " +
                "JOIN applicants ap ON u.id = ap.user_id " +
                "WHERE j.company_id = ? " +
-               "AND (u.name ILIKE ? OR ap.skills ILIKE ?)";
+               "AND ap.experience_years = ? " +
+               "AND ap.skills @> ?::jsonb";
 
   try (Connection conn = DBConnection.getConnection();
        PreparedStatement stmt = conn.prepareStatement(sql)) {
 
       stmt.setInt(1, companyId);
-      stmt.setString(2, "%" + keyword + "%"); // Search by Name
-      stmt.setString(3, "%" + keyword + "%"); // OR Search by Skills
+      stmt.setInt(2, experienceYears);
+      // Convert skill string to JSON array format: '["Java"]'
+      stmt.setString(3, "[\"" + skill + "\"]");
 
       ResultSet rs = stmt.executeQuery();
 
       while (rs.next()) {
-          results.add(new CandidateDTO(
+          results.add(new SearchCompany(
               rs.getString("name"),
               rs.getString("title"),
               rs.getString("skills"),
+              rs.getInt("experience_years"),
               rs.getString("status"),
               rs.getString("email"),
               rs.getString("resume_url")
@@ -165,8 +168,10 @@ public List<SearchCompany> searchCandidates(int companyId, String keyword) {
   } catch (SQLException e) {
       e.printStackTrace();
   }
+
   return results;
 }
+
 
 
 
