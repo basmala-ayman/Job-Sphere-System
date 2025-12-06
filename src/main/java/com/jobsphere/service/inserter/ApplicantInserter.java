@@ -8,7 +8,7 @@ import java.sql.SQLException;
 
 public class ApplicantInserter implements ProfileInserter<Applicant> {
 
-    private final ApplicantDAO applicantDao = new ApplicantDAO();
+    private final ApplicantDAO applicantDao =ApplicantDAO.getInstance();;
 
     @Override
     public void insertProfile(Connection conn, Applicant applicant) throws SQLException {

@@ -130,4 +130,44 @@ public List<Application> getApplicationsForCompany(int companyId) {
   return applications;
 }
 
+public List<SearchCompany> searchCandidates(int companyId, String keyword) {
+  List<SearchCompany> results = new ArrayList<>();
+  
+
+  String sql = "SELECT u.name, u.email, j.title, ap.skills, a.status, a.resume_url " +
+               "FROM applications a " +
+               "JOIN jobs j ON a.job_id = j.id " +
+               "JOIN users u ON a.applicant_id = u.id " +
+               "JOIN applicants ap ON u.id = ap.user_id " +
+               "WHERE j.company_id = ? " +
+               "AND (u.name ILIKE ? OR ap.skills ILIKE ?)";
+
+  try (Connection conn = DBConnection.getConnection();
+       PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+      stmt.setInt(1, companyId);
+      stmt.setString(2, "%" + keyword + "%"); // Search by Name
+      stmt.setString(3, "%" + keyword + "%"); // OR Search by Skills
+
+      ResultSet rs = stmt.executeQuery();
+
+      while (rs.next()) {
+          results.add(new CandidateDTO(
+              rs.getString("name"),
+              rs.getString("title"),
+              rs.getString("skills"),
+              rs.getString("status"),
+              rs.getString("email"),
+              rs.getString("resume_url")
+          ));
+      }
+
+  } catch (SQLException e) {
+      e.printStackTrace();
+  }
+  return results;
+}
+
+
+
 }
