@@ -3,6 +3,8 @@ package com.jobsphere.dao;
 import com.jobsphere.model.Applicant;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ApplicantDAO {
     //the applicant its skills is array of strings
@@ -80,5 +82,46 @@ public class ApplicantDAO {
 
         }
     }
+
+
+    public List<Integer> getDistinctExperienceYears() {
+    List<Integer> years = new ArrayList<>();
+    String sql = "SELECT DISTINCT experience_years FROM applicants ORDER BY experience_years";
+
+    try (Connection conn = DBConnection.getConnection();
+         PreparedStatement stmt = conn.prepareStatement(sql);
+         ResultSet rs = stmt.executeQuery()) {
+
+        while (rs.next()) {
+            years.add(rs.getInt("experience_years"));
+        }
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+
+    return years;
+}
+
+
+public List<String> getDistinctSkills() {
+  List<String> skills = new ArrayList<>();
+  //cause skills stored in json column to ca nsave multiple items in the same single column we need to use this function to flatten it 
+  String sql = "SELECT DISTINCT jsonb_array_elements_text(skills) AS skill FROM applicants ORDER BY skill";
+
+  try (Connection conn = DBConnection.getConnection();
+       PreparedStatement stmt = conn.prepareStatement(sql);
+       ResultSet rs = stmt.executeQuery()) {
+
+      while (rs.next()) {
+          skills.add(rs.getString("skill"));
+      }
+
+  } catch (SQLException e) {
+      e.printStackTrace();
+  }
+
+  return skills;
+}
 
 }
