@@ -161,7 +161,7 @@ public class JobDAO {
   
       return job;
   }
-  
+
 
     //this code cause it is duplicated surint the functions we will put it in just single function and it will map the strings information 
     //that returned from the satabase into the job object 
@@ -289,5 +289,25 @@ public boolean deleteJob(int jobId) {
   }
 }
 
+public List<Job> getJobsByCompanyId(int companyId) {
+  List<Job> jobs = new ArrayList<>();
+  String sql = "SELECT * FROM jobs WHERE company_id = ?";
+  try (Connection conn = DBConnection.getConnection();
+       PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+      stmt.setInt(1, companyId);
+      ResultSet rs = stmt.executeQuery();
+
+      while (rs.next()) {
+          jobs.add(mapRowToJob(rs));
+      }
+
+  } catch (SQLException e) {
+      e.printStackTrace();
+  }
+
+  return jobs;
+
+}
 
   }

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.jobsphere.controller.SearchCompanyController"
+      spacing="15" alignment="TOP_CENTER"
+      style="-fx-background-color: #FFFFFF; -fx-padding: 20;">
+
+    <Label text="Advanced Candidate Search" style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
+
+    <HBox spacing="10" alignment="CENTER">
+        <VBox>
+            <Label text="Job:"/>
+            <ComboBox fx:id="jobComboBox" promptText="Select Job" prefWidth="150"/>
+        </VBox>
+
+        <VBox>
+            <Label text="Skill:"/>
+            <ComboBox fx:id="skillComboBox" promptText="Select Skill" prefWidth="150"/>
+        </VBox>
+
+        <VBox>
+            <Label text="Experience:"/>
+            <ComboBox fx:id="expComboBox" promptText="Years" prefWidth="100"/>
+        </VBox>
+
+        <Button text="Filter" onAction="#handleSearch"
+                style="-fx-background-color: #28a745; -fx-text-fill: white; -fx-font-size: 14px;"
+                translateY="8"/> </HBox>
+
+    <TableView fx:id="resultsTable" VBox.vgrow="ALWAYS">
+        <columns>
+            <TableColumn fx:id="colName" text="Name" prefWidth="120"/>
+            <TableColumn fx:id="colJob" text="Job Title" prefWidth="120"/>
+            <TableColumn fx:id="colSkills" text="Skills" prefWidth="150"/>
+            <TableColumn fx:id="colExp" text="Exp" prefWidth="50"/>
+            <TableColumn fx:id="colStatus" text="Status" prefWidth="80"/>
+            <TableColumn fx:id="colEmail" text="Email" prefWidth="150"/>
+            <TableColumn fx:id="colResume" text="Resume" prefWidth="120"/>
+        </columns>
+        <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+        </columnResizePolicy>
+    </TableView>
+
+</VBox>

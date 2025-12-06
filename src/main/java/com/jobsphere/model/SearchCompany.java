@@ -1,34 +1,30 @@
 package com.jobsphere.model;
 
 public class SearchCompany {
-    private String jobTitle; //from jobs table
-    private String status; //from applications table
-    private String name; //from users table
+    private String name;
+    private String jobTitle;
     private String skills;
-    private int expYears;
-    private String email; //from users table
+    private int experienceYears;
+    private String status;
+    private String email;
     private String resumeUrl;
 
-    // Constructor
-    public SearchCompany(String name, String jobTitle, String skills,int expYears, String status, String email, String resumeUrl) {
-        this.jobTitle = jobTitle;
-        this.status = status;
+    public SearchCompany(String name, String jobTitle, String skills, int experienceYears, String status, String email, String resumeUrl) {
         this.name = name;
+        this.jobTitle = jobTitle;
         this.skills = skills;
-        this.expYears = expYears;
-        this.email= email;
-        this.resumeUrl=resumeUrl;
+        this.experienceYears = experienceYears;
+        this.status = status;
+        this.email = email;
+        this.resumeUrl = resumeUrl;
     }
 
     // Getters
-    public String getJobTitle() { return jobTitle; }
-    public String getStatus() { return status; }
     public String getName() { return name; }
+    public String getJobTitle() { return jobTitle; }
     public String getSkills() { return skills; }
-    public int getExpYears() {return expYears; }
+    public int getExperienceYears() { return experienceYears; }
+    public String getStatus() { return status; }
     public String getEmail() { return email; }
     public String getResumeUrl() { return resumeUrl; }
 }
-
-
-

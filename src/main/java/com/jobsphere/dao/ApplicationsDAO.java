@@ -1,6 +1,6 @@
 package com.jobsphere.dao;
 import com.jobsphere.model.Application;
-
+import com.jobsphere.model.SearchCompany;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -130,7 +130,7 @@ public List<Application> getApplicationsForCompany(int companyId) {
   return applications;
 }
 
-public List<SearchCompany> searchCandidatesByExperienceAndSkill(int companyId, int experienceYears, String skill) {
+public List<SearchCompany> searchCandidatesByExperienceAndSkill(int jobId, int experienceYears, String skill) {
   List<SearchCompany> results = new ArrayList<>();
 
   // Use @> operator to check if the JSON array contains the skill
@@ -139,14 +139,14 @@ public List<SearchCompany> searchCandidatesByExperienceAndSkill(int companyId, i
                "JOIN jobs j ON a.job_id = j.id " +
                "JOIN users u ON a.applicant_id = u.id " +
                "JOIN applicants ap ON u.id = ap.user_id " +
-               "WHERE j.company_id = ? " +
-               "AND ap.experience_years = ? " +
-               "AND ap.skills @> ?::jsonb";
+               "WHERE j.id = ? " +
+               "AND ap.experience_years >= ? " +
+               "AND ap.skills::jsonb @> ?::jsonb";
 
   try (Connection conn = DBConnection.getConnection();
        PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-      stmt.setInt(1, companyId);
+      stmt.setInt(1, jobId);
       stmt.setInt(2, experienceYears);
       // Convert skill string to JSON array format: '["Java"]'
       stmt.setString(3, "[\"" + skill + "\"]");
