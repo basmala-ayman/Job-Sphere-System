@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/8.0.171"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.jobsphere.controller.ApplicationController">
+
+    <center>
+      <VBox spacing="10">
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+            <Label text="Managing Applications for your company jobs" style="-fx-font-size: 18; -fx-font-weight: bold;" />
+
+            <TableView fx:id="applicationsTable" prefHeight="400">
+
+                <columns>
+
+                    <TableColumn fx:id="userNameColumn" text="Name" prefWidth="150"/>
+                    <TableColumn fx:id="emailColumn" text="Email" prefWidth="200"/>
+                    <TableColumn fx:id="jobTitleColumn" text="Job Title" prefWidth="180"/>
+                    <TableColumn fx:id="skillsColumn" text="Skills" prefWidth="250"/>
+
+                    <!-- Status ComboBox Column to can change the status-->
+                    <TableColumn fx:id="statusColumn" text="Status" prefWidth="150"/>
+
+                    <!-- Save Button Column to go to update it in the database -->
+                    <TableColumn fx:id="saveColumn" text="Save" prefWidth="100"/>
+
+                </columns>
+
+            </TableView>
+        </VBox>
+    </center>
+
+</BorderPane>

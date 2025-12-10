@@ -21,8 +21,8 @@
             <ColumnConstraints percentWidth="70"/>
         </columnConstraints>
 
-        <Label text="Full Name:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
-        <TextField fx:id="fullName" promptText="Full Name" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+        <Label text="Name:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+        <TextField fx:id="fullName" promptText="Name" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
 
         <Label text="Email:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
         <TextField fx:id="email" promptText="name@domain.com" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
@@ -35,19 +35,36 @@
                        GridPane.columnIndex="1"/>
 
         <Label text="Role:" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
-        <ComboBox fx:id="roleCombo" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+        <ComboBox fx:id="role" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
     </GridPane>
+
     <Separator/>
 
     <!-- if user is an applicant -->
     <VBox fx:id="applicantBox" spacing="8" visible="false" managed="false">
         <Label text="Applicant Profile Details" style="-fx-font-weight:bold"/>
         <GridPane hgap="10" vgap="10">
+
+            <columnConstraints>
+                <ColumnConstraints percentWidth="30"/>
+                <ColumnConstraints percentWidth="70"/>
+            </columnConstraints>
+
             <Label text="Phone:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
             <TextField fx:id="phone" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
 
-            <Label text="Skills (comma-separated):" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
-            <TextField fx:id="skills" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+            <!--            <Label text="Skills (comma-separated):" GridPane.rowIndex="2" GridPane.columnIndex="0"/>-->
+            <!--            <TextField fx:id="skills" GridPane.rowIndex="2" GridPane.columnIndex="1"/>-->
+
+            <Label text="Skills:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+            <VBox spacing="5" GridPane.rowIndex="2" GridPane.columnIndex="1">
+                <HBox spacing="5">
+                    <TextField fx:id="skillInput" promptText="Enter skill"/>
+                    <Button text="Add" onAction="#onAddSkill"/>
+                </HBox>
+                <ListView fx:id="skillsList" prefHeight="100"/>
+                <Button text="Remove Selected" onAction="#onRemoveSkill"/>
+            </VBox>
 
             <Label text="Experience (#years):" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
             <TextField fx:id="experience" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
@@ -59,17 +76,20 @@
     <VBox fx:id="companyBox" spacing="8" visible="false" managed="false">
         <Label text="Company Profile" style="-fx-font-weight:bold"/>
         <GridPane hgap="10" vgap="10">
-            <Label text="Company Name:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
-            <TextField fx:id="companyName" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
 
-            <Label text="Website:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-            <TextField fx:id="website" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+            <columnConstraints>
+                <ColumnConstraints percentWidth="30"/>
+                <ColumnConstraints percentWidth="70"/>
+            </columnConstraints>
 
-            <Label text="Industry:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
-            <TextField fx:id="industry" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+            <Label text="Website:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+            <TextField fx:id="companyWebsite" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
 
-            <Label text="Description:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
-            <TextArea fx:id="description" GridPane.rowIndex="3" GridPane.columnIndex="1" prefRowCount="3"/>
+            <Label text="Industry:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+            <TextField fx:id="companyIndustry" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+            <Label text="Description:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+            <TextArea fx:id="companyDescription" GridPane.rowIndex="2" GridPane.columnIndex="1" prefRowCount="3"/>
         </GridPane>
     </VBox>
 
@@ -77,6 +97,6 @@
 
     <HBox spacing="10">
         <Button text="Register" fx:id="registerBtn" onAction="#onRegisterClicked"/>
-        <Button text="Cancel" onAction="#onCancelClicked"/>
+        <Button text="Login" fx:id="loginBtn" onAction="#goToLogin"/>
     </HBox>
 </VBox>

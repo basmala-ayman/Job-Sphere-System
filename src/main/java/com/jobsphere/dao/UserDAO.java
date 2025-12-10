@@ -9,31 +9,52 @@ import org.mindrot.jbcrypt.BCrypt;
 
 public class UserDAO {
 
-    //this function is taking User object and add this new user into our database 
-    public boolean registerUser(User user) {
-        String sql = "INSERT INTO users (name, email, password, role) VALUES (?, ?, ?, ?)";
+//we will use singleton here too to jsut dealing with just one object from it
+private static UserDAO instance;
 
-        try (Connection conn = DBConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+private UserDAO() {
+}
+
+public static UserDAO getInstance() {
+    if (instance == null) {
+        instance = new UserDAO();
+    }
+    return instance;
+}
+
+
+
+    //this function is taking User object and add this new user into our database 
+    public User registerUser(Connection conn, User user) {
+        String sql = "INSERT INTO users (name, email, password, role) VALUES (?, ?, ?, ?)";
+        try (PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            String hashedPass = hashPassword(user.getPassword());
 
             stmt.setString(1, user.getUsername());
             stmt.setString(2, user.getEmail());
-            stmt.setString(3, hashPassword(user.getPassword()));
+            stmt.setString(3, hashedPass);
             stmt.setString(4, user.getRole());
 
             stmt.executeUpdate();
-            return true; // success
-
+            // to return the created user
+            try (ResultSet rs = stmt.getGeneratedKeys()) {
+                if (rs.next()) {
+                    // update user object to set the generated id for this user
+                    user.setId(rs.getInt(1));
+                    user.setPassword(hashedPass);
+                    return user;
+                }
+            }
+            return null;
         } catch (SQLException e) {
-
             // 23505 = UNIQUE constraint violated (email already exists)
             if ("23505".equals(e.getSQLState())) {
                 System.out.println("Email already exists in the database.");
-                return false;
+                return null;
             }
             //this is for the other errors may happened like network or from sql anything
             e.printStackTrace();
-            return false;
+            return null;
         }
     }
 
@@ -91,5 +112,7 @@ public class UserDAO {
     private boolean checkPassword(String password, String hashed) {
         return BCrypt.checkpw(password, hashed);
     }
+
+
 
 }

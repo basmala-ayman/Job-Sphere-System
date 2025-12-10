@@ -2,23 +2,35 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
 
-<VBox xmlns="http://javafx.com/javafx/25"
-      xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.jobsphere.controller.ManageJobController"
-      spacing="15" padding="20">
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.jobsphere.controller.ManageJobController">
 
-    <Label text="Manage Jobs"
-           style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
+    <!-- MAIN TABLE -->
+    <center>
+        <VBox spacing="10" style="-fx-padding: 10px;">
 
-    <!-- Job list -->
-    <ListView fx:id="jobListView"
-              prefHeight="250" />
+            <TableView fx:id="jobTable" prefHeight="400">
+                <columns>
 
-    <HBox spacing="10">
-        <Button text="Edit" onAction="#onEdit" />
-        <Button text="Remove" onAction="#onRemove" />
-        <Button text="Pause" onAction="#onPause" />
-    </HBox>
+                    <TableColumn fx:id="colTitle" text="Title" prefWidth="200"/>
+                    <TableColumn fx:id="colCity" text="City" prefWidth="150"/>
+                    <TableColumn fx:id="colType" text="Job Type" prefWidth="120"/>
+                    <TableColumn fx:id="colStatus" text="Status" prefWidth="100"/>
 
-</VBox>
+                </columns>
+            </TableView>
+
+            <!-- ACTION BUTTONS -->
+            <HBox spacing="15" alignment="CENTER">
+                <Button fx:id="editButton" text="Edit Selected Job" onAction="#onEditJob" prefWidth="150"/>
+                <Button fx:id="pauseButton" text="Pause / Activate" onAction="#onPauseJob" prefWidth="150"/>
+                <Button fx:id="deleteButton" text="Delete Job"  onAction="#onDeleteJob" prefWidth="150" style="-fx-background-color: #d9534f; -fx-text-fill: white;"/>
+            </HBox>
+
+        </VBox>
+    </center>
+
+</BorderPane>

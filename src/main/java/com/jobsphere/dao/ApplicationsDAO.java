@@ -1,5 +1,6 @@
 package com.jobsphere.dao;
 import com.jobsphere.model.Application;
+import com.jobsphere.model.ApplicationFullInfo;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -8,6 +9,17 @@ import java.util.List;
 
 public class ApplicationsDAO {
 
+  //we will use singleton here too to jsut dealing with just one object from it
+  private static ApplicationsDAO instance;
+
+  private ApplicationsDAO() {}
+
+  public static ApplicationsDAO getInstance() {
+      if (instance == null) {
+          instance = new ApplicationsDAO();
+      }
+      return instance;
+  }
     // Apply for a job and it needs this 3 things to be passed to go to make a record for it in the database
   public boolean applyForJob(int applicantId, int jobId, String resumeUrl) {
     String sql = "INSERT INTO applications (job_id, applicant_id, resume_url) VALUES (?, ?, ?)";
@@ -118,5 +130,73 @@ public List<Application> getApplicationsForCompany(int companyId) {
 
   return applications;
 }
+
+//this is for updating the status of the application based on what recuiter say
+public boolean updateStatus(int applicationId, String newStatus) {
+  String sql = "UPDATE applications SET status = ? WHERE id = ?";
+
+  try (Connection conn = DBConnection.getConnection();
+       PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+      stmt.setString(1, newStatus);
+      stmt.setInt(2, applicationId);
+
+      return stmt.executeUpdate() > 0;
+
+  } catch (SQLException e) {
+      e.printStackTrace();
+      return false;
+  }
+}
+
+
+    // big query to fetch all the application info in one shot for application management rather than converting it into the n+1 
+    //problem and this will hit the database just once and will hit the disk in more less times which will lead to more better performance 
+    public List<ApplicationFullInfo> getApplicationsFullInfoForCompany(int companyId) {
+      List<ApplicationFullInfo> list = new ArrayList<>();
+  
+      String sql = "SELECT a.id AS application_id, a.status, a.resume_url, a.applied_at, " +
+                   "u.id AS user_id, u.name AS user_name, u.email AS user_email, " +
+                   "ap.phone AS phone, ap.skills AS skills, ap.experience_years AS experience, " +
+                   "j.id AS job_id, j.title AS job_title " +
+                   "FROM applications a " +
+                   "JOIN applicants ap ON a.applicant_id = ap.user_id " +
+                   "JOIN users u ON a.applicant_id = u.id " +
+                   "JOIN jobs j ON a.job_id = j.id " +
+                   "WHERE j.company_id = ?";
+  
+      try (Connection conn = DBConnection.getConnection();
+           PreparedStatement stmt = conn.prepareStatement(sql)) {
+  
+          stmt.setInt(1, companyId);
+          ResultSet rs = stmt.executeQuery();
+  
+          while (rs.next()) {
+              ApplicationFullInfo info = new ApplicationFullInfo(
+                      rs.getInt("application_id"),
+                      rs.getString("status"),
+                      rs.getString("resume_url"),
+                      rs.getTimestamp("applied_at").toString(),
+                      rs.getInt("user_id"),
+                      rs.getString("user_name"),
+                      rs.getString("user_email"),
+                      rs.getString("phone"),
+                      rs.getString("skills"),
+                      rs.getInt("experience"),
+                      rs.getInt("job_id"),
+                      rs.getString("job_title")
+              );
+              list.add(info);
+          }
+  
+      } catch (SQLException e) {
+          e.printStackTrace();
+      }
+  
+      return list;
+  }
+  
+
+
 
 }
