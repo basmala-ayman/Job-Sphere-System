@@ -1,7 +1,6 @@
 package com.jobsphere.model;
 
 public class Applicant extends User {
-  //  private int userId;           // corresponds to user_id in the DB
     private String phone;         // phone number
     private String resumeUrl;     // URL to resume
     private String skills;        // store it like that JSON string like '["Java","SQL"]'
@@ -10,15 +9,6 @@ public class Applicant extends User {
     // Constructor
     public Applicant() {
     }
-
-    // Getters and Setters
-//    public int getUserId() {
-//        return userId;
-//    }
-
-//    public void setUserId(int userId) {
-//        this.userId = userId;
-//    }
 
     public String getPhone() {
         return phone;

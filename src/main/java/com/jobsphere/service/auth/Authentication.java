@@ -10,7 +10,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 public class Authentication {
-    private final UserDAO userDao = new UserDAO();
+    private final UserDAO userDao = UserDAO.getInstance();
 
     @SuppressWarnings("unchecked")
     public <T> RegistrationResult registerUserAuth(T user, String role) {

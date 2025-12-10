@@ -97,6 +97,6 @@
 
     <HBox spacing="10">
         <Button text="Register" fx:id="registerBtn" onAction="#onRegisterClicked"/>
-        <Button text="Cancel" fx:id="cancelBtn" onAction="#onCancelClicked"/>
+        <Button text="Login" fx:id="loginBtn" onAction="#goToLogin"/>
     </HBox>
 </VBox>
