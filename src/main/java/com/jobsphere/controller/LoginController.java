@@ -53,7 +53,6 @@ public class LoginController {
         }
 
         loginBtn.setDisable(true);
-        loginBtn.setText("Logging in...");
 
         try {
             User currentUser = UserDAO.getInstance().login(mail, pass);
@@ -70,7 +69,6 @@ public class LoginController {
             msg.setText("An unexpected error occurred!!");
         } finally {
             loginBtn.setDisable(false);
-            loginBtn.setText("Login");
         }
 
     }
