@@ -113,25 +113,15 @@ public class RegisterController {
     }
 
     @FXML
-    void goToLogin(ActionEvent event) throws IOException {
-        // close current window
-//        Stage oldStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-//        oldStage.close();
-//
-//        // open new window
-//        Parent root = FXMLLoader.load(getClass().getResource("/views/NextPage.fxml"));
-//        Stage newStage = new Stage();
-//        newStage.setScene(new Scene(root));
-//        newStage.show();
+    private void goToLogin() {
 
-        Stage oldWindow = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        oldWindow.close();
-
-        Parent root = FXMLLoader.load(getClass().getResource("login.fxml"));
-        Stage loginPage = new Stage();
-        loginPage.setScene(new Scene(root));
-        loginPage.show();
-
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/layouts/Login.fxml"));
+            Scene scene = new Scene(loader.load());
+            Stage stage = (Stage) loginBtn.getScene().getWindow();
+            stage.setScene(scene);
+        } catch (IOException e) {
+        }
     }
 
     String name, mail, pass, confirmPass, selectedRole, applicantPhone, comWebsite, comIndustry;
@@ -154,7 +144,7 @@ public class RegisterController {
 
         // validation
         if (name.isEmpty() || mail.isEmpty() || pass.isEmpty() || confirmPass.isEmpty() || selectedRole == null) {
-            msg.setText("Please fill all the fields!!");
+            msg.setText("Please fill all fields!!");
             return;
         }
 
@@ -177,12 +167,12 @@ public class RegisterController {
         // validation for applicant
         if (selectedRole.equalsIgnoreCase("applicant")) {
             if (applicantPhone.isEmpty()) {
-                msg.setText("Please fill all the fields!!");
+                msg.setText("Please fill the fields!!");
                 return;
             }
         } else if (selectedRole.equalsIgnoreCase("company")) {
             if (comWebsite.isEmpty() || comIndustry.isEmpty()) {
-                msg.setText("Please fill all the fields!!");
+                msg.setText("Please fill the fields!!");
                 return;
             }
         }
@@ -200,19 +190,13 @@ public class RegisterController {
 
             RegistrationResult result = auth.registerUserAuth(user, selectedRole);
             if (result.isSuccess()) {
-                User sessionUser = new User();
-                sessionUser.setId(result.getUserId());
-                sessionUser.setUsername(user.getUsername());
-                sessionUser.setEmail(mail);
-                sessionUser.setPassword(pass);
-                sessionUser.setRole(selectedRole);
-                // store current user into session manager
-                SessionManager.getInstance().setCurrentUser(sessionUser);
 
                 msg.setStyle("-fx-text-fill: green;");
                 msg.setText("Registration successfully!!");
                 clearForm();
                 msg.setText("");
+                goToLogin();
+
             } else {
                 msg.setText("Registration failed!! Email may already exist! Please try to login.");
             }
@@ -277,7 +261,7 @@ public class RegisterController {
         box.setManaged(status);
     }
 
-    private boolean isValidEmail(String email) {
+    public boolean isValidEmail(String email) {
         return email.contains("@") && email.contains(".");
     }
 

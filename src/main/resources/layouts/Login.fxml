@@ -27,9 +27,10 @@
         <PasswordField fx:id="password" promptText="Password" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
     </GridPane>
 
+    <Label fx:id="msg" textFill="red"/>
+
     <HBox spacing="10">
-        <Button text="Login" fx:id="loginBtn" onAction="#onLoginClicked"/>
+        <Button text="Login" fx:id="loginBtn" onAction="#handleLogin"/>
         <Button text="Register" fx:id="registerBtn" onAction="#goToRegister"/>
     </HBox>
-
 </VBox>
