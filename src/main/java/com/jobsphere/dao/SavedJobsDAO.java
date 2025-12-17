@@ -11,16 +11,6 @@ public class SavedJobsDAO {
     public boolean saveJob(int applicantId, int jobId) {
         String sql = "INSERT INTO saved_jobs (applicant_id, job_id) VALUES (?, ?)";
 
-        try (Connection conn = DBConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-
-            stmt.setInt(1, applicantId);
-            stmt.setInt(2, jobId);
-
-            stmt.executeUpdate();
-            return true;
-
-<<<<<<< HEAD
       try (Connection conn = DBConnection.getConnection();
            PreparedStatement stmt = conn.prepareStatement(sql)) {
 
@@ -63,13 +53,6 @@ public class SavedJobsDAO {
 //
 //    return jobs;
 //}
-=======
-        } catch (SQLException e) {
-            return false;
-        }
-    }
-
->>>>>>> f1dec9c8532e3169251974a06d925f598e459e12
 
     public List<Job> getSavedJobsByApplicant(int applicantId) {
 
