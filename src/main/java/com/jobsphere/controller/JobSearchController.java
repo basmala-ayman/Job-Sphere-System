@@ -13,8 +13,7 @@ import javafx.scene.control.TextField;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class JobSearchController {
 
@@ -49,14 +48,34 @@ public class JobSearchController {
             allJobs = new ArrayList<>();
         }
 
-        List<String> countries = jobDAO.getDistinctCountries();
-        if (countries == null) countries = new ArrayList<>();
-        countries.add(0, "All");
+        // Use Set for countries to remove duplicates automatically
+        Set<String> countriesSet = new HashSet<>();
+        List<String> countriesFromDB = jobDAO.getDistinctCountries();
+        if (countriesFromDB != null) {
+            for (String c : countriesFromDB) {
+                if (c != null && !c.isBlank()) {
+                    countriesSet.add(c.toLowerCase()); // ignore case
+                }
+            }
+        }
+        List<String> countries = new ArrayList<>(countriesSet);
+        Collections.sort(countries);
+        countries.add(0, "All");  // add "All" at the top
         locationBox.setItems(FXCollections.observableArrayList(countries));
         locationBox.getSelectionModel().selectFirst();
 
-        List<String> jobTypes = jobDAO.getDistinctJobTypes();
-        if (jobTypes == null) jobTypes = new ArrayList<>();
+        // Same for job types
+        Set<String> jobTypesSet = new HashSet<>();
+        List<String> typesFromDB = jobDAO.getDistinctJobTypes();
+        if (typesFromDB != null) {
+            for (String t : typesFromDB) {
+                if (t != null && !t.isBlank()) {
+                    jobTypesSet.add(t.toLowerCase());
+                }
+            }
+        }
+        List<String> jobTypes = new ArrayList<>(jobTypesSet);
+        Collections.sort(jobTypes);
         jobTypes.add(0, "All");
         typeBox.setItems(FXCollections.observableArrayList(jobTypes));
         typeBox.getSelectionModel().selectFirst();
@@ -68,6 +87,7 @@ public class JobSearchController {
 
         jobTable.setItems(FXCollections.observableArrayList(allJobs));
     }
+
 
     @FXML
     public void searchJobs() {
