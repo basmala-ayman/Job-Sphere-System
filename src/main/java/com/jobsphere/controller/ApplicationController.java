@@ -32,7 +32,7 @@ public class ApplicationController {
     private TableColumn<ApplicationFullInfo, Void> saveColumn;
 
     private ApplicationsService applicationService;
-    private int companyId = 3;
+    private int companyId ;
 
     @FXML
     public void initialize() {
@@ -53,9 +53,15 @@ public class ApplicationController {
         // Setup Save button per row
         setupSaveButtonColumn();
 
-        // Load data from DB
-        loadApplications();
+
     }
+
+    //this is just taking the data based on the dynamic id i will take after log in 
+    public void setCompanyId(int companyId) {
+      this.companyId = companyId;
+      loadApplications();
+  }
+
 
     private void loadApplications() {
         applicationsTable.setItems(FXCollections.observableArrayList(
