@@ -37,7 +37,7 @@ public class JobDetailsController {
 
     private JobDAO jobDAO = JobDAO.getInstance();
     private ApplicationsDAO applicationsDAO = ApplicationsDAO.getInstance();
-    private SavedJobsDAO savedJobsDAO = new SavedJobsDAO();
+    //private SavedJobsDAO savedJobsDAO = new SavedJobsDAO();
 
     public void initialize() {
         jobList.setItems(FXCollections.observableList(jobDAO.getAllJobs()));
@@ -97,7 +97,7 @@ public class JobDetailsController {
             return;
         }
 
-        savedJobsDAO.saveJob(applicantId, selectedJob.getId());
+        //savedJobsDAO.saveJob(applicantId, selectedJob.getId());
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Saved");

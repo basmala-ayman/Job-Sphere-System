@@ -9,7 +9,8 @@
       spacing="15"
       alignment="CENTER"
       stylesheets="@../Styles/login.css"
-      styleClass="root">
+      styleClass="root"
+      prefWidth="600.0" prefHeight="600.0">
 
     <VBox spacing="10" alignment="CENTER" maxWidth="400" styleClass="login-card">
 

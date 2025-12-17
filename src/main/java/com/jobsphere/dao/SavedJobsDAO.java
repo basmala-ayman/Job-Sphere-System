@@ -36,33 +36,33 @@ public class SavedJobsDAO {
       }
   }
 
-  public List<Job> getSavedJobsByApplicant(int applicantId) {
-
-    List<Job> jobs = new ArrayList<>();
-
-    String sql = """
-        SELECT j.* 
-        FROM jobs j
-        JOIN saved_jobs s ON j.id = s.job_id
-        WHERE s.applicant_id = ?
-        ORDER BY s.saved_at DESC
-    """;
-
-    try (Connection conn = DBConnection.getConnection();
-         PreparedStatement stmt = conn.prepareStatement(sql)) {
-
-        stmt.setInt(1, applicantId);
-        ResultSet rs = stmt.executeQuery();
-
-        while (rs.next()) {
-            jobs.add(JobDAO.getInstance().mapRowToJob(rs));
-        }
-
-    } catch (SQLException e) {
-        e.printStackTrace();
-    }
-
-    return jobs;
-}
+//  public List<Job> getSavedJobsByApplicant(int applicantId) {
+//
+//    List<Job> jobs = new ArrayList<>();
+//
+//    String sql = """
+//        SELECT j.*
+//        FROM jobs j
+//        JOIN saved_jobs s ON j.id = s.job_id
+//        WHERE s.applicant_id = ?
+//        ORDER BY s.saved_at DESC
+//    """;
+//
+//    try (Connection conn = DBConnection.getConnection();
+//         PreparedStatement stmt = conn.prepareStatement(sql)) {
+//
+//        stmt.setInt(1, applicantId);
+//        ResultSet rs = stmt.executeQuery();
+//
+//        while (rs.next()) {
+//            jobs.add(JobDAO.getInstance().mapRowToJob(rs));
+//        }
+//
+//    } catch (SQLException e) {
+//        e.printStackTrace();
+//    }
+//
+//    return jobs;
+//}
 
 }
