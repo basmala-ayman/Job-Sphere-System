@@ -24,6 +24,10 @@
                     onAction="#goToJobDetails"
                     styleClass="details-btn"
                     maxWidth="Infinity"/>
+
+            <Button text="Log Out"
+                    onAction="#onLogout"
+                    styleClass="logout-button"/>
         </VBox>
     </VBox>
 </StackPane>
