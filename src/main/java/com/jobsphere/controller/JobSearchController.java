@@ -13,6 +13,7 @@ import javafx.scene.control.TextField;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class JobSearchController {
 
@@ -47,11 +48,11 @@ public class JobSearchController {
 
         // Countries dropdown with ignore case and remove duplicates
         List<String> countries = jobDAO.getDistinctCountries().stream()
-                .map(String::toLowerCase)       
-                .distinct()                   
-                .sorted()                       
-                .toList();
-        countries.add(0, "All");        
+                .map(String::toLowerCase)
+                .distinct()
+                .sorted()
+                .collect(Collectors.toList());
+        countries.add(0, "All");
         locationBox.setItems(FXCollections.observableArrayList(countries));
         locationBox.getSelectionModel().selectFirst();
 
@@ -60,7 +61,7 @@ public class JobSearchController {
                 .map(String::toLowerCase)
                 .distinct()
                 .sorted()
-                .toList();
+                .collect(Collectors.toList());
         jobTypes.add(0, "All");
         typeBox.setItems(FXCollections.observableArrayList(jobTypes));
         typeBox.getSelectionModel().selectFirst();
