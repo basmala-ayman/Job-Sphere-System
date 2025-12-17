@@ -1,13 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.layout.VBox?>
+<StackPane xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="com.jobsphere.controller.ApplicantFeaturesController"
+           stylesheets="@../Styles/ApplicantFeatures.css" styleClass="root">
 
-<VBox xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.jobsphere.controller.ApplicantFeaturesController"
-      spacing="20" style="-fx-padding: 30; -fx-alignment: center;">
+    <VBox spacing="25" alignment="CENTER" styleClass="dashboard-card" maxWidth="450" maxHeight="350">
+        <padding>
+            <Insets top="40" right="40" bottom="40" left="40"/>
+        </padding>
 
-    <Button text="Search For Jobs" onAction="#goToSearch"/>
-    <Button text="Job Details and Applications" onAction="#goToJobDetails"/>
+        <Label text="Applicant Portal" styleClass="header-label"/>
 
-</VBox>
+        <VBox spacing="15" alignment="CENTER" fillWidth="true">
+            <Button text="Search For Jobs"
+                    onAction="#goToSearch"
+                    styleClass="search-btn"
+                    maxWidth="Infinity"/>
+
+            <Button text="Job Details and Applications"
+                    onAction="#goToJobDetails"
+                    styleClass="details-btn"
+                    maxWidth="Infinity"/>
+        </VBox>
+    </VBox>
+</StackPane>
