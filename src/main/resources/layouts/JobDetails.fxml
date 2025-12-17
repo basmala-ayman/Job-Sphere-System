@@ -14,7 +14,14 @@
     <padding>
         <Insets top="20" right="20" bottom="20" left="20"/>
     </padding>
-
+    <BorderPane>
+        <left>
+            <Button fx:id="backBtn" text="← Back" onAction="#handleBack" styleClass="back-btn"/>
+        </left>
+        <right>
+            <Region prefWidth="80" />
+        </right>
+    </BorderPane>
     <!-- Page Title -->
     <Label text="Job Details" styleClass="header-label"/>
 

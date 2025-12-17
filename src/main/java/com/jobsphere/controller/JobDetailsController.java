@@ -6,11 +6,16 @@ import com.jobsphere.dao.SavedJobsDAO;
 import com.jobsphere.model.Job;
 import com.jobsphere.service.auth.SessionManager;
 import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+
+import java.io.IOException;
 
 public class JobDetailsController {
 
@@ -155,6 +160,23 @@ public class JobDetailsController {
             alert.setHeaderText(null);
             alert.setContentText("Cannot open Saved Jobs screen");
             alert.showAndWait();
+        }
+    }
+
+    @FXML
+    public void handleBack(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/layouts/ApplicantFeatures.fxml"));
+            Parent root = loader.load();
+
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("Could not load the previous screen.");
+            alert.show();
         }
     }
 }
