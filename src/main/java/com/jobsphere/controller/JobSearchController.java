@@ -135,7 +135,7 @@ public class JobSearchController {
     @FXML
     public void handleBack(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/layouts/JobSearch.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/layouts/ApplicantFeatures.fxml"));
             Parent root = loader.load();
 
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();

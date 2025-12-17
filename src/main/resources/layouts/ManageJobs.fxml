@@ -9,7 +9,14 @@
            prefWidth="900" prefHeight="600">
 
     <VBox styleClass="table-card" spacing="15">
-
+        <BorderPane>
+            <left>
+                <Button fx:id="backBtn" text="← Back" onAction="#handleBack" styleClass="back-btn"/>
+            </left>
+            <right>
+                <Region prefWidth="80" />
+            </right>
+        </BorderPane>
         <Label text="Manage Your Jobs" styleClass="header-label"/>
 
         <TableView fx:id="jobTable" prefHeight="400" VBox.vgrow="ALWAYS">

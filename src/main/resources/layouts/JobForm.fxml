@@ -17,8 +17,17 @@
                     <Insets top="30" bottom="30"/>
                 </padding>
 
-                <VBox styleClass="form-card" spacing="15">
 
+
+                <VBox styleClass="form-card" spacing="15">
+                    <BorderPane>
+                        <left>
+                            <Button fx:id="backBtn" text="← Back" onAction="#handleBack" styleClass="back-btn"/>
+                        </left>
+                        <right>
+                            <Region prefWidth="80" />
+                        </right>
+                    </BorderPane>
                     <Label text="Add New Job" styleClass="header-label"/>
 
                     <GridPane hgap="15" vgap="15">
