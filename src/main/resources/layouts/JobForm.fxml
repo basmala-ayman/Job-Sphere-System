@@ -4,22 +4,30 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<StackPane xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1"
+<StackPane xmlns="http://javafx.com/javafx/25"
+           xmlns:fx="http://javafx.com/fxml/1"
            fx:controller="com.jobsphere.controller.JobFormController"
            stylesheets="@../Styles/job-form.css"
-           prefWidth="800.0" prefHeight="750.0">
+           styleClass="root"
+           prefWidth="800.0" prefHeight="850.0">
 
-    <ScrollPane fitToWidth="true" hbarPolicy="NEVER">
+    <!-- ScrollPane fills the window -->
+    <ScrollPane fitToWidth="true"
+                hbarPolicy="NEVER"
+                vbarPolicy="AS_NEEDED"
+                StackPane.alignment="CENTER">
 
         <content>
+            <!-- Wrapper to center content -->
             <StackPane>
                 <padding>
-                    <Insets top="30" bottom="30"/>
+                    <Insets top="30" bottom="30" left="30" right="30"/>
                 </padding>
-
-
-
-                <VBox styleClass="form-card" spacing="15">
+                
+                <!-- Form Card -->
+                <VBox styleClass="form-card"
+                      spacing="20"
+                      maxWidth="Infinity">
                     <BorderPane>
                         <left>
                             <Button fx:id="backBtn" text="← Back" onAction="#handleBack" styleClass="back-btn"/>
@@ -28,54 +36,123 @@
                             <Region prefWidth="80" />
                         </right>
                     </BorderPane>
-                    <Label text="Add New Job" styleClass="header-label"/>
+                    <Label text="Add New Job"
+                           styleClass="header-label"
+                           maxWidth="Infinity"
+                           alignment="CENTER"/>
+                    
+                    <GridPane hgap="20" vgap="15"
+                              maxWidth="Infinity">
 
-                    <GridPane hgap="15" vgap="15">
                         <columnConstraints>
-                            <ColumnConstraints minWidth="100" />
-                            <ColumnConstraints hgrow="ALWAYS" />
+                            <!-- Label column -->
+                            <ColumnConstraints minWidth="160"/>
+
+                            <!-- Input column stretches -->
+                            <ColumnConstraints hgrow="ALWAYS"/>
                         </columnConstraints>
 
-                        <Label text="Job Title:" GridPane.rowIndex="0" GridPane.columnIndex="0" styleClass="field-label"/>
-                        <TextField fx:id="titleField" promptText="e.g. Senior Java Developer" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+                        <Label text="Job Title:" GridPane.rowIndex="0" GridPane.columnIndex="0"
+                               styleClass="field-label"/>
+                        <TextField fx:id="titleField"
+                                   promptText="e.g. Senior Java Developer"
+                                   GridPane.rowIndex="0"
+                                   GridPane.columnIndex="1"
+                                   maxWidth="Infinity"/>
 
-                        <Label text="Description:" GridPane.rowIndex="1" GridPane.columnIndex="0" styleClass="field-label"/>
-                        <TextArea fx:id="descriptionArea" promptText="Enter job description..." prefRowCount="4" wrapText="true"
-                                  GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+                        <Label text="Description:" GridPane.rowIndex="1" GridPane.columnIndex="0"
+                               styleClass="field-label"/>
+                        <TextArea fx:id="descriptionArea"
+                                  promptText="Enter job description..."
+                                  prefRowCount="4"
+                                  wrapText="true"
+                                  GridPane.rowIndex="1"
+                                  GridPane.columnIndex="1"
+                                  maxWidth="Infinity"/>
 
-                        <Label text="Required Skills:" GridPane.rowIndex="2" GridPane.columnIndex="0" styleClass="field-label"/>
-                        <TextArea fx:id="requirementsArea" promptText="e.g. CSS, HTML, Java, SQL" prefRowCount="3" wrapText="true"
-                                  GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+                        <Label text="Required Skills:" GridPane.rowIndex="2" GridPane.columnIndex="0"
+                               styleClass="field-label"/>
+                        <TextArea fx:id="requirementsArea"
+                                  promptText="e.g. CSS, HTML, Java, SQL"
+                                  prefRowCount="3"
+                                  wrapText="true"
+                                  GridPane.rowIndex="2"
+                                  GridPane.columnIndex="1"
+                                  maxWidth="Infinity"/>
 
-                        <Label text="Job Category:" GridPane.rowIndex="3" GridPane.columnIndex="0" styleClass="field-label"/>
-                        <ComboBox fx:id="jobCategoryCombo" maxWidth="Infinity" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+                        <Label text="Job Category:" GridPane.rowIndex="3" GridPane.columnIndex="0"
+                               styleClass="field-label"/>
+                        <ComboBox fx:id="jobCategoryCombo"
+                                  GridPane.rowIndex="3"
+                                  GridPane.columnIndex="1"
+                                  maxWidth="Infinity"/>
 
-                        <Label text="Career Level:" GridPane.rowIndex="4" GridPane.columnIndex="0" styleClass="field-label"/>
-                        <ComboBox fx:id="careerLevelCombo" maxWidth="Infinity" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+                        <Label text="Career Level:" GridPane.rowIndex="4" GridPane.columnIndex="0"
+                               styleClass="field-label"/>
+                        <ComboBox fx:id="careerLevelCombo"
+                                  GridPane.rowIndex="4"
+                                  GridPane.columnIndex="1"
+                                  maxWidth="Infinity"/>
 
-                        <Label text="Job Type:" GridPane.rowIndex="5" GridPane.columnIndex="0" styleClass="field-label"/>
-                        <ComboBox fx:id="jobTypeCombo" maxWidth="Infinity" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
+                        <Label text="Job Type:" GridPane.rowIndex="5" GridPane.columnIndex="0"
+                               styleClass="field-label"/>
+                        <ComboBox fx:id="jobTypeCombo"
+                                  GridPane.rowIndex="5"
+                                  GridPane.columnIndex="1"
+                                  maxWidth="Infinity"/>
 
-                        <Label text="Workplace:" GridPane.rowIndex="6" GridPane.columnIndex="0" styleClass="field-label"/>
-                        <ComboBox fx:id="workplaceCombo" maxWidth="Infinity" GridPane.rowIndex="6" GridPane.columnIndex="1"/>
+                        <Label text="Workplace:" GridPane.rowIndex="6" GridPane.columnIndex="0"
+                               styleClass="field-label"/>
+                        <ComboBox fx:id="workplaceCombo"
+                                  GridPane.rowIndex="6"
+                                  GridPane.columnIndex="1"
+                                  maxWidth="Infinity"/>
 
                         <Label text="Country:" GridPane.rowIndex="7" GridPane.columnIndex="0" styleClass="field-label"/>
-                        <TextField fx:id="countryField" promptText="e.g. Egypt" GridPane.rowIndex="7" GridPane.columnIndex="1"/>
+                        <TextField fx:id="countryField"
+                                   promptText="e.g. Egypt"
+                                   GridPane.rowIndex="7"
+                                   GridPane.columnIndex="1"
+                                   maxWidth="Infinity"/>
 
                         <Label text="City:" GridPane.rowIndex="8" GridPane.columnIndex="0" styleClass="field-label"/>
-                        <TextField fx:id="cityField" promptText="e.g. Cairo" GridPane.rowIndex="8" GridPane.columnIndex="1"/>
+                        <TextField fx:id="cityField"
+                                   promptText="e.g. Cairo"
+                                   GridPane.rowIndex="8"
+                                   GridPane.columnIndex="1"
+                                   maxWidth="Infinity"/>
 
-                        <Label text="Responsibilities:" GridPane.rowIndex="9" GridPane.columnIndex="0" styleClass="field-label"/>
-                        <TextArea fx:id="responsibilitiesArea" promptText="List key responsibilities..." prefRowCount="3" wrapText="true"
-                                  GridPane.rowIndex="9" GridPane.columnIndex="1"/>
+                        <Label text="Responsibilities:" GridPane.rowIndex="9" GridPane.columnIndex="0"
+                               styleClass="field-label"/>
+                        <TextArea fx:id="responsibilitiesArea"
+                                  promptText="List key responsibilities..."
+                                  prefRowCount="3"
+                                  wrapText="true"
+                                  GridPane.rowIndex="9"
+                                  GridPane.columnIndex="1"
+                                  maxWidth="Infinity"/>
 
                         <Label text="Salary:" GridPane.rowIndex="10" GridPane.columnIndex="0" styleClass="field-label"/>
-                        <TextField fx:id="salaryField" promptText="e.g. 15000" GridPane.rowIndex="10" GridPane.columnIndex="1"/>
+                        <TextField fx:id="salaryField"
+                                   promptText="e.g. 15000"
+                                   GridPane.rowIndex="10"
+                                   GridPane.columnIndex="1"
+                                   maxWidth="Infinity"/>
                     </GridPane>
 
-                    <HBox spacing="15" alignment="CENTER_RIGHT" style="-fx-padding: 20 0 0 0;">
-                        <Button text="Cancel" fx:id="cancelButton" onAction="#onCancel" styleClass="secondary-button"/>
-                        <Button text="Submit Job" fx:id="submitButton" onAction="#onSubmit" styleClass="primary-button"/>
+                    <!-- Buttons -->
+                    <HBox spacing="15"
+                          alignment="CENTER_RIGHT"
+                          maxWidth="Infinity"
+                          style="-fx-padding: 25 0 0 0;">
+                        <Button text="Cancel"
+                                fx:id="cancelButton"
+                                onAction="#onCancel"
+                                styleClass="secondary-button"/>
+                        <Button text="Submit Job"
+                                fx:id="submitButton"
+                                onAction="#onSubmit"
+                                styleClass="primary-button"/>
                     </HBox>
 
                 </VBox>
