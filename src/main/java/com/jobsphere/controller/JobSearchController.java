@@ -45,17 +45,27 @@ public class JobSearchController {
 
         allJobs = jobDAO.getAllJobs();
 
-
-        List<String> countries = jobDAO.getDistinctCountries();
-        countries.add(0, "All");
+        // Countries dropdown with ignore case and remove duplicates
+        List<String> countries = jobDAO.getDistinctCountries().stream()
+                .map(String::toLowerCase)       
+                .distinct()                   
+                .sorted()                       
+                .toList();
+        countries.add(0, "All");        
         locationBox.setItems(FXCollections.observableArrayList(countries));
         locationBox.getSelectionModel().selectFirst();
 
-        List<String> jobTypes = jobDAO.getDistinctJobTypes();
+        // Job Types dropdown with ignore case and remove duplicates
+        List<String> jobTypes = jobDAO.getDistinctJobTypes().stream()
+                .map(String::toLowerCase)
+                .distinct()
+                .sorted()
+                .toList();
         jobTypes.add(0, "All");
         typeBox.setItems(FXCollections.observableArrayList(jobTypes));
         typeBox.getSelectionModel().selectFirst();
 
+        // Table columns
         titleColumn.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getTitle()));
         locationColumn.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getCountry()));
         typeColumn.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getJobType()));
@@ -71,7 +81,6 @@ public class JobSearchController {
 
         JobSearchContext context = new JobSearchContext();
 
-        // ignore case for filtering
         boolean isKeywordEmpty = keyword == null || keyword.isEmpty();
         boolean isCountryAll = country == null || country.equalsIgnoreCase("All");
         boolean isJobTypeAll = jobType == null || jobType.equalsIgnoreCase("All");
