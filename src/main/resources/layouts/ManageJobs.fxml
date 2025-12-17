@@ -40,7 +40,6 @@
                             <Region prefWidth="80" />
                         </right>
                     </BorderPane>
-                    <Label text="Manage Your Jobs" styleClass="header-label"/>
                     <!-- Title -->
                     <Label text="Manage Your Jobs"
                            styleClass="header-label"

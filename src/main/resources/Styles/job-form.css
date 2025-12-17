@@ -80,3 +80,18 @@
 .secondary-button:hover {
     -fx-background-color: #ECEFF1;
 }
+/* === Back Button === */
+.back-btn {
+    -fx-background-color: transparent;
+    -fx-text-fill: #546E7A;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-padding: 5 10;
+    -fx-cursor: hand;
+    -fx-border-color: transparent;
+}
+
+.back-btn:hover {
+    -fx-background-radius: 5;
+    -fx-text-fill: #1A237E;
+}

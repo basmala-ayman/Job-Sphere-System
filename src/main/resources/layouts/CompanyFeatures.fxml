@@ -37,7 +37,7 @@
             <Button text="Manage Jobs"
                     fx:id="manageJobsButton"
                     onAction="#onClickManageJobs"
-                    styleClass="secondary-btn"
+                    styleClass="primary-btn"
                     maxWidth="Infinity"/>
 
             <Button text="Candidate Search"
@@ -49,7 +49,7 @@
             <Button text="Application Management"
                     fx:id="appManagement"
                     onAction="#toAppManagement"
-                    styleClass="secondary-btn"
+                    styleClass="primary-btn"
                     maxWidth="Infinity"/>
 
             <Button text="Log Out"
