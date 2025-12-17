@@ -5,22 +5,21 @@ import com.jobsphere.model.*;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
-import javafx.stage.Stage;
+import javafx.scene.control.*;
 
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.*;
+
+import javafx.event.ActionEvent; 
+import javafx.scene.Node; 
+import javafx.scene.Parent; 
+import javafx.stage.Stage; 
+
+import java.io.IOException;
 
 public class JobSearchController {
 
@@ -131,6 +130,23 @@ public class JobSearchController {
         List<Job> results = context.execute(jobDAO);
         if (results == null) results = new ArrayList<>();
         jobTable.setItems(FXCollections.observableArrayList(results));
+    }
+
+    @FXML
+    public void handleBack(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/layouts/JobSearch.fxml"));
+            Parent root = loader.load();
+
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("Could not load the previous screen.");
+            alert.show();
+        }
     }
 
 }
