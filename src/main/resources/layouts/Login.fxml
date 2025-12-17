@@ -6,7 +6,8 @@
 
 <VBox xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="com.jobsphere.controller.LoginController"
-      spacing="10">
+      spacing="10"
+      prefWidth="500">
 
     <padding>
         <Insets top="20" right="20" bottom="20" left="20"/>
