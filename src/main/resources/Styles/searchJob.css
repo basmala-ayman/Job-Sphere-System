@@ -6,7 +6,7 @@
 
 /* === Search Bar & Input Fields === */
 .text-field, .combo-box {
-    -fx-background-color: white; 
+    -fx-background-color: white;
     -fx-border-color: #CFD8DC;
     -fx-border-radius: 10;
     -fx-background-radius: 10;
@@ -43,7 +43,7 @@
     -fx-border-radius: 15;
     -fx-border-color: #CFD8DC;
     -fx-border-width: 1;
-    -fx-padding: 0; 
+    -fx-padding: 0;
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.08), 15, 0, 0, 5);
 }
 
@@ -103,4 +103,20 @@
 .table-view .scroll-bar:horizontal .thumb {
     -fx-background-color: #CFD8DC;
     -fx-background-radius: 10;
+}
+
+/* === Back Button === */
+.back-btn {
+    -fx-background-color: transparent;
+    -fx-text-fill: #546E7A;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-padding: 5 10;
+    -fx-cursor: hand;
+    -fx-border-color: transparent;
+}
+
+.back-btn:hover {
+    -fx-background-radius: 5;
+    -fx-text-fill: #1A237E;
 }
