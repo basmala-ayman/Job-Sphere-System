@@ -1,6 +1,7 @@
 package com.jobsphere.controller;
 import com.jobsphere.dao.JobDAO;
 import com.jobsphere.model.Job;
+import com.jobsphere.service.auth.SessionManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -27,7 +28,7 @@ public class ManageJobController {
 
     private ObservableList<Job> jobList;
     private JobDAO jobDAO = JobDAO.getInstance();
-
+    private int companyId;
     private void setupColumns() {
         colTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
         colCity.setCellValueFactory(new PropertyValueFactory<>("city"));
@@ -35,12 +36,13 @@ public class ManageJobController {
         colStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
     }
     private void loadJobs() {
-        jobList = FXCollections.observableArrayList(jobDAO.getAllJobs());
+        jobList = FXCollections.observableArrayList(jobDAO.getJobsByCompanyId(companyId));
         jobTable.setItems(jobList);
     }
     @FXML
     public void initialize() {
         setupColumns();
+        this.companyId = SessionManager.getInstance().getCurrentUserId();
         loadJobs();
     }
     @FXML
