@@ -56,3 +56,25 @@
     -fx-background-color: #E8EAF6;
     -fx-translate-y: -2;
 }
+
+.logout-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #d32f2f; /* Red text */
+    -fx-border-color: #d32f2f;
+    -fx-border-width: 1.5;
+    -fx-border-radius: 8;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-padding: 8 20;
+    -fx-cursor: hand;
+    -fx-min-width: 250px; /* Same width as other buttons */
+    -fx-alignment: center;
+}
+
+.logout-button:hover {
+    -fx-background-color: #ffebee; /* Light red background on hover */
+}
+
+.logout-button:pressed {
+    -fx-background-color: #ffcdd2;
+}
