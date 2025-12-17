@@ -102,6 +102,7 @@
     -fx-background-color: #1A237E;
     -fx-text-fill: white;
     -fx-cursor: hand;
+    -fx-border-radius: 5;
 }
 
 .add-btn:hover {
@@ -114,7 +115,7 @@
     -fx-text-fill: #1A237E;
     -fx-border-color: #1A237E;
     -fx-border-width: 1;
-    -fx-border-radius: 10;
+    -fx-border-radius: 5;
     -fx-cursor: hand;
 
 }
