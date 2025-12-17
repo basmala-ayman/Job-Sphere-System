@@ -1,0 +1,90 @@
+/* === Global Background === */
+.root {
+    -fx-background-color: linear-gradient(to bottom right, #ece9e6, #ffffff);
+    -fx-font-family: 'Segoe UI', sans-serif;
+}
+
+/* === Main Container Styling === */
+.main-container {
+    -fx-background-color: white;
+    -fx-background-radius: 15;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 15, 0, 0, 5);
+}
+
+.header-label {
+    -fx-text-fill: #1A237E;
+    -fx-font-family: 'Segoe UI Black';
+    -fx-font-weight: bold;
+    -fx-padding: 0 0 10 0;
+}
+
+/* === TableView Modernization === */
+.table-view {
+    -fx-background-color: white;
+    -fx-background-radius: 12;
+    -fx-border-radius: 12;
+    -fx-border-color: #CFD8DC;
+    -fx-padding: 0;
+}
+
+/* Fix: Full Navy Header Bar */
+.table-view .column-header-background {
+    -fx-background-color: #1A237E;
+    -fx-background-radius: 12 12 0 0;
+}
+
+.table-view .column-header {
+    -fx-background-color: transparent;
+    -fx-size: 45;
+    -fx-border-color: transparent;
+}
+
+.table-view .column-header .label {
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-padding: 0 0 0 20; /* Indent header text */
+    -fx-alignment: center-left;
+}
+
+/* Cell Padding and Alignment */
+.table-cell {
+    -fx-padding: 0 0 0 20; /* Indent cell text */
+    -fx-alignment: center-left;
+    -fx-text-fill: #37474F;
+}
+
+.table-row-cell {
+    -fx-cell-size: 50;
+    -fx-border-color: transparent transparent #F0F2F5 transparent;
+}
+
+.table-row-cell:odd {
+    -fx-background-color: #F8F9FA;
+}
+
+.table-row-cell:selected {
+    -fx-background-color: #E8EAF6;
+    -fx-text-fill: #1A237E;
+}
+
+/* Styling Buttons inside the Table */
+.table-view .button {
+    -fx-background-color: #1A237E;
+    -fx-text-fill: white;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 5;
+    -fx-cursor: hand;
+}
+
+.table-view .button:hover {
+    -fx-background-color: #283593;
+}
+
+/* Styling ComboBoxes inside the Table */
+.table-view .combo-box {
+    -fx-background-color: white;
+    -fx-border-color: #CFD8DC;
+    -fx-border-radius: 5;
+    -fx-font-size: 12px;
+}
