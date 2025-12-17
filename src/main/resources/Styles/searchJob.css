@@ -6,13 +6,12 @@
 
 /* === Search Bar & Input Fields === */
 .text-field, .combo-box {
-    -fx-background-color: white; /* Clean white for contrast */
+    -fx-background-color: white; 
     -fx-border-color: #CFD8DC;
     -fx-border-radius: 10;
     -fx-background-radius: 10;
     -fx-padding: 10 15;
     -fx-font-size: 14px;
-    -fx-transition: all 0.3s ease;
 }
 
 .text-field:focused, .combo-box:focused {
@@ -34,45 +33,53 @@
 
 .primary-button:hover {
     -fx-background-color: #283593;
-    -fx-translate-y: -1; /* Subtle lift effect */
+    -fx-translate-y: -1;
 }
 
-/* === TableView Styling (The Fix) === */
+/* === TableView Styling === */
 .table-view {
     -fx-background-color: white;
     -fx-background-radius: 15;
     -fx-border-radius: 15;
     -fx-border-color: #CFD8DC;
     -fx-border-width: 1;
-    -fx-padding: 0; /* Remove internal padding to fix header alignment */
+    -fx-padding: 0; 
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.08), 15, 0, 0, 5);
 }
 
-/* Fix: Color the entire header container to eliminate the grey gap */
 .table-view .column-header-background {
     -fx-background-color: #1A237E;
     -fx-background-radius: 15 15 0 0;
     -fx-pref-height: 50;
 }
 
-/* Individual Column Headers */
 .table-view .column-header {
-    -fx-background-color: transparent; /* Show the navy background behind */
+    -fx-background-color: transparent;
     -fx-size: 50;
     -fx-border-color: transparent;
 }
 
+/* Padding for Header Text */
 .table-view .column-header .label {
     -fx-text-fill: white;
     -fx-font-weight: bold;
     -fx-font-size: 14px;
+    -fx-padding: 0 0 0 20; /* 20px padding from the left */
     -fx-alignment: center-left;
 }
 
-/* Rows and Cells */
+/* Padding for Table Content Cells */
+.table-cell {
+    -fx-padding: 0 0 0 20; /* Matches the header padding for alignment */
+    -fx-alignment: center-left;
+    -fx-text-fill: #37474F;
+    -fx-font-size: 13px;
+}
+
+/* Rows */
 .table-row-cell {
-    -fx-cell-size: 45;
-    -fx-border-color: transparent transparent #F0F2F5 transparent; /* Light row separator */
+    -fx-cell-size: 50; /* Slightly taller rows look better with padding */
+    -fx-border-color: transparent transparent #F0F2F5 transparent;
 }
 
 .table-row-cell:odd {
@@ -88,13 +95,11 @@
     -fx-text-fill: #1A237E;
 }
 
-/* Hide the empty column space at the end */
 .table-view .filler {
     -fx-background-color: transparent;
 }
 
-/* Clean up ScrollBars */
-.table-view .scroll-bar:vertical .thumb, 
+.table-view .scroll-bar:vertical .thumb,
 .table-view .scroll-bar:horizontal .thumb {
     -fx-background-color: #CFD8DC;
     -fx-background-radius: 10;
