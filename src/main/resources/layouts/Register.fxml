@@ -105,7 +105,7 @@
                                           prefHeight="120"
                                           maxWidth="Infinity"/>
 
-                                <Button text="− Remove Selected"
+                                <Button text="Remove Selected"
                                         onAction="#onRemoveSkill"
                                         styleClass="remove-btn"/>
                             </VBox>
