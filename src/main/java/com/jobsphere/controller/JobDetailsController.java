@@ -37,7 +37,8 @@ public class JobDetailsController {
     private Button saveButton;
 
     private JobDAO jobDAO = JobDAO.getInstance();
-    private ApplicationsDAO applicationsDAO = new ApplicationsDAO();
+    // private ApplicationsDAO applicationsDAO = new ApplicationsDAO();
+    private ApplicationsDAO applicationsDAO = ApplicationsDAO.getInstance();
     private SavedJobsDAO savedJobsDAO = new SavedJobsDAO();
     private int currentApplicantnId;
 
