@@ -4,69 +4,62 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<?import javafx.geometry.Insets?>
 <VBox xmlns="http://javafx.com/javafx/25"
       xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="com.jobsphere.controller.JobDetailsController"
-      spacing="15">
+      spacing="15"
+      stylesheets="@../Styles/jobDetails.css"
+      styleClass="root form-card">
+
     <padding>
         <Insets top="20" right="20" bottom="20" left="20"/>
     </padding>
-    <!-- Page Title -->
-    <Label text="Job Details"
-           style="-fx-font-size: 20px; -fx-font-weight: bold;" />
-    <ListView fx:id="jobList" prefHeight="200"/>
 
-    <!-- Grid Layout -->
+    <!-- Page Title -->
+    <Label text="Job Details" styleClass="header-label"/>
+
+    <!-- Jobs List -->
+    <ListView fx:id="jobList" prefHeight="200" styleClass="list-view"/>
+
+    <!-- Job Details Grid -->
     <GridPane hgap="10" vgap="10">
 
-        <!-- Job Title -->
-        <Label text="Job Title:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
-        <Label fx:id="jobTitle"
-               GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+        <Label text="Job Title:" GridPane.rowIndex="0" GridPane.columnIndex="0" styleClass="field-label"/>
+        <Label fx:id="jobTitle" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
 
-        <!-- Company ID -->
-        <Label text="Company ID:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-        <Label fx:id="jobCompany"
-               GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+        <Label text="Company ID:" GridPane.rowIndex="1" GridPane.columnIndex="0" styleClass="field-label"/>
+        <Label fx:id="jobCompany" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
 
-        <!-- Salary -->
-        <Label text="Salary:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
-        <Label fx:id="jobSalary"
-               GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+        <Label text="Salary:" GridPane.rowIndex="2" GridPane.columnIndex="0" styleClass="field-label"/>
+        <Label fx:id="jobSalary" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
 
-        <!-- Description -->
-        <Label text="Description:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
-        <TextArea fx:id="jobDesc"
-                  editable="false" prefRowCount="3"
-                  GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+        <Label text="Description:" GridPane.rowIndex="3" GridPane.columnIndex="0" styleClass="field-label"/>
+        <TextArea fx:id="jobDesc" editable="false" prefRowCount="3"
+                  styleClass="text-field" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
 
-        <!-- Requirements -->
-        <Label text="Requirements:" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
-        <TextArea fx:id="jobRequirements"
-                  editable="false" prefRowCount="3"
-                  GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+        <Label text="Requirements:" GridPane.rowIndex="4" GridPane.columnIndex="0" styleClass="field-label"/>
+        <TextArea fx:id="jobRequirements" editable="false" prefRowCount="3"
+                  styleClass="text-field" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
 
-        <!-- Responsibilities -->
-        <Label text="Responsibilities:" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
-        <TextArea fx:id="jobResponsibilities"
-                  editable="false" prefRowCount="3"
-                  GridPane.rowIndex="5" GridPane.columnIndex="1"/>
+        <Label text="Responsibilities:" GridPane.rowIndex="5" GridPane.columnIndex="0" styleClass="field-label"/>
+        <TextArea fx:id="jobResponsibilities" editable="false" prefRowCount="3"
+                  styleClass="text-field" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
     </GridPane>
 
-    <!-- Buttons -->
+    <!-- Resume Link -->
     <HBox spacing="10">
-        <Button fx:id="uploadResumeButton" text="Upload Resume" />
-        <Label fx:id="uploadedFileLabel" text="No file selected" />
-        <Button fx:id="applyButton" text="Apply" onAction="#applyJob"/>
-        <Button fx:id="saveButton" text="Save Job" onAction="#saveJob"/>
-        <Button text="View Saved Jobs" onAction="#openSavedJobsScreen"/>
-
+        <Label text="Resume Link:" styleClass="field-label"/>
+        <TextField fx:id="resumeLinkField"
+                   promptText="Paste Google Drive / Dropbox resume link"
+                   prefWidth="350"
+                   styleClass="text-field"/>
     </HBox>
 
-
+    <!-- Action Buttons -->
+    <HBox spacing="10" styleClass="button-box">
+        <Button fx:id="applyButton" text="Apply" styleClass="primary-button" onAction="#applyJob"/>
+        <Button fx:id="saveButton" text="Save Job" styleClass="secondary-button" onAction="#saveJob"/>
+        <Button text="View Saved Jobs" styleClass="primary-button" onAction="#openSavedJobsScreen"/>
+    </HBox>
 
 </VBox>
-
-
-

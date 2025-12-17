@@ -1,0 +1,53 @@
+/* === Global Background === */
+.root {
+    -fx-background-color: linear-gradient(to bottom right, #ece9e6, #ffffff);
+    -fx-font-family: 'Segoe UI', sans-serif;
+}
+
+/* === Main Container for Lists (Card style) === */
+.list-view {
+    -fx-background-color: white;
+    -fx-background-radius: 20;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 20, 0, 0, 5);
+    -fx-padding: 10;
+    -fx-selection-bar: transparent;       /* Prevent default selection color */
+    -fx-selection-bar-non-focused: transparent; /* Prevent selection when unfocused */
+}
+
+/* === Header Label (Title) === */
+.header-label {
+    -fx-text-fill: #1A237E;
+    -fx-font-size: 24px;
+    -fx-font-family: 'Segoe UI Black';
+    -fx-font-weight: bold;
+    -fx-padding: 0 0 20 0;
+    -fx-alignment: center;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 2, 0, 0, 1);
+}
+
+/* === List Items (always styled, no disable on click) === */
+.list-cell {
+    -fx-background-color: #f9f9f9;
+    -fx-background-radius: 10;
+    -fx-padding: 10;
+    -fx-border-color: #CFD8DC;
+    -fx-border-radius: 10;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 2, 0, 0, 1);
+    -fx-text-fill: #37474F; /* Text color */
+}
+
+/* === Hover effect for list items === */
+.list-cell:hover {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #1A237E;
+    -fx-effect: dropshadow(gaussian, rgba(26,35,126,0.2), 4, 0, 0, 2);
+}
+
+/* === Selection styling removed (double click still works) === */
+.list-cell:filled:selected,
+.list-cell:filled:selected:focused {
+    -fx-background-color: #f9f9f9;  /* Keep same as normal */
+    -fx-border-color: #CFD8DC;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 2, 0, 0, 1);
+    -fx-text-fill: #37474F;
+}

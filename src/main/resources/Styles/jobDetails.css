@@ -1,41 +1,50 @@
+/* === Global Background === */
 .root {
     -fx-background-color: linear-gradient(to bottom right, #ece9e6, #ffffff);
     -fx-font-family: 'Segoe UI', sans-serif;
 }
 
+/* === ScrollPane Fix (if used) === */
 .scroll-pane {
     -fx-background-color: transparent;
+    -fx-background: transparent;
+    -fx-padding: 0;
 }
 
 .scroll-pane .viewport {
     -fx-background-color: transparent;
 }
 
+/* === Main White Card (Form Container) === */
 .form-card {
     -fx-background-color: white;
     -fx-background-radius: 20;
-    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.1), 20, 0, 0, 5);
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 20, 0, 0, 5);
     -fx-padding: 40;
+    -fx-alignment: center;
+    -fx-max-width: 770;
     -fx-spacing: 20;
-    -fx-max-width: Infinity;
-    -fx-pref-width: 100%;
 }
 
+/* === Header Label (Job Details Title) === */
 .header-label {
     -fx-text-fill: #1A237E;
     -fx-font-size: 28px;
     -fx-font-family: 'Segoe UI Black';
     -fx-font-weight: bold;
     -fx-padding: 0 0 20 0;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 2, 0, 0, 1);
 }
 
-.field-label {
+/* === Field Labels inside GridPane === */
+.label, .field-label {
     -fx-text-fill: #37474F;
     -fx-font-size: 14px;
     -fx-font-weight: bold;
 }
 
-.text-field, .text-area, .combo-box {
+/* === Input Fields (TextField, TextArea) === */
+.text-field, .text-area {
     -fx-background-color: #F4F6F8;
     -fx-border-color: #CFD8DC;
     -fx-border-radius: 8;
@@ -44,14 +53,13 @@
     -fx-padding: 8;
 }
 
-.text-field:focused,
-.text-area:focused,
-.combo-box:focused {
+.text-field:focused, .text-area:focused {
     -fx-background-color: white;
     -fx-border-color: #1A237E;
     -fx-effect: dropshadow(gaussian, rgba(26, 35, 126, 0.2), 5, 0, 0, 1);
 }
 
+/* === Buttons === */
 .primary-button {
     -fx-background-color: #1A237E;
     -fx-text-fill: white;
@@ -60,6 +68,7 @@
     -fx-background-radius: 8;
     -fx-padding: 10 30;
     -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 4, 0, 0, 1);
 }
 
 .primary-button:hover {
@@ -79,19 +88,54 @@
 
 .secondary-button:hover {
     -fx-background-color: #ECEFF1;
-}
-/* === Back Button === */
-.back-btn {
-    -fx-background-color: transparent;
-    -fx-text-fill: #546E7A;
-    -fx-font-weight: bold;
-    -fx-font-size: 14px;
-    -fx-padding: 5 10;
-    -fx-cursor: hand;
-    -fx-border-color: transparent;
+    -fx-text-fill: #37474F;
 }
 
-.back-btn:hover {
-    -fx-background-radius: 5;
+/* === ListView Styling === */
+.list-view {
+    -fx-background-color: white;
+    -fx-border-color: #CFD8DC;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-padding: 5;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.05), 10, 0, 0, 3);
+}
+
+/* ScrollPane inside ListView */
+.list-view .scroll-pane {
+    -fx-background-color: transparent;
+}
+
+.list-view .scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+/* === List Cells === */
+.list-cell {
+    -fx-background-color: transparent;
+    -fx-padding: 10 15;
+    -fx-font-size: 14px;
+    -fx-text-fill: #37474F;
+    -fx-border-color: transparent;
+    -fx-alignment: center-left;
+}
+
+/* Alternate row colors */
+.list-cell:odd {
+    -fx-background-color: #F8F9FA;
+}
+
+.list-cell:even {
+    -fx-background-color: #FFFFFF;
+}
+
+/* Hover effect */
+.list-cell:hover {
+    -fx-background-color: #ECEFF1;
+}
+
+/* Selected item */
+.list-cell:selected {
+    -fx-background-color: #E8EAF6;
     -fx-text-fill: #1A237E;
 }
