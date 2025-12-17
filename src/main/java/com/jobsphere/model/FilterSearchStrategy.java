@@ -21,9 +21,9 @@ public class FilterSearchStrategy implements JobSearchStrategy {
     public List<Job> search(JobDAO dao) {
         List<Job> jobs = dao.getAllJobs();
 
-        return jobs.stream()
-                .filter(job -> country == null || country.equalsIgnoreCase("All") || job.getCountry().equalsIgnoreCase(country))
-                .filter(job -> jobType == null || jobType.equalsIgnoreCase("All") || job.getJobType().equalsIgnoreCase(jobType))
+      return jobs.stream()
+                .filter(job -> country == null || job.getCountry().equalsIgnoreCase(country))
+                .filter(job -> jobType == null || job.getJobType().equalsIgnoreCase(jobType))
                 .toList();
     }
 }
