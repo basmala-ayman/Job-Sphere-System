@@ -1,10 +1,10 @@
 package com.jobsphere.controller;
 
-
 import com.jobsphere.dao.JobDAO;
 import com.jobsphere.dao.ApplicationsDAO;
 import com.jobsphere.dao.SavedJobsDAO;
 import com.jobsphere.model.Job;
+import com.jobsphere.service.auth.SessionManager;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
@@ -14,7 +14,6 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.Alert;
 import javafx.stage.FileChooser;
 import java.io.File;
-
 
 public class JobDetailsController {
     @FXML
@@ -37,66 +36,86 @@ public class JobDetailsController {
     private Button saveButton;
 
     private JobDAO jobDAO = JobDAO.getInstance();
-    // private ApplicationsDAO applicationsDAO = new ApplicationsDAO();
     private ApplicationsDAO applicationsDAO = ApplicationsDAO.getInstance();
     private SavedJobsDAO savedJobsDAO = new SavedJobsDAO();
-    private int currentApplicantnId;
-
 
     public void initialize() {
         jobList.setItems(FXCollections.observableList(jobDAO.getAllJobs()));
         jobList.getSelectionModel().selectedItemProperty().addListener((obs, oldJob, newJob) -> {
-            if(newJob != null) {
+            if (newJob != null) {
                 showJobDetails(newJob);
             }
         });
-        applyButton.setOnAction(e -> {applyJob();});
-        saveButton.setOnAction(e -> {saveJob();});
+
+        applyButton.setOnAction(e -> applyJob());
+        saveButton.setOnAction(e -> saveJob());
     }
+
     @FXML
     private void applyJob() {
         Job selectedJob = jobList.getSelectionModel().getSelectedItem();
-        if(selectedJob == null) return;
+        if (selectedJob == null) return;
+        
+        int applicantId = SessionManager.getInstance().getCurrentUserId();
+        if (applicantId == 0) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Not Logged In");
+            alert.setHeaderText(null);
+            alert.setContentText("Please login before applying for a job!");
+            alert.showAndWait();
+            return;
+        }
+
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Select Resume");
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Resume File", "*.pdf"));
         File resumeFile = fileChooser.showOpenDialog(applyButton.getScene().getWindow());
-        if(resumeFile != null) {
-         boolean applied = applicationsDAO.applyForJob(currentApplicantnId , selectedJob.getId() , resumeFile.getAbsolutePath());
 
-         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-         alert.setTitle("Application Applied");
-         alert.setHeaderText(null);
-         alert.setContentText(applied ? "You have applied successfully!" : "You have already applied for this job.");
-         alert.showAndWait();
+        if (resumeFile != null) {
+            boolean applied = applicationsDAO.applyForJob(applicantId, selectedJob.getId(), resumeFile.getAbsolutePath());
 
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Application Applied");
+            alert.setHeaderText(null);
+            alert.setContentText(applied ? "You have applied successfully!" : "You have already applied for this job.");
+            alert.showAndWait();
         }
     }
+
     @FXML
     private void saveJob() {
         Job selectedJob = jobList.getSelectionModel().getSelectedItem();
-        if(selectedJob == null) return;
-        savedJobsDAO.saveJob(currentApplicantnId , selectedJob.getId());
+        if (selectedJob == null) return;
+
+        int applicantId = SessionManager.getInstance().getCurrentUserId();
+        if (applicantId == 0) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Not Logged In");
+            alert.setHeaderText(null);
+            alert.setContentText("Please login before saving a job!");
+            alert.showAndWait();
+            return;
+        }
+
+        savedJobsDAO.saveJob(applicantId, selectedJob.getId());
+
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Saved");
         alert.setHeaderText(null);
         alert.setContentText("Job has been saved successfully!");
         alert.showAndWait();
     }
+
     private void showJobDetails(Job job) {
         jobTitle.setText(job.getTitle());
         jobCompany.setText(String.valueOf(job.getCompanyId()));
         jobDesc.setText(job.getDescription());
         jobRequirements.setText(job.getRequirements());
-        if(jobResponsibilities != null) {
+        if (jobResponsibilities != null) {
             jobResponsibilities.setText(job.getResponsibilities());
         }
-        if(jobSalary != null) {
+        if (jobSalary != null) {
             jobSalary.setText(job.getSalary());
         }
-    }
-
-    public void setCurrentApplicantnId(int applicantnId) {
-        this.currentApplicantnId = applicantnId;
     }
 }
