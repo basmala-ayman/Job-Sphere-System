@@ -9,21 +9,25 @@ import com.jobsphere.service.auth.SessionManager;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.StringConverter;
-
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.stage.Stage;
+import java.io.IOException;
 import java.util.List;
-import java.util.ArrayList;
-
 public class SearchCompanyController {
 
     @FXML private ComboBox<Job> jobComboBox;
     @FXML private ComboBox<String> skillComboBox;
     @FXML private ComboBox<Integer> expComboBox;
-
+    @FXML private Button backBtn;
     @FXML private TableView<SearchCompany> resultsTable;
 
 
@@ -173,5 +177,18 @@ public class SearchCompanyController {
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
+    }
+
+    public void handleBack(ActionEvent actionEvent) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/layouts/CompanyFeatures.fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            Stage stage = (Stage) backBtn.getScene().getWindow();
+            stage.setScene(scene);
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert("Error", "Failed to load CompanyFeatures screen.");
+        }
     }
 }

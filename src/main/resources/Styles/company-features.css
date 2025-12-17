@@ -1,0 +1,65 @@
+/* === Global Background === */
+.root {
+    /* Exact match from your main CSS */
+    -fx-background-color: linear-gradient(to bottom right, #ece9e6, #ffffff);
+    -fx-font-family: 'Segoe UI', sans-serif;
+}
+
+/* === The White Card Container === */
+/* Copies properties from .login-card */
+.card-container {
+    -fx-background-color: white;
+    -fx-background-radius: 20;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 20, 0, 0, 5);
+    -fx-padding: 40;
+    -fx-alignment: center;
+    -fx-max-width: 600;
+    -fx-spacing: 20;
+}
+
+/* === Menu Buttons === */
+/* Copies properties from #loginBtn */
+.menu-button {
+    -fx-background-color: #1A237E; /* Deep Navy Background */
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 8;
+    -fx-padding: 12 30;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 4, 0, 0, 1);
+
+    /* Added this to make all buttons the same width */
+    -fx-min-width: 250px;
+    -fx-alignment: center;
+}
+
+.menu-button:hover {
+    -fx-background-color: #283593;
+}
+
+.menu-button:pressed {
+    -fx-background-color: #0d47a1;
+}
+
+.logout-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #d32f2f; /* Red text */
+    -fx-border-color: #d32f2f;
+    -fx-border-width: 1.5;
+    -fx-border-radius: 8;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-padding: 8 20;
+    -fx-cursor: hand;
+    -fx-min-width: 250px; /* Same width as other buttons */
+    -fx-alignment: center;
+}
+
+.logout-button:hover {
+    -fx-background-color: #ffebee; /* Light red background on hover */
+}
+
+.logout-button:pressed {
+    -fx-background-color: #ffcdd2;
+}

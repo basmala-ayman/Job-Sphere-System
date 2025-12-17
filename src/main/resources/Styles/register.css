@@ -1,0 +1,116 @@
+.root {
+    -fx-background-color: linear-gradient(to bottom right, #ece9e6, #ffffff);
+    -fx-font-family: 'Segoe UI', sans-serif;
+}
+
+.register-card {
+    -fx-background-color: white;
+    -fx-background-radius: 20;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 20, 0, 0, 5);
+    -fx-padding: 30;
+    -fx-alignment: center;
+    -fx-max-width: 500;
+}
+
+.header-label {
+    -fx-text-fill: #1A237E;
+    -fx-font-size: 36px;
+    -fx-font-family: 'Segoe UI Black';
+    -fx-font-weight: bold;
+    -fx-padding: 0 0 30 0;
+    -fx-alignment: center;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 2, 0, 0, 1);
+}
+
+
+.section-label {
+    -fx-text-fill: #1A237E;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-padding: 10 0 5 0;
+}
+
+.label {
+    -fx-text-fill: #546E7A;
+    -fx-font-size: 14px;
+    -fx-font-weight: 600;
+}
+
+.text-field, .password-field, .combo-box, .text-area {
+    -fx-background-color: #F4F6F8;
+    -fx-border-color: #CFD8DC;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-padding: 10;
+    -fx-font-size: 14px;
+}
+
+.text-field:focused, .password-field:focused, .combo-box:focused, .text-area:focused {
+    -fx-background-color: white;
+    -fx-border-color: #1A237E;
+    -fx-effect: dropshadow(gaussian, rgba(26, 35, 126, 0.2), 5, 0, 0, 1);
+}
+
+.list-view {
+    -fx-background-color: #F4F6F8;
+    -fx-border-color: #CFD8DC;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+}
+
+.list-cell {
+    -fx-background-color: transparent;
+    -fx-text-fill: #37474F;
+    -fx-padding: 5;
+}
+
+.list-cell:filled:selected, .list-cell:filled:hover {
+    -fx-background-color: #E8EAF6;
+    -fx-text-fill: #1A237E;
+}
+
+.separator *.line {
+    -fx-border-style: solid;
+    -fx-border-width: 1px;
+    -fx-border-color: #ECEFF1;
+    -fx-background-color: #ECEFF1;
+}
+
+#registerBtn {
+    -fx-background-color: #1A237E;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 8;
+    -fx-padding: 10 30;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 4, 0, 0, 1);
+}
+
+#registerBtn:hover {
+    -fx-background-color: #283593;
+}
+
+#loginBtn {
+    -fx-background-color: transparent;
+    -fx-text-fill: #1A237E;
+    -fx-border-color: #1A237E;
+    -fx-border-width: 1.5;
+    -fx-border-radius: 8;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-padding: 9 25;
+    -fx-cursor: hand;
+}
+
+#loginBtn:hover {
+    -fx-background-color: #E8EAF6;
+}
+
+.small-btn {
+    -fx-background-color: #546E7A;
+    -fx-text-fill: white;
+    -fx-font-size: 11px;
+    -fx-background-radius: 5;
+    -fx-cursor: hand;
+}

@@ -206,7 +206,7 @@ public List<String> getDistinctCareerLevels() {
 
     //this code cause it is duplicated surint the functions we will put it in just single function and it will map the strings information 
     //that returned from the satabase into the job object 
-    private Job mapRowToJob(ResultSet rs) throws SQLException {
+    public Job mapRowToJob(ResultSet rs) throws SQLException {
         Job job = new Job();
         job.setId(rs.getInt("id"));
         job.setCompanyId(rs.getInt("company_id"));

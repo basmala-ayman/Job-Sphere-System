@@ -56,8 +56,12 @@
 
     <!-- Buttons -->
     <HBox spacing="10">
+        <Button fx:id="uploadResumeButton" text="Upload Resume" />
+        <Label fx:id="uploadedFileLabel" text="No file selected" />
         <Button fx:id="applyButton" text="Apply" onAction="#applyJob"/>
         <Button fx:id="saveButton" text="Save Job" onAction="#saveJob"/>
+        <Button text="View Saved Jobs" onAction="#openSavedJobsScreen"/>
+
     </HBox>
 
 

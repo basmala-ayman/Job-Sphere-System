@@ -1,0 +1,107 @@
+/* === Global Background === */
+.root {
+    -fx-background-color: linear-gradient(to bottom right, #ece9e6, #ffffff);
+    -fx-font-family: 'Segoe UI', sans-serif;
+}
+
+/* === The White Card Container === */
+.table-card {
+    -fx-background-color: white;
+    -fx-background-radius: 20;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 20, 0, 0, 5);
+    -fx-padding: 30;
+    -fx-alignment: center;
+    -fx-max-width: 800; /* Wider for the table */
+    -fx-spacing: 20;
+}
+
+/* === Header === */
+.header-label {
+    -fx-text-fill: #1A237E;
+    -fx-font-size: 28px;
+    -fx-font-family: 'Segoe UI Black';
+    -fx-font-weight: bold;
+    -fx-padding: 0 0 10 0;
+}
+
+/* === Table View Styling === */
+.table-view {
+    -fx-background-color: transparent;
+    -fx-border-color: #CFD8DC;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-padding: 0;
+}
+
+/* Table Header Row (Navy Blue) */
+.table-view .column-header-background {
+    -fx-background-color: #1A237E;
+    -fx-background-radius: 8 8 0 0;
+}
+
+.table-view .column-header {
+    -fx-background-color: transparent;
+    -fx-size: 40px;
+}
+
+.table-view .column-header .label {
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-alignment: center-left;
+}
+
+/* Table Rows */
+.table-row-cell {
+    -fx-cell-size: 35px;
+    -fx-background-insets: 0;
+}
+
+.table-row-cell:odd {
+    -fx-background-color: #F4F6F8; /* Light grey striping */
+}
+
+.table-row-cell:selected {
+    -fx-background-color: #E8EAF6; /* Light blue selection */
+    -fx-text-background-color: #1A237E; /* Dark text on selection */
+}
+
+/* === Buttons === */
+.primary-button {
+    -fx-background-color: #1A237E;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 8;
+    -fx-padding: 10 20;
+    -fx-cursor: hand;
+}
+
+.primary-button:hover {
+    -fx-background-color: #283593;
+}
+
+/* Delete Button (Red) */
+.danger-button {
+    -fx-background-color: #e53935;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 8;
+    -fx-padding: 10 20;
+    -fx-cursor: hand;
+}
+
+.danger-button:hover {
+    -fx-background-color: #ef5350;
+}
+
+/* === Back Link === */
+.back-link {
+    -fx-background-color: transparent;
+    -fx-text-fill: #78909C;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+    -fx-alignment: center-left;
+}
+.back-link:hover { -fx-text-fill: #1A237E; -fx-underline: true; }

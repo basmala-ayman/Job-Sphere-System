@@ -1,39 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
 <BorderPane xmlns="http://javafx.com/javafx/8.0.171"
             xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.jobsphere.controller.ApplicationController">
+            fx:controller="com.jobsphere.controller.ApplicationController"
+            stylesheets="@../Styles/applicationsView.css"
+            styleClass="root">
 
     <center>
-      <VBox spacing="10">
-    <padding>
-        <Insets top="20" right="20" bottom="20" left="20"/>
-    </padding>
-            <Label text="Managing Applications for your company jobs" style="-fx-font-size: 18; -fx-font-weight: bold;" />
+        <VBox spacing="20" styleClass="main-container">
+            <padding>
+                <Insets top="30" right="30" bottom="30" left="30"/>
+            </padding>
 
-            <TableView fx:id="applicationsTable" prefHeight="400">
+            <Label text="Manage Company Applications" styleClass="header-label" style="-fx-font-size: 24;"/>
 
+            <TableView fx:id="applicationsTable" VBox.vgrow="ALWAYS">
                 <columns>
-
                     <TableColumn fx:id="userNameColumn" text="Name" prefWidth="150"/>
-                    <TableColumn fx:id="emailColumn" text="Email" prefWidth="200"/>
-                    <TableColumn fx:id="jobTitleColumn" text="Job Title" prefWidth="180"/>
-                    <TableColumn fx:id="skillsColumn" text="Skills" prefWidth="250"/>
-
-                    <!-- Status ComboBox Column to can change the status-->
-                    <TableColumn fx:id="statusColumn" text="Status" prefWidth="150"/>
-
-                    <!-- Save Button Column to go to update it in the database -->
-                    <TableColumn fx:id="saveColumn" text="Save" prefWidth="100"/>
-
+                    <TableColumn fx:id="emailColumn" text="Email" prefWidth="180"/>
+                    <TableColumn fx:id="jobTitleColumn" text="Job Title" prefWidth="150"/>
+                    <TableColumn fx:id="skillsColumn" text="Skills" prefWidth="200"/>
+                    <TableColumn fx:id="statusColumn" text="Status" prefWidth="140"/>
+                    <TableColumn fx:id="saveColumn" text="Action" prefWidth="100"/>
                 </columns>
-
+                <columnResizePolicy>
+                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                </columnResizePolicy>
             </TableView>
         </VBox>
     </center>
+
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
 
 </BorderPane>
