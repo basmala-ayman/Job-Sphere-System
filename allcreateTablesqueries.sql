@@ -57,8 +57,8 @@ CREATE TABLE jobs (
     company_id INT NOT NULL REFERENCES users(id), 
     title VARCHAR(255) NOT NULL,                  
     description TEXT,                              
-    responsibilities TEXT NOT NULL,                
-    requirements TEXT,                             
+    responsibilities TEXT NOT NULL,
+    requirements TEXT,              --skills: css, html, js      --skills - css, html
     career_level VARCHAR(50),                      
     job_type VARCHAR(50),                          
     workplace VARCHAR(50),                         

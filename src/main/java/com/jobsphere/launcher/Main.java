@@ -11,7 +11,7 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws IOException {
 
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/layouts/Register.fxml")); //will be changed later
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/layouts/Login.fxml")); //will be changed later
 
         Scene scene = new Scene(fxmlLoader.load(), 620, 640);
         stage.setTitle("JobSphere App");

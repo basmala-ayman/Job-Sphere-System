@@ -1,0 +1,80 @@
+/* === Global Background === */
+.root {
+    -fx-background-color: linear-gradient(to bottom right, #ece9e6, #ffffff);
+    -fx-font-family: 'Segoe UI', sans-serif;
+}
+
+/* === Dashboard Card (The Floating Box) === */
+.dashboard-card {
+    -fx-background-color: white;
+    -fx-background-radius: 20;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 20, 0, 0, 5);
+    -fx-padding: 40;
+    -fx-alignment: center;
+}
+
+/* === Title Styling === */
+.header-label {
+    -fx-text-fill: #1A237E;
+    -fx-font-size: 30px;
+    -fx-font-family: 'Segoe UI Black';
+    -fx-font-weight: bold;
+    -fx-padding: 0 0 10 0;
+}
+
+/* === Primary Action: Search Jobs === */
+.search-btn {
+    -fx-background-color: #1A237E;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 16px;
+    -fx-background-radius: 10;
+    -fx-padding: 15 30;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 2);
+}
+
+.search-btn:hover {
+    -fx-background-color: #283593;
+    -fx-translate-y: -2; /* Subtle lift effect */
+}
+
+/* === Secondary Action: Job Details === */
+.details-btn {
+    -fx-background-color: transparent;
+    -fx-text-fill: #1A237E;
+    -fx-border-color: #1A237E;
+    -fx-border-width: 2;
+    -fx-border-radius: 10;
+    -fx-font-weight: bold;
+    -fx-font-size: 16px;
+    -fx-padding: 14 30;
+    -fx-cursor: hand;
+}
+
+.details-btn:hover {
+    -fx-background-color: #E8EAF6;
+    -fx-translate-y: -2;
+}
+
+.logout-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #d32f2f; /* Red text */
+    -fx-border-color: #d32f2f;
+    -fx-border-width: 1.5;
+    -fx-border-radius: 8;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-padding: 8 20;
+    -fx-cursor: hand;
+    -fx-min-width: 250px; /* Same width as other buttons */
+    -fx-alignment: center;
+}
+
+.logout-button:hover {
+    -fx-background-color: #ffebee; /* Light red background on hover */
+}
+
+.logout-button:pressed {
+    -fx-background-color: #ffcdd2;
+}

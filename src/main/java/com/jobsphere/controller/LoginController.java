@@ -96,13 +96,11 @@ public class LoginController {
             form = "CompanyFeatures.fxml";
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/layouts/" + form));
-            Stage stage = new Stage();
-            stage.setScene(new Scene(loader.load()));
-            stage.setTitle("Features");
-            stage.show();
+            Scene scene = new Scene(loader.load());
+            Stage stage = (Stage) loginBtn.getScene().getWindow();
+            stage.setScene(scene);
         } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println("Error loading Features page!");
+            System.out.println(e.getMessage());
         }
     }
 }

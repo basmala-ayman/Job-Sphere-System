@@ -157,23 +157,31 @@ public class ApplicationsDAO {
         List<SearchCompany> results = new ArrayList<>();
 
         // Use @> operator to check if the JSON array contains the skill
-        String sql = "SELECT u.name, u.email, j.title, ap.skills, a.status, a.resume_url, ap.experience_years " +
-                "FROM applications a " +
-                "JOIN jobs j ON a.job_id = j.id " +
-                "JOIN users u ON a.applicant_id = u.id " +
-                "JOIN applicants ap ON u.id = ap.user_id " +
-                "WHERE j.id = ? " +
-                "AND ap.experience_years >= ? " +
-                "AND ap.skills::jsonb @> ?::jsonb";
+        String sql = "SELECT \n" +
+                "    u.name,\n" +
+                "    u.email,\n" +
+                "    j.title,\n" +
+                "    ap.skills,\n" +
+                "    a.status,\n" +
+                "    a.resume_url,\n" +
+                "    ap.experience_years\n" +
+                "FROM applications a\n" +
+                "JOIN jobs j ON a.job_id = j.id\n" +
+                "JOIN users u ON a.applicant_id = u.id\n" +
+                "JOIN applicants ap ON u.id = ap.user_id\n" +
+                "WHERE j.id = ?\n" +
+                "AND ( ? = 0 OR ap.experience_years >= ? )\n" +
+                "AND ( ? = '' OR ap.skills::jsonb @> ?::jsonb );\n";
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setInt(1, jobId);
             stmt.setInt(2, experienceYears);
+            stmt.setInt(3, experienceYears);
             // Convert skill string to JSON array format: '["Java"]'
-            stmt.setString(3, "[\"" + skill + "\"]");
-
+            stmt.setString(4, skill);
+            stmt.setString(5, "[\"" + skill + "\"]");
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {

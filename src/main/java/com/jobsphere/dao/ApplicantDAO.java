@@ -107,7 +107,7 @@ public class ApplicantDAO {
 public List<String> getDistinctSkills() {
   List<String> skills = new ArrayList<>();
   //cause skills stored in json column to ca nsave multiple items in the same single column we need to use this function to flatten it 
-  String sql = "SELECT DISTINCT jsonb_array_elements_text(skills::jsonb) AS skill FROM applicants ORDER BY skill";
+  String sql = "SELECT DISTINCT LOWER(jsonb_array_elements_text(skills::jsonb)) AS skill FROM applicants ORDER BY skill";
 
   try (Connection conn = DBConnection.getConnection();
        PreparedStatement stmt = conn.prepareStatement(sql);

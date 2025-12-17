@@ -1,0 +1,98 @@
+.root {
+    -fx-background-color: linear-gradient(to bottom right, #ece9e6, #ffffff);
+    -fx-font-family: 'Segoe UI', sans-serif;
+}
+
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-background: transparent;
+    -fx-padding: 0;
+}
+
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+/* === The White Form Card === */
+.form-card {
+    -fx-background-color: white;
+    -fx-background-radius: 20;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 20, 0, 0, 5);
+    -fx-padding: 40;
+    -fx-alignment: center;
+    -fx-max-width: 770;
+    -fx-spacing: 20;
+    /* Margins to ensure shadow isn't cut off by scrollpane */
+    -fx-border-width: 0;
+}
+
+/* === Header === */
+.header-label {
+    -fx-text-fill: #1A237E;
+    -fx-font-size: 28px;
+    -fx-font-family: 'Segoe UI Black';
+    -fx-font-weight: bold;
+    -fx-padding: 0 0 20 0;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 2, 0, 0, 1);
+}
+
+/* === Field Labels === */
+.field-label {
+    -fx-text-fill: #37474F; /* Dark Grey */
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+/* === Inputs (TextField, TextArea, ComboBox) === */
+.text-field, .text-area, .combo-box {
+    -fx-background-color: #F4F6F8;
+    -fx-border-color: #CFD8DC;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-font-size: 14px;
+    -fx-padding: 8; /* Comfortable padding */
+}
+
+.text-field:focused, .text-area:focused, .combo-box:focused {
+    -fx-background-color: white;
+    -fx-border-color: #1A237E;
+    -fx-effect: dropshadow(gaussian, rgba(26, 35, 126, 0.2), 5, 0, 0, 1);
+}
+
+/* Fix for ComboBox Arrow Background to match */
+.combo-box .arrow-button {
+    -fx-background-color: transparent;
+}
+
+/* === Buttons === */
+.primary-button {
+    -fx-background-color: #1A237E;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 8;
+    -fx-padding: 10 30;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 4, 0, 0, 1);
+}
+
+.primary-button:hover {
+    -fx-background-color: #283593;
+}
+
+.secondary-button {
+    -fx-background-color: white;
+    -fx-text-fill: #546E7A;
+    -fx-border-color: #B0BEC5;
+    -fx-border-radius: 8;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-padding: 9 25;
+    -fx-cursor: hand;
+}
+
+.secondary-button:hover {
+    -fx-background-color: #ECEFF1;
+    -fx-text-fill: #37474F;
+}
+
