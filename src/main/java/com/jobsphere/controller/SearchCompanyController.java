@@ -41,10 +41,27 @@ public class SearchCompanyController {
     private JobDAO jobDAO = JobDAO.getInstance();
 
     private ObservableList<SearchCompany> tableData = FXCollections.observableArrayList();
+    private int companyId;
 
-    @FXML
+   @FXML
     public void initialize() {
-        // 1. Setup Table Columns
+
+       jobComboBox.valueProperty().addListener((obs, oldJob, newJob) -> {
+           if (newJob != null) {
+               skillComboBox.setDisable(false);
+               expComboBox.setDisable(false);
+
+               skillComboBox.getSelectionModel().clearSelection();
+               expComboBox.getSelectionModel().clearSelection();
+
+               loadSkillsForJob(newJob.getId());
+               loadAllCandidatesForJob(newJob.getId());
+           }
+       });
+
+
+
+       // 1. Setup Table Columns
         colJob.setCellValueFactory(new PropertyValueFactory<>("jobTitle"));
         colStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
         colName.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -59,62 +76,96 @@ public class SearchCompanyController {
         loadFilterData();
     }
 
+    private void loadSkillsForJob(int jobId) {
+        Job job = jobDAO.getJobById(jobId);
+
+        if (job == null || job.getRequirements() == null || job.getRequirements().isBlank()) {
+            skillComboBox.getItems().clear();
+            return;
+        }
+
+        List<String> skills = List.of(job.getRequirements().split(",\\s*"));
+        skillComboBox.setItems(FXCollections.observableArrayList(skills));
+    }
+
+    private void loadAllCandidatesForJob(int jobId) {
+        tableData.clear();
+
+        List<SearchCompany> results =
+                appDAO.searchCandidatesByExperienceAndSkill(
+                        jobId,
+                        0,        // minimum experience
+                        ""        // ignore skill
+                );
+
+        tableData.setAll(results);
+    }
+
 
     private void loadFilterData() {
-    int currentCompanyId = SessionManager.getInstance().getCurrentUserId();
-        //Observer pattern
-        ObservableList<Job> myJobs = FXCollections.observableArrayList();
+        this.companyId = SessionManager.getInstance().getCurrentUserId();
 
-        //get all jobs for the current company for specific company id
-        List<Job> myJobsList = jobDAO.getJobsByCompanyId(currentCompanyId);
+        ObservableList<Job> myJobs = FXCollections.observableArrayList();
+        List<Job> myJobsList = jobDAO.getJobsByCompanyId(companyId);
         myJobs.addAll(myJobsList);
 
         jobComboBox.setItems(myJobs);
 
         jobComboBox.setConverter(new StringConverter<Job>() {
             @Override
-            public String toString(Job job) { return (job == null) ? null : job.getTitle(); }
+            public String toString(Job job) {
+                return job == null ? null : job.getTitle();
+            }
+
             @Override
-            public Job fromString(String string) { return null; }
+            public Job fromString(String string) {
+                return null;
+            }
         });
 
-        //Load Distinct Skills
-        List<String> skills = applicantDAO.getDistinctSkills();
-        System.out.println("DEBUG: Number of skills found = " + skills.size());
-        skillComboBox.setItems(FXCollections.observableArrayList(skills));
+        // 🔹 Disable filters until job selected
+        skillComboBox.setDisable(true);
+        expComboBox.setDisable(true);
 
-        //Load Distinct Experience Years
+        // 🔹 Placeholders
+        jobComboBox.setPromptText("Select Job");
+        skillComboBox.setPromptText("Select Skill");
+        expComboBox.setPromptText("Experience");
+
+        // Load Distinct Experience Years
         List<Integer> years = applicantDAO.getDistinctExperienceYears();
         expComboBox.setItems(FXCollections.observableArrayList(years));
     }
 
 
+
     @FXML
     private void handleSearch() {
-        tableData.clear();
         Job selectedJob = jobComboBox.getValue();
         String selectedSkill = skillComboBox.getValue();
         Integer selectedExp = expComboBox.getValue();
 
-        // Validation
-        if (selectedJob == null || selectedSkill == null || selectedExp == null) {
-            showAlert("Warning", "Please select Job, Skill, and Experience Year.");
+        if (selectedJob == null) {
+            showAlert("Warning", "Please select a Job first.");
             return;
         }
 
-        List<SearchCompany> rawResults = appDAO.searchCandidatesByExperienceAndSkill(
+        List<SearchCompany> results;
+
+        if (selectedSkill == null && selectedExp == null) {
+            loadAllCandidatesForJob(selectedJob.getId());
+            return;
+        }
+
+        results = appDAO.searchCandidatesByExperienceAndSkill(
                 selectedJob.getId(),
-                selectedExp,
-                selectedSkill
+                selectedExp != null ? selectedExp : 0,
+                selectedSkill != null ? selectedSkill : ""
         );
 
-        if (rawResults.isEmpty()) {
-            showAlert("Info", "No candidates found matching criteria.");
-        } else {
-            // Add results directly to the table (Observer Pattern)
-            tableData.setAll(rawResults);
-        }
+        tableData.setAll(results);
     }
+
 
     private void showAlert(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);

@@ -20,8 +20,8 @@
         <TextArea fx:id="descriptionArea" promptText="Enter job description" prefRowCount="4"
                   GridPane.rowIndex="1" GridPane.columnIndex="1"/>
 
-        <Label text="Requirements:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
-        <TextArea fx:id="requirementsArea" promptText="Enter requirements" prefRowCount="3"
+        <Label text="Required Skills:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+        <TextArea fx:id="requirementsArea" promptText="css, html, js" prefRowCount="3"
                   GridPane.rowIndex="2" GridPane.columnIndex="1"/>
 
         <Label text="Job Category:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
