@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx/17"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.jobsphere.controller.SavedJobsController"
+      spacing="15"
+      alignment="CENTER"
+      prefWidth="600"
+      prefHeight="400"
+      style="-fx-padding: 20;">
+
+    <!-- Title -->
+    <Label text="Saved Jobs"
+           style="-fx-font-size: 20px; -fx-font-weight: bold;" />
+
+    <!-- Saved Jobs List -->
+    <ListView fx:id="savedJobList"
+              prefWidth="550"
+              prefHeight="300" />
+
+    <!-- Hint -->
+    <Label text="Double-click a job to view details"
+           style="-fx-text-fill: gray;" />
+
+</VBox>
