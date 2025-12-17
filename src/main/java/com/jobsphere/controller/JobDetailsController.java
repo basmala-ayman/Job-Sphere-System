@@ -8,21 +8,12 @@ import com.jobsphere.service.auth.SessionManager;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.ListView;
-import javafx.scene.control.Label;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.Alert;
-import javafx.stage.FileChooser;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
-import java.net.URL;
-
-
-import java.io.File;
 
 public class JobDetailsController {
+
     @FXML
     private ListView<Job> jobList;
     @FXML
@@ -37,43 +28,34 @@ public class JobDetailsController {
     private TextArea jobResponsibilities;
     @FXML
     private Label jobSalary;
+
+    @FXML
+    private TextField resumeLinkField;
+
     @FXML
     private Button applyButton;
     @FXML
     private Button saveButton;
-    @FXML
-    private Button uploadResumeButton;
-    @FXML
-    private Label uploadedFileLabel;
-    @FXML
-    private File selectedResumeFile;
 
-
-    private JobDAO jobDAO = JobDAO.getInstance();
-    private ApplicationsDAO applicationsDAO = ApplicationsDAO.getInstance();
-    private SavedJobsDAO savedJobsDAO = new SavedJobsDAO();
+    private final JobDAO jobDAO = JobDAO.getInstance();
+    private final ApplicationsDAO applicationsDAO = ApplicationsDAO.getInstance();
+    private final SavedJobsDAO savedJobsDAO = new SavedJobsDAO();
 
     public void initialize() {
         jobList.setItems(FXCollections.observableList(jobDAO.getAllJobs()));
-        jobList.getSelectionModel().selectedItemProperty().addListener((obs, oldJob, newJob) -> {
-            if (newJob != null) {
-                showJobDetails(newJob);
-            }
-        });
-        uploadResumeButton.setOnAction(e -> selectResumeFile());
+
+        jobList.getSelectionModel().selectedItemProperty().addListener(
+                (obs, oldJob, newJob) -> {
+                    if (newJob != null) {
+                        showJobDetails(newJob);
+                    }
+                }
+        );
+
         applyButton.setOnAction(e -> applyJob());
         saveButton.setOnAction(e -> saveJob());
     }
-    private void selectResumeFile() {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Open Resource File");
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Resume File", "*.pdf"));
-        selectedResumeFile = fileChooser.showOpenDialog(uploadResumeButton.getScene().getWindow());
 
-        if (selectedResumeFile != null) {
-            uploadedFileLabel.setText(selectedResumeFile.getName());
-        }
-    }
 
     @FXML
     private void applyJob() {
@@ -90,24 +72,31 @@ public class JobDetailsController {
             return;
         }
 
-        if (selectedResumeFile == null) {
+        String resumeLink = resumeLinkField.getText();
+        if (resumeLink == null || resumeLink.trim().isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("No Resume Uploaded");
+            alert.setTitle("Resume Required");
             alert.setHeaderText(null);
-            alert.setContentText("Please upload your resume before applying.");
+            alert.setContentText("Please paste your resume link (Google Drive, etc).");
             alert.showAndWait();
             return;
         }
 
-        boolean applied = applicationsDAO.applyForJob(applicantId, selectedJob.getId(), selectedResumeFile.getAbsolutePath());
+        boolean applied = applicationsDAO.applyForJob(
+                applicantId,
+                selectedJob.getId(),
+                resumeLink
+        );
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Application Status");
         alert.setHeaderText(null);
-        alert.setContentText(applied ? "You have applied successfully!" : "You have already applied for this job.");
+        alert.setContentText(
+                applied ? "You have applied successfully!"
+                        : "You have already applied for this job."
+        );
         alert.showAndWait();
     }
-
 
     @FXML
     private void saveJob() {
@@ -133,11 +122,13 @@ public class JobDetailsController {
         alert.showAndWait();
     }
 
+
     private void showJobDetails(Job job) {
         jobTitle.setText(job.getTitle());
         jobCompany.setText(String.valueOf(job.getCompanyId()));
         jobDesc.setText(job.getDescription());
         jobRequirements.setText(job.getRequirements());
+
         if (jobResponsibilities != null) {
             jobResponsibilities.setText(job.getResponsibilities());
         }
@@ -145,6 +136,7 @@ public class JobDetailsController {
             jobSalary.setText(job.getSalary());
         }
     }
+
     @FXML
     private void openSavedJobsScreen() {
         try {
@@ -165,6 +157,4 @@ public class JobDetailsController {
             alert.showAndWait();
         }
     }
-
-
 }

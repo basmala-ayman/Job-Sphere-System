@@ -10,19 +10,21 @@
       alignment="CENTER"
       prefWidth="600"
       prefHeight="400"
-      style="-fx-padding: 20;">
+      stylesheets="@../Styles/savedJobs.css"
+      styleClass="root">
 
-    <!-- Title -->
+    <!-- Page Title -->
     <Label text="Saved Jobs"
-           style="-fx-font-size: 20px; -fx-font-weight: bold;" />
+           styleClass="header-label"/>
 
     <!-- Saved Jobs List -->
     <ListView fx:id="savedJobList"
               prefWidth="550"
-              prefHeight="300" />
+              prefHeight="300"
+              styleClass="list-view"/>
 
     <!-- Hint -->
     <Label text="Double-click a job to view details"
-           style="-fx-text-fill: gray;" />
+           style="-fx-text-fill: gray; -fx-font-size: 12px;"/>
 
 </VBox>
