@@ -6,63 +6,81 @@
 
 /* === Search Bar & Input Fields === */
 .text-field, .combo-box {
-    -fx-background-color: #F4F6F8;
+    -fx-background-color: white; /* Clean white for contrast */
     -fx-border-color: #CFD8DC;
-    -fx-border-radius: 8;
-    -fx-background-radius: 8;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
     -fx-padding: 10 15;
     -fx-font-size: 14px;
+    -fx-transition: all 0.3s ease;
 }
 
 .text-field:focused, .combo-box:focused {
-    -fx-background-color: white;
     -fx-border-color: #1A237E;
-    -fx-effect: dropshadow(gaussian, rgba(26, 35, 126, 0.2), 5, 0, 0, 1);
+    -fx-effect: dropshadow(gaussian, rgba(26, 35, 126, 0.15), 8, 0, 0, 0);
 }
 
-/* === Primary Action Button (Search Button) === */
-.button {
+/* === Buttons === */
+.primary-button {
     -fx-background-color: #1A237E;
     -fx-text-fill: white;
     -fx-font-size: 14px;
     -fx-font-weight: bold;
-    -fx-background-radius: 8;
-    -fx-padding: 10 25;
+    -fx-background-radius: 10;
+    -fx-padding: 10 30;
     -fx-cursor: hand;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 4, 0, 0, 1);
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 2);
 }
 
-.button:hover {
+.primary-button:hover {
     -fx-background-color: #283593;
+    -fx-translate-y: -1; /* Subtle lift effect */
 }
 
-/* === TableView Styling === */
+/* === TableView Styling (The Fix) === */
 .table-view {
     -fx-background-color: white;
-    -fx-background-radius: 12;
-    -fx-border-radius: 12;
+    -fx-background-radius: 15;
+    -fx-border-radius: 15;
     -fx-border-color: #CFD8DC;
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.05), 10, 0, 0, 2);
-    -fx-padding: 5;
+    -fx-border-width: 1;
+    -fx-padding: 0; /* Remove internal padding to fix header alignment */
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.08), 15, 0, 0, 5);
 }
 
+/* Fix: Color the entire header container to eliminate the grey gap */
 .table-view .column-header-background {
     -fx-background-color: #1A237E;
-    -fx-background-radius: 12 12 0 0;
+    -fx-background-radius: 15 15 0 0;
+    -fx-pref-height: 50;
 }
 
+/* Individual Column Headers */
 .table-view .column-header {
-    -fx-background-color: transparent;
-    -fx-size: 40;
+    -fx-background-color: transparent; /* Show the navy background behind */
+    -fx-size: 50;
+    -fx-border-color: transparent;
 }
 
 .table-view .column-header .label {
     -fx-text-fill: white;
     -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-alignment: center-left;
+}
+
+/* Rows and Cells */
+.table-row-cell {
+    -fx-cell-size: 45;
+    -fx-border-color: transparent transparent #F0F2F5 transparent; /* Light row separator */
 }
 
 .table-row-cell:odd {
-    -fx-background-color: #F9FAFB;
+    -fx-background-color: #F8F9FA;
+}
+
+.table-row-cell:hover {
+    -fx-background-color: #F1F3F9;
 }
 
 .table-row-cell:selected {
@@ -70,8 +88,14 @@
     -fx-text-fill: #1A237E;
 }
 
-/* === Combo Box Adjustments === */
-.combo-box .list-cell {
+/* Hide the empty column space at the end */
+.table-view .filler {
     -fx-background-color: transparent;
-    -fx-text-fill: #37474F;
+}
+
+/* Clean up ScrollBars */
+.table-view .scroll-bar:vertical .thumb, 
+.table-view .scroll-bar:horizontal .thumb {
+    -fx-background-color: #CFD8DC;
+    -fx-background-radius: 10;
 }
