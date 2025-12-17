@@ -59,8 +59,11 @@ public class LoginController {
             if (currentUser != null) {
                 // store current user into session manager
                 SessionManager.getInstance().setCurrentUser(currentUser);
-                msg.setStyle("-fx-text-fill: green;");
-                msg.setText("Logged in successfully!!");
+                goToFeatures(currentUser.getRole());
+
+
+//                msg.setStyle("-fx-text-fill: green;");
+//                msg.setText("Logged in successfully!!");
             } else {
                 msg.setText("Logging failed!! Check your email and password!!");
             }
@@ -82,6 +85,24 @@ public class LoginController {
             stage.setScene(scene);
         } catch (IOException e) {
             System.out.println(e.getMessage());
+        }
+    }
+
+    private void goToFeatures(String role) {
+        String form = "";
+        if (role.equalsIgnoreCase("applicant"))
+            form = "ApplicantFeatures.fxml";
+        else if (role.equalsIgnoreCase("company"))
+            form = "CompanyFeatures.fxml";
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/layouts/" + form));
+            Stage stage = new Stage();
+            stage.setScene(new Scene(loader.load()));
+            stage.setTitle("Features");
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Error loading Features page!");
         }
     }
 }

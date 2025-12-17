@@ -114,7 +114,6 @@ public class RegisterController {
 
     @FXML
     private void goToLogin() {
-
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/layouts/Login.fxml"));
             Scene scene = new Scene(loader.load());

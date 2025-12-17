@@ -4,10 +4,16 @@
 <?import javafx.scene.layout.VBox?>
 
 <VBox xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.jobsphere.controller.DashboardController"
+      fx:controller="com.jobsphere.controller.CompanyFeaturesController"
       spacing="20" style="-fx-padding: 30; -fx-alignment: center;">
 
     <Button text="Add New Job" fx:id="addJobButton" onAction="#onClickAddJob"/>
+
     <Button text="Manage Jobs" fx:id="manageJobsButton" onAction="#onClickManageJobs"/>
+
+    <Button text="Candidate Search" fx:id="candidateSearch" onAction="#toCandidateSearch"/>
+
+    <Button text="Application Management" fx:id="appManagement" onAction="#toAppManagement"/>
+
 
 </VBox>
