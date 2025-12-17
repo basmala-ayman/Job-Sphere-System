@@ -1,5 +1,6 @@
 package com.jobsphere.controller;
 
+import com.jobsphere.service.auth.SessionManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -46,4 +47,11 @@ public class ApplicantFeaturesController {
             System.out.println("Error loading page: " + title);
         }
     }
+
+    @FXML
+    private void onLogout(ActionEvent event) {
+        SessionManager.getInstance().clearCurrentUser();
+        navigate(event, "/layouts/Login.fxml", "Login");
+    }
+
 }
