@@ -1,20 +1,19 @@
-/* === Global Background === */
 .root {
     -fx-background-color: linear-gradient(to bottom right, #ece9e6, #ffffff);
     -fx-font-family: 'Segoe UI', sans-serif;
 }
 
-/* === Main Container (The Login Card) === */
 .login-card {
     -fx-background-color: white;
     -fx-background-radius: 20;
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 20, 0, 0, 5);
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.1), 20, 0, 0, 5);
     -fx-padding: 40;
     -fx-alignment: center;
-    -fx-max-width: 600;
+    /*-fx-max-width: 600;*/
+    -fx-pref-width: 100%;
+    -fx-max-width: Infinity;
 }
 
-/* === Header Label (Login Title) === */
 .header-label {
     -fx-text-fill: #1A237E;
     -fx-font-size: 36px;
@@ -22,7 +21,7 @@
     -fx-font-weight: bold;
     -fx-padding: 0 0 30 0;
     -fx-alignment: center;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 2, 0, 0, 1);
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 2, 0, 0, 1);
 }
 
 .text-field, .password-field {
@@ -41,30 +40,27 @@
     -fx-effect: dropshadow(gaussian, rgba(26, 35, 126, 0.2), 5, 0, 0, 1);
 }
 
-/* === Error Message Label === */
 #msg {
     -fx-text-fill: #e53935;
     -fx-font-size: 12px;
     -fx-padding: 10 0;
 }
 
-/* === Buttons Container === */
 .button-box {
     -fx-alignment: center;
     -fx-spacing: 15;
     -fx-padding: 20 0 0 0;
 }
 
-/* === Login Button (Primary) === */
 #loginBtn {
-    -fx-background-color: #1A237E; /* Deep Navy Background */
+    -fx-background-color: #1A237E;
     -fx-text-fill: white;
     -fx-font-size: 14px;
     -fx-font-weight: bold;
     -fx-background-radius: 8;
     -fx-padding: 10 30;
     -fx-cursor: hand;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 4, 0, 0, 1);
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 4, 0, 0, 1);
 }
 
 #loginBtn:hover {
@@ -75,7 +71,6 @@
     -fx-background-color: #0d47a1;
 }
 
-/* === Register Button (Secondary) === */
 #registerBtn {
     -fx-background-color: transparent;
     -fx-text-fill: #1A237E;

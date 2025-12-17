@@ -4,42 +4,77 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1"
+<VBox xmlns="http://javafx.com/javafx/25"
+      xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="com.jobsphere.controller.LoginController"
-      spacing="15"
       alignment="CENTER"
       stylesheets="@../Styles/login.css"
       styleClass="root"
-      prefWidth="600.0" prefHeight="600.0">
+      prefWidth="800.0" prefHeight="850.0">
 
-    <VBox spacing="10" alignment="CENTER" maxWidth="400" styleClass="login-card">
+    <ScrollPane fitToWidth="true"
+                hbarPolicy="NEVER"
+                vbarPolicy="AS_NEEDED">
 
-        <padding>
-            <Insets top="30" right="30" bottom="30" left="30"/>
-        </padding>
+        <content>
+            <VBox alignment="CENTER"
+                  maxWidth="Infinity"
+                  spacing="0">
 
-        <Label text="Login" styleClass="header-label"/>
+                <padding>
+                    <Insets top="30" right="30" bottom="30" left="30"/>
+                </padding>
 
-        <GridPane hgap="15" vgap="20" alignment="CENTER">
-            <columnConstraints>
-                <ColumnConstraints percentWidth="30" halignment="RIGHT"/>
+                <VBox spacing="20"
+                      alignment="CENTER"
+                      styleClass="login-card"
+                      maxWidth="Infinity">
 
-                <ColumnConstraints percentWidth="70" halignment="LEFT"/>
-            </columnConstraints>
+                    <Label text="Login"
+                           styleClass="header-label"
+                           maxWidth="Infinity"
+                           alignment="CENTER"/>
 
-            <Label text="Email:" GridPane.rowIndex="0" GridPane.columnIndex="0" styleClass="label"/>
-            <TextField fx:id="email" promptText="name@domain.com" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+                    <GridPane hgap="18"
+                              vgap="20"
+                              maxWidth="Infinity">
 
-            <Label text="Password:" GridPane.rowIndex="1" GridPane.columnIndex="0" styleClass="label"/>
-            <PasswordField fx:id="password" promptText="Password" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
-        </GridPane>
+                        <columnConstraints>
+                            <ColumnConstraints minWidth="160" halignment="RIGHT"/>
+                            <ColumnConstraints hgrow="ALWAYS"/>
+                        </columnConstraints>
 
-        <Label fx:id="msg" text=""/>
+                        <Label text="Email:"/>
+                        <TextField fx:id="email"
+                                   promptText="name@domain.com"
+                                   GridPane.columnIndex="1"
+                                   maxWidth="Infinity"/>
 
-        <HBox spacing="15" alignment="CENTER" styleClass="button-box">
-            <Button text="Login" fx:id="loginBtn" onAction="#handleLogin"/>
-            <Button text="Register" fx:id="registerBtn" onAction="#goToRegister"/>
-        </HBox>
+                        <Label text="Password:" GridPane.rowIndex="1"/>
+                        <PasswordField fx:id="password"
+                                       promptText="Password"
+                                       GridPane.rowIndex="1"
+                                       GridPane.columnIndex="1"
+                                       maxWidth="Infinity"/>
+                    </GridPane>
 
-    </VBox>
+                    <Label fx:id="msg"/>
+
+                    <HBox spacing="15"
+                          alignment="CENTER"
+                          styleClass="button-box">
+
+                        <Button text="Login"
+                                fx:id="loginBtn"
+                                onAction="#handleLogin"/>
+
+                        <Button text="Register"
+                                fx:id="registerBtn"
+                                onAction="#goToRegister"/>
+                    </HBox>
+
+                </VBox>
+            </VBox>
+        </content>
+    </ScrollPane>
 </VBox>

@@ -4,100 +4,155 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1"
+<VBox xmlns="http://javafx.com/javafx/25"
+      xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="com.jobsphere.controller.RegisterController"
-      spacing="10"
-      prefWidth="600.0" prefHeight="600.0"
       alignment="CENTER"
       stylesheets="@../Styles/register.css"
-      styleClass="root">
+      styleClass="root"
+      prefWidth="800.0" prefHeight="850.0">
 
-    <ScrollPane fitToWidth="true" style="-fx-background-color:transparent; -fx-background:transparent;" vbarPolicy="AS_NEEDED">
+    <ScrollPane fitToWidth="true"
+                hbarPolicy="NEVER"
+                vbarPolicy="AS_NEEDED">
+
         <content>
-            <VBox alignment="CENTER">
+            <VBox alignment="CENTER" maxWidth="Infinity">
                 <padding>
-                    <Insets top="20" right="20" bottom="20" left="20"/>
+                    <Insets top="30" right="30" bottom="30" left="30"/>
                 </padding>
 
-                <VBox spacing="15" alignment="CENTER" styleClass="register-card">
+                <VBox spacing="20"
+                      alignment="CENTER"
+                      styleClass="register-card"
+                      maxWidth="Infinity">
 
-                    <Label text="Register" styleClass="header-label"/>
+                    <Label text="Register"
+                           styleClass="page-title"
+                           maxWidth="Infinity"
+                           alignment="CENTER"/>
 
-                    <GridPane hgap="15" vgap="15" alignment="CENTER">
+                    <!-- Main Form -->
+                    <GridPane hgap="18" vgap="18" maxWidth="Infinity">
                         <columnConstraints>
-                            <ColumnConstraints percentWidth="35" halignment="RIGHT"/>
-                            <ColumnConstraints percentWidth="65" halignment="LEFT"/>
+                            <ColumnConstraints minWidth="180" halignment="RIGHT"/>
+                            <ColumnConstraints hgrow="ALWAYS"/>
                         </columnConstraints>
 
-                        <Label text="Name:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
-                        <TextField fx:id="fullName" promptText="Full Name" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+                        <Label text="Full Name:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                        <TextField fx:id="fullName" promptText="Full Name"
+                                   GridPane.rowIndex="0" GridPane.columnIndex="1" maxWidth="Infinity"/>
 
-                        <Label text="Email:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-                        <TextField fx:id="email" promptText="name@domain.com" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+                        <Label text="Email Address:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                        <TextField fx:id="email" promptText="name@domain.com"
+                                   GridPane.rowIndex="1" GridPane.columnIndex="1" maxWidth="Infinity"/>
 
                         <Label text="Password:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
-                        <PasswordField fx:id="password" promptText="Password" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+                        <PasswordField fx:id="password" promptText="Password"
+                                       GridPane.rowIndex="2" GridPane.columnIndex="1" maxWidth="Infinity"/>
 
                         <Label text="Confirm Password:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
-                        <PasswordField fx:id="confirmPassword" promptText="Confirm" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+                        <PasswordField fx:id="confirmPassword" promptText="Confirm password"
+                                       GridPane.rowIndex="3" GridPane.columnIndex="1" maxWidth="Infinity"/>
 
                         <Label text="Role:" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
-                        <ComboBox fx:id="role" promptText="Select Role" GridPane.rowIndex="4" GridPane.columnIndex="1" prefWidth="200"/>
+                        <ComboBox fx:id="role" promptText="Select role"
+                                  GridPane.rowIndex="4" GridPane.columnIndex="1" maxWidth="Infinity"/>
                     </GridPane>
 
                     <Separator/>
 
-                    <VBox fx:id="applicantBox" spacing="10" visible="false" managed="false" alignment="CENTER">
-                        <Label text="Applicant Details" styleClass="section-label"/>
-                        <GridPane hgap="15" vgap="15" alignment="CENTER">
+                    <!-- Applicant Section -->
+                    <VBox fx:id="applicantBox"
+                          spacing="14"
+                          visible="false"
+                          managed="false"
+                          maxWidth="Infinity">
+
+                        <Label text="Applicant Details"
+                               styleClass="section-title"
+                               maxWidth="Infinity"
+                               alignment="CENTER"/>
+
+                        <GridPane hgap="18" vgap="18" maxWidth="Infinity">
                             <columnConstraints>
-                                <ColumnConstraints percentWidth="35" halignment="RIGHT"/>
-                                <ColumnConstraints percentWidth="65" halignment="LEFT"/>
+                                <ColumnConstraints minWidth="180" halignment="RIGHT"/>
+                                <ColumnConstraints hgrow="ALWAYS"/>
                             </columnConstraints>
 
-                            <Label text="Phone:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
-                            <TextField fx:id="phone" promptText="+1 234..." GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+                            <Label text="Phone Number:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                            <TextField fx:id="phone" promptText="+1 234 567 890"
+                                       GridPane.rowIndex="0" GridPane.columnIndex="1" maxWidth="Infinity"/>
 
-                            <Label text="Experience:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-                            <TextField fx:id="experience" promptText="Years (e.g. 2)" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+                            <Label text="Years of Experience:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                            <TextField fx:id="experience" promptText="e.g. 2"
+                                       GridPane.rowIndex="1" GridPane.columnIndex="1" maxWidth="Infinity"/>
 
-                            <Label text="Skills:" GridPane.rowIndex="2" GridPane.columnIndex="0" GridPane.valignment="TOP"/>
-                            <VBox spacing="8" GridPane.rowIndex="2" GridPane.columnIndex="1">
-                                <HBox spacing="5">
-                                    <TextField fx:id="skillInput" promptText="Add a skill" HBox.hgrow="ALWAYS"/>
-                                    <Button text="Add" onAction="#onAddSkill" styleClass="small-btn"/>
+                            <Label text="Skills:" GridPane.rowIndex="2" GridPane.columnIndex="0"
+                                   GridPane.valignment="TOP"/>
+
+                            <VBox spacing="8" GridPane.rowIndex="2" GridPane.columnIndex="1" maxWidth="Infinity">
+                                <HBox spacing="8">
+                                    <TextField fx:id="skillInput"
+                                               promptText="Add a skill"
+                                               HBox.hgrow="ALWAYS"/>
+                                    <Button text="Add"
+                                            onAction="#onAddSkill"
+                                            styleClass="add-btn"/>
                                 </HBox>
-                                <ListView fx:id="skillsList" prefHeight="100"/>
-                                <Button text="Remove Selected" onAction="#onRemoveSkill" styleClass="small-btn"/>
+
+                                <ListView fx:id="skillsList"
+                                          prefHeight="120"
+                                          maxWidth="Infinity"/>
+
+                                <Button text="− Remove Selected"
+                                        onAction="#onRemoveSkill"
+                                        styleClass="remove-btn"/>
                             </VBox>
                         </GridPane>
                     </VBox>
 
-                    <VBox fx:id="companyBox" spacing="10" visible="false" managed="false" alignment="CENTER">
-                        <Label text="Company Details" styleClass="section-label"/>
-                        <GridPane hgap="15" vgap="15" alignment="CENTER">
+                    <!-- Company Section -->
+                    <VBox fx:id="companyBox"
+                          spacing="14"
+                          visible="false"
+                          managed="false"
+                          maxWidth="Infinity">
+
+                        <Label text="Company Details"
+                               styleClass="section-title"
+                               maxWidth="Infinity"
+                               alignment="CENTER"/>
+
+                        <GridPane hgap="18" vgap="18" maxWidth="Infinity">
                             <columnConstraints>
-                                <ColumnConstraints percentWidth="35" halignment="RIGHT"/>
-                                <ColumnConstraints percentWidth="65" halignment="LEFT"/>
+                                <ColumnConstraints minWidth="180" halignment="RIGHT"/>
+                                <ColumnConstraints hgrow="ALWAYS"/>
                             </columnConstraints>
 
-                            <Label text="Website:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
-                            <TextField fx:id="companyWebsite" promptText="https://" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+                            <Label text="Company Website:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                            <TextField fx:id="companyWebsite" promptText="https://"
+                                       GridPane.rowIndex="0" GridPane.columnIndex="1" maxWidth="Infinity"/>
 
                             <Label text="Industry:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-                            <TextField fx:id="companyIndustry" promptText="e.g. Tech" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+                            <TextField fx:id="companyIndustry" promptText="e.g. Technology"
+                                       GridPane.rowIndex="1" GridPane.columnIndex="1" maxWidth="Infinity"/>
 
-                            <Label text="Description:" GridPane.rowIndex="2" GridPane.columnIndex="0" GridPane.valignment="TOP"/>
-                            <TextArea fx:id="companyDescription" promptText="About the company..." GridPane.rowIndex="2" GridPane.columnIndex="1" prefRowCount="3" wrapText="true"/>
+                            <Label text="Description:" GridPane.rowIndex="2" GridPane.columnIndex="0"
+                                   GridPane.valignment="TOP"/>
+                            <TextArea fx:id="companyDescription" prefRowCount="3" wrapText="true"
+                                      promptText="Brief description of the company"
+                                      GridPane.rowIndex="2" GridPane.columnIndex="1" maxWidth="Infinity"/>
                         </GridPane>
                     </VBox>
 
-                    <Label fx:id="msg" textFill="#e53935"/>
+                    <Label fx:id="msg" textFill="#D32F2F"/>
 
-                    <HBox spacing="15" alignment="CENTER" style="-fx-padding: 10 0 0 0;">
+                    <HBox spacing="15" alignment="CENTER" maxWidth="Infinity">
                         <Button text="Register" fx:id="registerBtn" onAction="#onRegisterClicked"/>
                         <Button text="Back to Login" fx:id="loginBtn" onAction="#goToLogin"/>
                     </HBox>
+
                 </VBox>
             </VBox>
         </content>
