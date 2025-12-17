@@ -1,35 +1,93 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<StackPane xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1"
+<StackPane xmlns="http://javafx.com/javafx/25"
+           xmlns:fx="http://javafx.com/fxml/1"
            fx:controller="com.jobsphere.controller.ManageJobController"
            stylesheets="@../Styles/manage-jobs.css"
-           prefWidth="900" prefHeight="600">
+           styleClass="root"
+           prefWidth="800.0" prefHeight="850.0">
+    <!-- ScrollPane fills whole window -->
+    <ScrollPane fitToWidth="true"
+                fitToHeight="true"
+                hbarPolicy="NEVER"
+                vbarPolicy="AS_NEEDED">
 
-    <VBox styleClass="table-card" spacing="15">
+        <content>
+            <!-- Wrapper fills available height -->
+            <VBox alignment="CENTER"
+                  spacing="0"
+                  minHeight="0"
+                  maxHeight="Infinity">
+                <padding>
+                    <Insets top="30" bottom="30" left="30" right="30"/>
+                </padding>
 
-        <Label text="Manage Your Jobs" styleClass="header-label"/>
+                <!-- Main Card -->
+                <VBox styleClass="table-card"
+                      spacing="20"
+                      maxWidth="Infinity"
+                      maxHeight="Infinity"
+                      VBox.vgrow="ALWAYS">
+                    <BorderPane>
+                        <left>
+                            <Button fx:id="backBtn" text="← Back" onAction="#handleBack" styleClass="back-btn"/>
+                        </left>
+                        <right>
+                            <Region prefWidth="80" />
+                        </right>
+                    </BorderPane>
+                    <!-- Title -->
+                    <Label text="Manage Your Jobs"
+                           styleClass="header-label"
+                           maxWidth="Infinity"
+                           alignment="CENTER"/>
 
-        <TableView fx:id="jobTable" prefHeight="400" VBox.vgrow="ALWAYS">
-            <columnResizePolicy>
-                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
-            </columnResizePolicy>
-            <columns>
-                <TableColumn fx:id="colTitle" text="Job Title"/>
-                <TableColumn fx:id="colCity" text="City"/>
-                <TableColumn fx:id="colType" text="Job Type"/>
-                <TableColumn fx:id="colStatus" text="Status"/>
-            </columns>
-        </TableView>
+                    <!-- Table fills vertical space -->
+                    <TableView fx:id="jobTable"
+                               VBox.vgrow="ALWAYS"
+                               maxWidth="Infinity"
+                               maxHeight="Infinity">
 
-        <HBox spacing="15" alignment="CENTER_RIGHT">
-            <Button fx:id="pauseButton" text="Pause / Activate" onAction="#onPauseJob" styleClass="primary-button"/>
-            <Button fx:id="editButton" text="Edit Selected" onAction="#onEditJob" styleClass="primary-button"/>
-            <Button fx:id="deleteButton" text="Delete Job" onAction="#onDeleteJob" styleClass="danger-button"/>
-        </HBox>
+                        <columnResizePolicy>
+                            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                        </columnResizePolicy>
 
-    </VBox>
+                        <columns>
+                            <TableColumn fx:id="colTitle" text="Job Title"/>
+                            <TableColumn fx:id="colCity" text="City"/>
+                            <TableColumn fx:id="colType" text="Job Type"/>
+                            <TableColumn fx:id="colStatus" text="Status"/>
+                        </columns>
+                    </TableView>
 
+                    <!-- Action Buttons (fixed height) -->
+                    <HBox spacing="15"
+                          alignment="CENTER_RIGHT"
+                          maxWidth="Infinity"
+                          style="-fx-padding: 20 0 0 0;">
+
+                        <Button fx:id="pauseButton"
+                                text="Pause / Activate"
+                                onAction="#onPauseJob"
+                                styleClass="primary-button"/>
+
+                        <Button fx:id="editButton"
+                                text="Edit Selected"
+                                onAction="#onEditJob"
+                                styleClass="primary-button"/>
+
+                        <Button fx:id="deleteButton"
+                                text="Delete Job"
+                                onAction="#onDeleteJob"
+                                styleClass="danger-button"/>
+                    </HBox>
+
+                </VBox>
+            </VBox>
+        </content>
+    </ScrollPane>
 </StackPane>

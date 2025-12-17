@@ -317,17 +317,32 @@ public boolean updateJobStatus(int jobId, String status) {
 
 // delete a job
 public boolean deleteJob(int jobId) {
-  String sql = "DELETE FROM jobs WHERE id=?";
-  try (Connection conn = DBConnection.getConnection();
-       PreparedStatement stmt = conn.prepareStatement(sql)) {
+    String deleteAppsSql = "DELETE FROM applications WHERE job_id=?";
+    String deleteSavedSql = "DELETE FROM saved_jobs WHERE job_id=?";
+    String deleteJobSql = "DELETE FROM jobs WHERE id=?";
 
-      stmt.setInt(1, jobId);
-      stmt.executeUpdate();
-      return true;
-  } catch (SQLException e) {
-      e.printStackTrace();
-      return false;
-  }
+    try (Connection conn = DBConnection.getConnection()) {
+
+      try (PreparedStatement appStmt = conn.prepareStatement(deleteAppsSql)) {
+            appStmt.setInt(1, jobId);
+            appStmt.executeUpdate();
+        }
+
+        try (PreparedStatement savedStmt = conn.prepareStatement(deleteSavedSql)) {
+            savedStmt.setInt(1, jobId);
+            savedStmt.executeUpdate();
+        }
+
+        try (PreparedStatement jobStmt = conn.prepareStatement(deleteJobSql)) {
+            jobStmt.setInt(1, jobId);
+            jobStmt.executeUpdate();
+            return true;
+        }
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+        return false;
+    }
 }
 
 public List<Job> getJobsByCompanyId(int companyId) {

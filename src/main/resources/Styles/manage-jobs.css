@@ -1,18 +1,31 @@
-/* === Global Background === */
+/* === Root Background === */
 .root {
     -fx-background-color: linear-gradient(to bottom right, #ece9e6, #ffffff);
     -fx-font-family: 'Segoe UI', sans-serif;
 }
 
-/* === The White Card Container === */
+/* === ScrollPane === */
+.scroll-pane {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+/* === Card Container === */
 .table-card {
     -fx-background-color: white;
     -fx-background-radius: 20;
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 20, 0, 0, 5);
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.1), 20, 0, 0, 5);
     -fx-padding: 30;
-    -fx-alignment: center;
-    -fx-max-width: 800; /* Wider for the table */
     -fx-spacing: 20;
+
+    /* FULL SIZE */
+    -fx-pref-width: 100%;
+    -fx-pref-height: 100%;
+    -fx-max-width: Infinity;
+    -fx-max-height: Infinity;
 }
 
 /* === Header === */
@@ -21,19 +34,17 @@
     -fx-font-size: 28px;
     -fx-font-family: 'Segoe UI Black';
     -fx-font-weight: bold;
-    -fx-padding: 0 0 10 0;
 }
 
-/* === Table View Styling === */
+/* === Table View === */
 .table-view {
     -fx-background-color: transparent;
     -fx-border-color: #CFD8DC;
     -fx-border-radius: 8;
     -fx-background-radius: 8;
-    -fx-padding: 0;
 }
 
-/* Table Header Row (Navy Blue) */
+/* Table Header */
 .table-view .column-header-background {
     -fx-background-color: #1A237E;
     -fx-background-radius: 8 8 0 0;
@@ -47,22 +58,20 @@
 .table-view .column-header .label {
     -fx-text-fill: white;
     -fx-font-weight: bold;
-    -fx-alignment: center-left;
 }
 
-/* Table Rows */
+/* Rows */
 .table-row-cell {
-    -fx-cell-size: 35px;
-    -fx-background-insets: 0;
+    -fx-cell-size: 36px;
 }
 
 .table-row-cell:odd {
-    -fx-background-color: #F4F6F8; /* Light grey striping */
+    -fx-background-color: #F4F6F8;
 }
 
 .table-row-cell:selected {
-    -fx-background-color: #E8EAF6; /* Light blue selection */
-    -fx-text-background-color: #1A237E; /* Dark text on selection */
+    -fx-background-color: #E8EAF6;
+    -fx-text-background-color: #1A237E;
 }
 
 /* === Buttons === */
@@ -80,7 +89,6 @@
     -fx-background-color: #283593;
 }
 
-/* Delete Button (Red) */
 .danger-button {
     -fx-background-color: #e53935;
     -fx-text-fill: white;
@@ -94,14 +102,18 @@
 .danger-button:hover {
     -fx-background-color: #ef5350;
 }
-
-/* === Back Link === */
-.back-link {
+/* === Back Button === */
+.back-btn {
     -fx-background-color: transparent;
-    -fx-text-fill: #78909C;
-    -fx-font-size: 13px;
+    -fx-text-fill: #546E7A;
     -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-padding: 5 10;
     -fx-cursor: hand;
-    -fx-alignment: center-left;
+    -fx-border-color: transparent;
 }
-.back-link:hover { -fx-text-fill: #1A237E; -fx-underline: true; }
+
+.back-btn:hover {
+    -fx-background-radius: 5;
+    -fx-text-fill: #1A237E;
+}
