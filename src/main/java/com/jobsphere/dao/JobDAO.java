@@ -66,15 +66,18 @@ public class JobDAO {
     }
 
     //this function for return list of distinct  country names to display them in the countery filter spinner to give the user options to choose one of them 
-    public List<String> getDistinctCountries() {
+      public List<String> getDistinctCountries() {
         List<String> countries = new ArrayList<>();
-        String sql = "SELECT DISTINCT country FROM jobs ";
+        String sql = "SELECT DISTINCT country FROM jobs";
         try (Connection conn = DBConnection.getConnection();
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
 
             while (rs.next()) {
-                countries.add(rs.getString("country"));
+                String country = rs.getString("country");
+                if (country != null) {
+                    countries.add(country.toLowerCase());
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -82,22 +85,25 @@ public class JobDAO {
         return countries;
     }
 
-    //and this is the same the previous one but for the job types 
     public List<String> getDistinctJobTypes() {
         List<String> types = new ArrayList<>();
-        String sql = "SELECT DISTINCT job_type FROM jobs ";
+        String sql = "SELECT DISTINCT job_type FROM jobs";
         try (Connection conn = DBConnection.getConnection();
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
 
             while (rs.next()) {
-                types.add(rs.getString("job_type"));
+                String type = rs.getString("job_type");
+                if (type != null) {
+                    types.add(type.toLowerCase());
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return types;
     }
+
 
 
 // Get all distinct job statuses for active jobs
