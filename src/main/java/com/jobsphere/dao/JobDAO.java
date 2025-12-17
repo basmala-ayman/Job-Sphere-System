@@ -135,11 +135,13 @@ public List<String> getDistinctCareerLevels() {
 }
 
 
-    //and this function will return the active current jobs based on just one filter or both or even if the user not choose any filter it will return all the jobs without any restriction 
-    public List<Job> filterJobs(String country, String jobType, String jobStatus, String careerLevel) {
+   public List<Job> filterJobs(String country, String jobType) {
       List<Job> jobs = new ArrayList<>();
-      StringBuilder sql = new StringBuilder("SELECT * FROM jobs WHERE 1=1"); //to can add to it easily
+  
+      StringBuilder sql = new StringBuilder("SELECT * FROM jobs WHERE status='active'");
       List<String> params = new ArrayList<>();
+
+      //ANY here means i do not want to filter by this field 
   
       if (country != null && !country.isEmpty() && !country.equals("Any")) {
           sql.append(" AND country = ?");
@@ -151,19 +153,10 @@ public List<String> getDistinctCareerLevels() {
           params.add(jobType);
       }
   
-      if (jobStatus != null && !jobStatus.isEmpty() && !jobStatus.equals("Any")) {
-          sql.append(" AND status = ?");
-          params.add(jobStatus);
-      }
-  
-      if (careerLevel != null && !careerLevel.isEmpty() && !careerLevel.equals("Any")) {
-          sql.append(" AND career_level = ?");
-          params.add(careerLevel);
-      }
-  
       try (Connection conn = DBConnection.getConnection();
            PreparedStatement stmt = conn.prepareStatement(sql.toString())) {
-  
+
+  //cause now the params is dynamic 
           for (int i = 0; i < params.size(); i++) {
               stmt.setString(i + 1, params.get(i));
           }
@@ -179,7 +172,6 @@ public List<String> getDistinctCareerLevels() {
   
       return jobs;
   }
-  
   
   
 
