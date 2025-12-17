@@ -1,4 +1,5 @@
 package com.jobsphere.controller;
+
 import com.jobsphere.dao.JobDAO;
 import com.jobsphere.model.*;
 
@@ -47,11 +48,11 @@ public class JobSearchController {
 
         // Countries dropdown with ignore case and remove duplicates
         List<String> countries = jobDAO.getDistinctCountries().stream()
-                .map(String::toLowerCase)       
-                .distinct()                   
-                .sorted()                       
+                .map(String::toLowerCase)
+                .distinct()
+                .sorted()
                 .toList();
-        countries.add(0, "All");        
+        countries.add(0, "All");
         locationBox.setItems(FXCollections.observableArrayList(countries));
         locationBox.getSelectionModel().selectFirst();
 

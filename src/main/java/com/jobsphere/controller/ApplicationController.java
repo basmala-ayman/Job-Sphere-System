@@ -2,6 +2,7 @@ package com.jobsphere.controller;
 
 import com.jobsphere.model.ApplicationFullInfo;
 import com.jobsphere.service.ApplicationsService;
+import com.jobsphere.service.auth.SessionManager;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -32,10 +33,11 @@ public class ApplicationController {
     private TableColumn<ApplicationFullInfo, Void> saveColumn;
 
     private ApplicationsService applicationService;
-    private int companyId ;
+    private int companyId;
 
     @FXML
     public void initialize() {
+
         applicationService = new ApplicationsService();
 
         // -------------------------------
@@ -53,14 +55,16 @@ public class ApplicationController {
         // Setup Save button per row
         setupSaveButtonColumn();
 
+        setCompanyId();
 
     }
 
     //this is just taking the data based on the dynamic id i will take after log in 
-    public void setCompanyId(int companyId) {
-      this.companyId = companyId;
-      loadApplications();
-  }
+    public void setCompanyId() {
+
+        this.companyId = SessionManager.getInstance().getCurrentUserId();
+        loadApplications();
+    }
 
 
     private void loadApplications() {

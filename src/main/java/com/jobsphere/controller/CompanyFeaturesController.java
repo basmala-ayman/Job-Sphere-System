@@ -70,9 +70,6 @@ public class CompanyFeaturesController {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/layouts/ApplicationsView.fxml"));
 
-            int loggedInCompanyId = SessionManager.getInstance().getCurrentUserId();
-            ApplicationController controller = loader.getController();
-            controller.setCompanyId(loggedInCompanyId); // dynamic value
 
             Stage stage = new Stage();
             stage.setScene(new Scene(loader.load()));
