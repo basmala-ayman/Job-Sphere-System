@@ -6,7 +6,7 @@
 <VBox xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="com.jobsphere.controller.JobSearchController"
       spacing="15" alignment="TOP_CENTER"
-      stylesheets="@../Styles/searchStyles.css">
+      stylesheets="@../Styles/searchJob.css">
 
     <!-- Padding -->
     <padding>
