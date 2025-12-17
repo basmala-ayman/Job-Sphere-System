@@ -4,13 +4,20 @@ import com.jobsphere.service.auth.SessionManager;
 import com.jobsphere.dao.JobDAO;
 import com.jobsphere.model.CompanyJobBuilder;
 import com.jobsphere.model.Job;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 import javafx.scene.Node;
+
+import java.io.IOException;
+
 public class JobFormController {
 
     @FXML
@@ -154,7 +161,22 @@ public class JobFormController {
             }
         }
     }
+    @FXML
+    public void handleBack(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/layouts/CompanyFeatures.fxml"));
+            Parent root = loader.load();
 
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("Could not load the previous screen.");
+            alert.show();
+        }
+    }
     @FXML
     private void onCancel() {
         clearForm();

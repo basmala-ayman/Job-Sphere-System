@@ -11,9 +11,18 @@
 
     <center>
         <VBox spacing="20" styleClass="main-container">
+
             <padding>
                 <Insets top="30" right="30" bottom="30" left="30"/>
             </padding>
+            <BorderPane>
+                <left>
+                    <Button fx:id="backBtn" text="← Back" onAction="#handleBack" styleClass="back-btn"/>
+                </left>
+                <right>
+                    <Region prefWidth="80" />
+                </right>
+            </BorderPane>
 
             <Label text="Manage Company Applications" styleClass="header-label" style="-fx-font-size: 24;"/>
 

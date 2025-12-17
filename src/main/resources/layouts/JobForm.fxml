@@ -23,12 +23,19 @@
                 <padding>
                     <Insets top="30" bottom="30" left="30" right="30"/>
                 </padding>
-
+                
                 <!-- Form Card -->
                 <VBox styleClass="form-card"
                       spacing="20"
                       maxWidth="Infinity">
-
+                    <BorderPane>
+                        <left>
+                            <Button fx:id="backBtn" text="← Back" onAction="#handleBack" styleClass="back-btn"/>
+                        </left>
+                        <right>
+                            <Region prefWidth="80" />
+                        </right>
+                    </BorderPane>
                     <Label text="Add New Job"
                            styleClass="header-label"
                            maxWidth="Infinity"

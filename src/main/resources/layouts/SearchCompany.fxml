@@ -20,11 +20,6 @@
         <left>
             <Button fx:id="backBtn" text="← Back" onAction="#handleBack" styleClass="back-btn"/>
         </left>
-        <center>
-            <StackPane alignment="CENTER">
-                <Label text="Advanced Candidate Search" styleClass="header-label"/>
-            </StackPane>
-        </center>
         <right>
             <Region prefWidth="50" />
         </right>
