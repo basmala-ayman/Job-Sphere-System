@@ -1,4 +1,5 @@
 package com.jobsphere.controller;
+
 import com.jobsphere.dao.JobDAO;
 import com.jobsphere.model.*;
 
@@ -12,8 +13,8 @@ import javafx.scene.control.TextField;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class JobSearchController {
 
@@ -40,28 +41,22 @@ public class JobSearchController {
 
     @FXML
     public void initialize() throws SQLException {
-
         Connection conn = com.jobsphere.dao.DBConnection.getConnection();
         jobDAO = JobDAO.getInstance(conn);
 
         allJobs = jobDAO.getAllJobs();
+        if (allJobs == null) {
+            allJobs = new ArrayList<>();
+        }
 
-        // Countries dropdown with ignore case and remove duplicates
-        List<String> countries = jobDAO.getDistinctCountries().stream()
-                .map(String::toLowerCase)
-                .distinct()
-                .sorted()
-                .collect(Collectors.toList());
+        List<String> countries = jobDAO.getDistinctCountries();
+        if (countries == null) countries = new ArrayList<>();
         countries.add(0, "All");
         locationBox.setItems(FXCollections.observableArrayList(countries));
         locationBox.getSelectionModel().selectFirst();
 
-        // Job Types dropdown with ignore case and remove duplicates
-        List<String> jobTypes = jobDAO.getDistinctJobTypes().stream()
-                .map(String::toLowerCase)
-                .distinct()
-                .sorted()
-                .collect(Collectors.toList());
+        List<String> jobTypes = jobDAO.getDistinctJobTypes();
+        if (jobTypes == null) jobTypes = new ArrayList<>();
         jobTypes.add(0, "All");
         typeBox.setItems(FXCollections.observableArrayList(jobTypes));
         typeBox.getSelectionModel().selectFirst();
@@ -92,22 +87,22 @@ public class JobSearchController {
         }
 
         if (!isKeywordEmpty && isCountryAll && isJobTypeAll) {
-            context.setStrategy(new KeywordSearchStrategy(keyword.toLowerCase()));
+            context.setStrategy(new KeywordSearchStrategy(keyword));
         } else if (isKeywordEmpty) {
             context.setStrategy(new FilterSearchStrategy(
-                    isCountryAll ? null : country.toLowerCase(),
-                    isJobTypeAll ? null : jobType.toLowerCase()
+                    isCountryAll ? null : country,
+                    isJobTypeAll ? null : jobType
             ));
         } else {
             context.setStrategy(new CombinedSearchStrategy(
-                    keyword.toLowerCase(),
-                    isCountryAll ? null : country.toLowerCase(),
-                    isJobTypeAll ? null : jobType.toLowerCase()
+                    keyword,
+                    isCountryAll ? null : country,
+                    isJobTypeAll ? null : jobType
             ));
         }
 
         List<Job> results = context.execute(jobDAO);
+        if (results == null) results = new ArrayList<>();
         jobTable.setItems(FXCollections.observableArrayList(results));
     }
-
 }
