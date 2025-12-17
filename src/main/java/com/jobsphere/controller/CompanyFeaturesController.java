@@ -44,23 +44,18 @@ public class CompanyFeaturesController {
         navigate(event, "/layouts/Login.fxml", "Login");
     }
 
+
     /**
      * Helper method to handle closing the current window and opening a new one.
      */
     private void navigate(ActionEvent event, String fxmlPath, String title) {
         try {
-            // 1. Load the new FXML first (to ensure it exists before closing the old one)
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
             Parent root = loader.load();
-
-            // 2. Create and show the new Stage
             Stage newStage = new Stage();
             newStage.setScene(new Scene(root));
             newStage.setTitle(title);
             newStage.show();
-
-            // 3. Close the current Stage (Old Window)
-            // We get the stage from the event source (the button that was clicked)
             Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             currentStage.close();
 
