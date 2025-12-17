@@ -9,8 +9,16 @@ import com.jobsphere.service.creator.UserCreatorFactory;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+import javafx.event.ActionEvent;
+
+import java.io.IOException;
 
 public class RegisterController {
 
@@ -37,6 +45,7 @@ public class RegisterController {
     private ListView<String> skillsList;
     @FXML
     private TextField experience;
+
     // company data
     @FXML
     private VBox companyBox;
@@ -46,6 +55,7 @@ public class RegisterController {
     private TextField companyIndustry;
     @FXML
     private TextArea companyDescription;
+
     // message for errors
     @FXML
     private Label msg;
@@ -53,7 +63,7 @@ public class RegisterController {
     @FXML
     private Button registerBtn;
     @FXML
-    private Button cancelBtn;
+    private Button loginBtn;
 
     private final Authentication auth = new Authentication();
 
@@ -103,25 +113,38 @@ public class RegisterController {
     }
 
     @FXML
-    private void onCancelClicked() {
-        clearForm();
-        msg.setText("");
+    private void goToLogin() {
+
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/layouts/Login.fxml"));
+            Scene scene = new Scene(loader.load());
+            Stage stage = (Stage) loginBtn.getScene().getWindow();
+            stage.setScene(scene);
+        } catch (IOException e) {
+        }
     }
+
+    String name, mail, pass, confirmPass, selectedRole, applicantPhone, comWebsite, comIndustry;
 
     @FXML
     private void onRegisterClicked() {
         msg.setText("");
         msg.setStyle("-fx-text-fill: red;");
 
-        String name = fullName.getText().trim();
-        String mail = email.getText().trim();
-        String pass = password.getText();
-        String confirmPass = confirmPassword.getText();
-        String selectedRole = role.getSelectionModel().getSelectedItem();
+        name = fullName.getText().trim();
+        mail = email.getText().trim();
+        pass = password.getText();
+        confirmPass = confirmPassword.getText();
+        selectedRole = role.getSelectionModel().getSelectedItem();
+
+        applicantPhone = phone.getText().trim();
+
+        comWebsite = companyWebsite.getText().trim();
+        comIndustry = companyIndustry.getText().trim();
 
         // validation
         if (name.isEmpty() || mail.isEmpty() || pass.isEmpty() || confirmPass.isEmpty() || selectedRole == null) {
-            msg.setText("Please fill all the fields!!");
+            msg.setText("Please fill all fields!!");
             return;
         }
 
@@ -141,11 +164,23 @@ public class RegisterController {
             return;
         }
 
+        // validation for applicant
+        if (selectedRole.equalsIgnoreCase("applicant")) {
+            if (applicantPhone.isEmpty()) {
+                msg.setText("Please fill the fields!!");
+                return;
+            }
+        } else if (selectedRole.equalsIgnoreCase("company")) {
+            if (comWebsite.isEmpty() || comIndustry.isEmpty()) {
+                msg.setText("Please fill the fields!!");
+                return;
+            }
+        }
+
         // to avoid double clicks
         registerBtn.setDisable(true);
 
         try {
-
             UserCreator userCreator = UserCreatorFactory.getUserCreator(selectedRole);
             User user = userCreator.createUser(this);
             user.setUsername(name);
@@ -155,17 +190,13 @@ public class RegisterController {
 
             RegistrationResult result = auth.registerUserAuth(user, selectedRole);
             if (result.isSuccess()) {
-                User sessionUser = new User();
-                sessionUser.setId(result.getUserId());
-                sessionUser.setUsername(user.getUsername());
-                sessionUser.setEmail(mail);
-                sessionUser.setPassword(pass);
-                sessionUser.setRole(selectedRole);
-                // store current user into session manager
-                SessionManager.getInstance().setCurrentUser(sessionUser);
 
                 msg.setStyle("-fx-text-fill: green;");
                 msg.setText("Registration successfully!!");
+                clearForm();
+                msg.setText("");
+                goToLogin();
+
             } else {
                 msg.setText("Registration failed!! Email may already exist! Please try to login.");
             }
@@ -183,23 +214,28 @@ public class RegisterController {
     }
 
     public String getCompanyIndustry() {
-        return companyIndustry == null ? "" : companyIndustry.getText();
+        return comIndustry;
     }
 
     public String getCompanyWebsite() {
-        return companyWebsite == null ? "" : companyWebsite.getText();
+        return comWebsite;
     }
 
     public String getSkills() {
-        return skillsList == null ? "" : convertToJSON(skillsList.getItems());
+        return convertToJSON(skillsList.getItems());
     }
 
     public int getExperience() {
-        return experience == null ? 0 : Integer.parseInt(experience.getText().trim());
+        String ex = experience.getText().trim();
+        if (ex.isEmpty()) {
+            return 0;
+        } else {
+            return Integer.parseInt(ex);
+        }
     }
 
     public String getPhone() {
-        return phone == null ? "" : phone.getText().trim();
+        return applicantPhone;
     }
 
     private void clearForm() {
@@ -225,11 +261,15 @@ public class RegisterController {
         box.setManaged(status);
     }
 
-    private boolean isValidEmail(String email) {
+    public boolean isValidEmail(String email) {
         return email.contains("@") && email.contains(".");
     }
 
     private String convertToJSON(ObservableList<String> skills) {
+        if (skills.isEmpty()) {
+            return "[]";
+        }
+
         StringBuilder sb = new StringBuilder("[");
         for (int i = 0; i < skills.size(); i++) {
             sb.append("\"").append(skills.get(i).replace("\"", "\\\"")).append("\"");

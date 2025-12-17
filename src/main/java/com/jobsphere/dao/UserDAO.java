@@ -9,7 +9,21 @@ import org.mindrot.jbcrypt.BCrypt;
 
 public class UserDAO {
 
-    //this function is taking User object and add this new user into our database 
+    //we will use singleton here too to jsut dealing with just one object from it
+    private static UserDAO instance;
+
+    private UserDAO() {
+    }
+
+    public static UserDAO getInstance() {
+        if (instance == null) {
+            instance = new UserDAO();
+        }
+        return instance;
+    }
+
+
+    //this function is taking User object and add this new user into our database
     public User registerUser(Connection conn, User user) {
         String sql = "INSERT INTO users (name, email, password, role) VALUES (?, ?, ?, ?)";
         try (PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
@@ -97,5 +111,6 @@ public class UserDAO {
     private boolean checkPassword(String password, String hashed) {
         return BCrypt.checkpw(password, hashed);
     }
+
 
 }
