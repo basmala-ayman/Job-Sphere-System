@@ -28,8 +28,7 @@ public class SearchCompanyController {
     @FXML private ComboBox<String> skillComboBox;
     @FXML private ComboBox<Integer> expComboBox;
     @FXML private Button backBtn;
-    @FXML private TableView<SearchCompany> resultsTable;
-
+    @FXML private TableView<SearchCompany> resultsTable; //observer observes the ObservableList
 
     @FXML private TableColumn<SearchCompany, String> colJob;
     @FXML private TableColumn<SearchCompany, String> colStatus;
@@ -44,13 +43,20 @@ public class SearchCompanyController {
     private ApplicantDAO applicantDAO = ApplicantDAO.getInstance();
     private JobDAO jobDAO = JobDAO.getInstance();
 
+    //Observer1
+    // ObservableList for the table - any change will notify observers (the TableView)
     private ObservableList<SearchCompany> tableData = FXCollections.observableArrayList();
+
     private int companyId;
 
    @FXML
     public void initialize() {
-
-       jobComboBox.valueProperty().addListener((obs, oldJob, newJob) -> {
+       //observer2
+       //observable: it is observable, if changed, observers are changed
+       //value property = observable, add listener= add observer, concrete observer= SearchCompanyController
+       jobComboBox.valueProperty().addListener((
+               //notify is implicit, when the job is selected, javafx notify all the listeners
+               obs, oldJob, newJob) -> {
            if (newJob != null) {
                skillComboBox.setDisable(false);
                expComboBox.setDisable(false);
@@ -58,6 +64,7 @@ public class SearchCompanyController {
                skillComboBox.getSelectionModel().clearSelection();
                expComboBox.getSelectionModel().clearSelection();
 
+               // Load skills and candidates for the selected job
                loadSkillsForJob(newJob.getId());
                loadAllCandidatesForJob(newJob.getId());
            }
@@ -65,7 +72,7 @@ public class SearchCompanyController {
 
 
 
-       // 1. Setup Table Columns
+       //Setup Table Columns
         colJob.setCellValueFactory(new PropertyValueFactory<>("jobTitle"));
         colStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
         colName.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -74,45 +81,21 @@ public class SearchCompanyController {
         colEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
         colResume.setCellValueFactory(new PropertyValueFactory<>("resumeUrl"));
 
+        //link between (observer) table and (observable) tableData
         resultsTable.setItems(tableData);
-
-        // 2. Load Filter Data
+        //Load Filter Data
         loadFilterData();
     }
 
-    private void loadSkillsForJob(int jobId) {
-        Job job = jobDAO.getJobById(jobId);
-
-        if (job == null || job.getRequirements() == null || job.getRequirements().isBlank()) {
-            skillComboBox.getItems().clear();
-            return;
-        }
-
-        List<String> skills = List.of(job.getRequirements().split(",\\s*"));
-        skillComboBox.setItems(FXCollections.observableArrayList(skills));
-    }
-
-    private void loadAllCandidatesForJob(int jobId) {
-        tableData.clear();
-
-        List<SearchCompany> results =
-                appDAO.searchCandidatesByExperienceAndSkill(
-                        jobId,
-                        0,        // minimum experience
-                        ""        // ignore skill
-                );
-
-        tableData.setAll(results);
-    }
-
-
+    // Load all Filter Data
     private void loadFilterData() {
         this.companyId = SessionManager.getInstance().getCurrentUserId();
-
+        //observer3, observable: my Jobs, observer: jobComboBox
         ObservableList<Job> myJobs = FXCollections.observableArrayList();
         List<Job> myJobsList = jobDAO.getJobsByCompanyId(companyId);
         myJobs.addAll(myJobsList);
 
+        //any change in jobs list, jobComboBox will be notified
         jobComboBox.setItems(myJobs);
 
         jobComboBox.setConverter(new StringConverter<Job>() {
@@ -127,14 +110,10 @@ public class SearchCompanyController {
             }
         });
 
-        // 🔹 Disable filters until job selected
+
         skillComboBox.setDisable(true);
         expComboBox.setDisable(true);
 
-        // 🔹 Placeholders
-        jobComboBox.setPromptText("Select Job");
-        skillComboBox.setPromptText("Select Skill");
-        expComboBox.setPromptText("Experience");
 
         // Load Distinct Experience Years
         List<Integer> years = applicantDAO.getDistinctExperienceYears();
@@ -142,7 +121,38 @@ public class SearchCompanyController {
     }
 
 
+    // Load Skills for the selected Job when the user selects it
+    private void loadSkillsForJob(int jobId) {
+        Job job = jobDAO.getJobById(jobId);
 
+        if (job == null || job.getRequirements() == null || job.getRequirements().isBlank()) {
+            skillComboBox.getItems().clear();
+            return;
+        }
+
+        List<String> skills = List.of(job.getRequirements().split(",\\s*"));
+        skillComboBox.setItems(FXCollections.observableArrayList(skills));
+    }
+
+    // Load all Candidates for the selected Job when the user selects it without filters
+    private void loadAllCandidatesForJob(int jobId) {
+        tableData.clear();
+
+        List<SearchCompany> results =
+                appDAO.searchCandidatesByExperienceAndSkill(
+                        jobId,
+                        0,        // minimum experience
+                        ""        // ignore skill
+                );
+
+        //link between (observer) table and (observable) tableData
+        //any change in tableData will notify the TableView
+        //table view now has the new data
+        tableData.setAll(results);
+    }
+
+
+// search by filter when user clicks the filter button
     @FXML
     private void handleSearch() {
         Job selectedJob = jobComboBox.getValue();
