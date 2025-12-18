@@ -14,10 +14,14 @@ import java.io.IOException;
 
 public class CompanyFeaturesController {
 
-    @FXML Button addJobButton;
-    @FXML Button manageJobsButton;
-    @FXML Button candidateSearch;
-    @FXML Button appManagement;
+    @FXML
+    Button addJobButton;
+    @FXML
+    Button manageJobsButton;
+    @FXML
+    Button candidateSearch;
+    @FXML
+    Button appManagement;
 
     @FXML
     private void onClickAddJob(ActionEvent event) {
@@ -38,16 +42,13 @@ public class CompanyFeaturesController {
     private void toAppManagement(ActionEvent event) {
         navigate(event, "/layouts/ApplicationsView.fxml", "Applications Management");
     }
+
     @FXML
     private void onLogout(ActionEvent event) {
         SessionManager.getInstance().clearCurrentUser();
         navigate(event, "/layouts/Login.fxml", "Login");
     }
-
-
-    /**
-     * Helper method to handle closing the current window and opening a new one.
-     */
+    
     private void navigate(ActionEvent event, String fxmlPath, String title) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));

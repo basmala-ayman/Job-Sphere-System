@@ -13,15 +13,10 @@ public class FilterSearchStrategy implements JobSearchStrategy {
         this.jobType = jobType;
     }
 
-    @Override
-//    public List<Job> search(JobDAO dao) {
-//        return dao.filterJobs(country, jobType);
-//    }
-
     public List<Job> search(JobDAO dao) {
         List<Job> jobs = dao.getAllJobs();
 
-      return jobs.stream()
+        return jobs.stream()
                 .filter(job -> country == null || job.getCountry().equalsIgnoreCase(country))
                 .filter(job -> jobType == null || job.getJobType().equalsIgnoreCase(jobType))
                 .toList();

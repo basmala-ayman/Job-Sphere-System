@@ -8,8 +8,8 @@
            fx:controller="com.jobsphere.controller.CompanyFeaturesController"
            stylesheets="@../Styles/company-features.css"
            styleClass="root"
-           prefWidth="600.0"
-           prefHeight="600.0">
+           prefWidth="800.0"
+           prefHeight="850.0">
 
     <!-- Main Card -->
     <VBox spacing="25"
@@ -22,10 +22,8 @@
             <Insets top="40" right="40" bottom="40" left="40"/>
         </padding>
 
-        <!-- Title -->
         <Label text="Company Portal" styleClass="header-label"/>
 
-        <!-- Buttons -->
         <VBox spacing="15" alignment="CENTER" fillWidth="true">
 
             <Button text="Add New Job"

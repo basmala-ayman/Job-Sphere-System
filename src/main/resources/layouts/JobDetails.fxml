@@ -9,19 +9,25 @@
       fx:controller="com.jobsphere.controller.JobDetailsController"
       spacing="15"
       stylesheets="@../Styles/jobDetails.css"
+      prefWidth="800.0" prefHeight="850.0"
       styleClass="root form-card">
 
     <padding>
         <Insets top="20" right="20" bottom="20" left="20"/>
     </padding>
+    <BorderPane>
+        <left>
+            <Button fx:id="backBtn" text="← Back" onAction="#handleBack" styleClass="back-btn"/>
+        </left>
+        <right>
+            <Region prefWidth="80"/>
+        </right>
+    </BorderPane>
 
-    <!-- Page Title -->
     <Label text="Job Details" styleClass="header-label"/>
 
-    <!-- Jobs List -->
     <ListView fx:id="jobList" prefHeight="200" styleClass="list-view"/>
 
-    <!-- Job Details Grid -->
     <GridPane hgap="10" vgap="10">
 
         <Label text="Job Title:" GridPane.rowIndex="0" GridPane.columnIndex="0" styleClass="field-label"/>

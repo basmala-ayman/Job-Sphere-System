@@ -8,7 +8,6 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class ApplicationsDAO {
 
     //we will use singleton here too to jsut dealing with just one object from it
@@ -249,6 +248,4 @@ public class ApplicationsDAO {
 
         return list;
     }
-
-
 }

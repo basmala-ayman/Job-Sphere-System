@@ -28,14 +28,12 @@ public class SavedJobsController {
             return;
         }
 
-        // Load saved jobs into list
         savedJobList.setItems(
                 FXCollections.observableArrayList(
                         savedJobsDAO.getSavedJobsByApplicant(applicantId)
                 )
         );
 
-        // Optional: double-click to show job details
         savedJobList.setOnMouseClicked(event -> {
             if (event.getClickCount() == 2) {
                 showJobDetails();

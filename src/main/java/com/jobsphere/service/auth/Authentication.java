@@ -20,7 +20,7 @@ public class Authentication {
             // make AutoCommit -> false to create (user record + user account record) and then save them to avoid partial user creation
             conn.setAutoCommit(false);
 
-            // register applicant or company user
+            // register applicant or company user (registration only without profile)
             User userIsCreated = userDao.registerUser(conn, (User) user);
             if (userIsCreated == null) {
                 conn.rollback();

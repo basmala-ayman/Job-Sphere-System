@@ -4,22 +4,11 @@ import com.jobsphere.dao.UserDAO;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import com.jobsphere.model.User;
-import com.jobsphere.service.auth.Authentication;
-import com.jobsphere.service.auth.RegistrationResult;
 import com.jobsphere.service.auth.SessionManager;
-import com.jobsphere.service.creator.UserCreator;
-import com.jobsphere.service.creator.UserCreatorFactory;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import javafx.event.ActionEvent;
 
 import java.io.IOException;
 
@@ -60,10 +49,6 @@ public class LoginController {
                 // store current user into session manager
                 SessionManager.getInstance().setCurrentUser(currentUser);
                 goToFeatures(currentUser.getRole());
-
-
-//                msg.setStyle("-fx-text-fill: green;");
-//                msg.setText("Logged in successfully!!");
             } else {
                 msg.setText("Logging failed!! Check your email and password!!");
             }

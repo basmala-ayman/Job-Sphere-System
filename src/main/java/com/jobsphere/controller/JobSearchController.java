@@ -14,10 +14,10 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.*;
 
-import javafx.event.ActionEvent; 
-import javafx.scene.Node; 
-import javafx.scene.Parent; 
-import javafx.stage.Stage; 
+import javafx.event.ActionEvent;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 
@@ -93,7 +93,6 @@ public class JobSearchController {
 
         jobTable.setItems(FXCollections.observableArrayList(allJobs));
     }
-
 
     @FXML
     public void searchJobs() {

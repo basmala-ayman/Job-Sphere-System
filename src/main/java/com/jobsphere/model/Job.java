@@ -21,7 +21,6 @@ public class Job {
     private String salary;
     private String status = "active"; // active / paused
 
-
     // Getters and setters for the new fields
     public int getId() {
         return id;
