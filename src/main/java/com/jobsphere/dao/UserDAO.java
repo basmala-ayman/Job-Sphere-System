@@ -6,7 +6,6 @@ import java.sql.*;
 
 import org.mindrot.jbcrypt.BCrypt;
 
-
 public class UserDAO {
 
     //we will use singleton here too to jsut dealing with just one object from it
@@ -21,7 +20,6 @@ public class UserDAO {
         }
         return instance;
     }
-
 
     //this function is taking User object and add this new user into our database
     public User registerUser(Connection conn, User user) {

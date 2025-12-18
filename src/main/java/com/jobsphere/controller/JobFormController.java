@@ -52,8 +52,8 @@ public class JobFormController {
     @FXML
     private TextField salaryField;
 
-    private Job toBeEditedJob=null;
-    private JobDAO jobDAO=JobDAO.getInstance();
+    private Job toBeEditedJob = null;
+    private JobDAO jobDAO = JobDAO.getInstance();
 
     @FXML
     public void initialize() {
@@ -70,28 +70,31 @@ public class JobFormController {
 
     //load the form with all the job fields already set
     public void setEditMode(Job job) {
-        if(job!=null){
-            toBeEditedJob=job;
+        if (job != null) {
+            toBeEditedJob = job;
             titleField.setText(job.getTitle());
             responsibilitiesArea.setText(job.getResponsibilities());
-            if(job.getDescription()!=null){
+            if (job.getDescription() != null) {
                 descriptionArea.setText(job.getDescription());
             }
-            if(job.getRequirements()!=null){requirementsArea.setText(job.getRequirements());}
+            if (job.getRequirements() != null) {
+                requirementsArea.setText(job.getRequirements());
+            }
             if (job.getCareerLevel() != null) careerLevelCombo.setValue(job.getCareerLevel());
             if (job.getJobType() != null) jobTypeCombo.setValue(job.getJobType());
             if (job.getWorkplace() != null) workplaceCombo.setValue(job.getWorkplace());
             if (job.getJobCategory() != null) jobCategoryCombo.setValue(job.getJobCategory());
-            if(job.getCountry() != null) countryField.setText(job.getCountry());
-            if(job.getCity() != null) cityField.setText(job.getCity());
-            if(job.getSalary() != null) salaryField.setText(job.getSalary());
+            if (job.getCountry() != null) countryField.setText(job.getCountry());
+            if (job.getCity() != null) cityField.setText(job.getCity());
+            if (job.getSalary() != null) salaryField.setText(job.getSalary());
 
         }
     }
+
     @FXML
     private void onSubmit() {
         // check that main fields are not missing
-        if (titleField.getText().isEmpty()  || responsibilitiesArea.getText().isEmpty()) {
+        if (titleField.getText().isEmpty() || responsibilitiesArea.getText().isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Error");
             alert.setHeaderText("Missing Fields");
@@ -100,7 +103,7 @@ public class JobFormController {
             return;
         }
 
-        if(toBeEditedJob==null) {
+        if (toBeEditedJob == null) {
             // insert new job not editing
             Job job = new CompanyJobBuilder()
                     .setMainInfo(titleField.getText(), descriptionArea.getText(), requirementsArea.getText())
@@ -111,13 +114,10 @@ public class JobFormController {
                     .setSalary(salaryField.getText())
                     .build();
 
-            // set the company ID dynamically
-            //job.setCompanyId(loggedCompanyId);
             job.setCompanyId(SessionManager.getInstance().getCurrentUserId());
             boolean check = jobDAO.insertJob(job);
 
-
-            if ( check ) {
+            if (check) {
                 System.out.println("Job inserted with ID: " + job.getId());
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                 alert.setTitle("Successfully inserted");
@@ -129,8 +129,7 @@ public class JobFormController {
                 alert.setHeaderText("Failed to insert job!");
                 alert.showAndWait();
             }
-        }
-        else{
+        } else {
             //update existing job
             toBeEditedJob.setTitle(titleField.getText());
             toBeEditedJob.setDescription(descriptionArea.getText());
@@ -144,16 +143,15 @@ public class JobFormController {
             toBeEditedJob.setJobCategory(jobCategoryCombo.getValue());
             toBeEditedJob.setSalary(salaryField.getText());
 
-            boolean isUpdated=jobDAO.updateJob(toBeEditedJob);
+            boolean isUpdated = jobDAO.updateJob(toBeEditedJob);
 
-            if(isUpdated){
+            if (isUpdated) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Successfully inserted");
                 alert.setHeaderText("Job Updated!");
                 alert.showAndWait();
                 closeWindow();
-            }
-            else{
+            } else {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.setTitle("Error");
                 alert.setHeaderText("Failed to insert job!");
@@ -161,6 +159,7 @@ public class JobFormController {
             }
         }
     }
+
     @FXML
     public void handleBack(ActionEvent event) {
         try {
@@ -177,6 +176,7 @@ public class JobFormController {
             alert.show();
         }
     }
+
     @FXML
     private void onCancel() {
         clearForm();
@@ -194,8 +194,9 @@ public class JobFormController {
         jobCategoryCombo.getSelectionModel().clearSelection();
         responsibilitiesArea.clear();
         salaryField.clear();
-        toBeEditedJob=null;
+        toBeEditedJob = null;
     }
+    
     private void closeWindow() {
         Stage stage = (Stage) titleField.getScene().getWindow();
         stage.close();

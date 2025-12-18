@@ -1,4 +1,5 @@
 package com.jobsphere.controller;
+
 import com.jobsphere.dao.JobDAO;
 import com.jobsphere.model.Job;
 import com.jobsphere.service.auth.SessionManager;
@@ -18,45 +19,58 @@ import java.io.IOException;
 
 public class ManageJobController {
 
-    @FXML private TableView<Job> jobTable;
-    @FXML private TableColumn<Job, String> colTitle;
-    @FXML private TableColumn<Job, String> colCity;
-    @FXML private TableColumn<Job, String> colType;
-    @FXML private TableColumn<Job, String> colStatus;
+    @FXML
+    private TableView<Job> jobTable;
+    @FXML
+    private TableColumn<Job, String> colTitle;
+    @FXML
+    private TableColumn<Job, String> colCity;
+    @FXML
+    private TableColumn<Job, String> colType;
+    @FXML
+    private TableColumn<Job, String> colStatus;
 
-    @FXML private Button editButton;
-    @FXML private Button pauseButton;
-    @FXML private Button deleteButton;
+    @FXML
+    private Button editButton;
+    @FXML
+    private Button pauseButton;
+    @FXML
+    private Button deleteButton;
 
     private ObservableList<Job> jobList;
     private JobDAO jobDAO = JobDAO.getInstance();
     private int companyId;
+
     private void setupColumns() {
         colTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
         colCity.setCellValueFactory(new PropertyValueFactory<>("city"));
         colType.setCellValueFactory(new PropertyValueFactory<>("jobType"));
         colStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
     }
+
     private void loadJobs() {
         jobList = FXCollections.observableArrayList(jobDAO.getJobsByCompanyId(companyId));
         jobTable.setItems(jobList);
     }
+
     @FXML
     public void initialize() {
         setupColumns();
         this.companyId = SessionManager.getInstance().getCurrentUserId();
         loadJobs();
     }
+
     @FXML
     private void onEditJob() {
         Job selectedJob = jobTable.getSelectionModel().getSelectedItem();
-        if ( selectedJob == null ) {
+        if (selectedJob == null) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Error");
             alert.setHeaderText("Please Select a Job");
             alert.showAndWait();
+            return;
         }
-        try{
+        try {
             //open new window to edit job details
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/layouts/JobForm.fxml"));
             Parent root = loader.load();
@@ -73,6 +87,7 @@ public class ManageJobController {
             throw new RuntimeException(e);
         }
     }
+
     @FXML
     private void onPauseJob() {
         Job selected = jobTable.getSelectionModel().getSelectedItem();
@@ -105,6 +120,7 @@ public class ManageJobController {
             alert.showAndWait();
         }
     }
+
     @FXML
     private void onDeleteJob() {
         Job selected = jobTable.getSelectionModel().getSelectedItem();

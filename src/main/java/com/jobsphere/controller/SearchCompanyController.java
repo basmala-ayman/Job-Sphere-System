@@ -4,7 +4,7 @@ import com.jobsphere.dao.ApplicantDAO;
 import com.jobsphere.dao.ApplicationsDAO;
 import com.jobsphere.dao.JobDAO;
 import com.jobsphere.model.Job;
-import com.jobsphere.model.SearchCompany; // The new DTO
+import com.jobsphere.model.SearchCompany;
 import com.jobsphere.service.auth.SessionManager;
 
 import javafx.collections.FXCollections;
@@ -20,26 +20,38 @@ import javafx.util.StringConverter;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+
 import java.io.IOException;
 import java.util.List;
+
 public class SearchCompanyController {
 
-    @FXML private ComboBox<Job> jobComboBox;
-    @FXML private ComboBox<String> skillComboBox;
-    @FXML private ComboBox<Integer> expComboBox;
-    @FXML private Button backBtn;
-    @FXML private TableView<SearchCompany> resultsTable;
+    @FXML
+    private ComboBox<Job> jobComboBox;
+    @FXML
+    private ComboBox<String> skillComboBox;
+    @FXML
+    private ComboBox<Integer> expComboBox;
+    @FXML
+    private Button backBtn;
+    @FXML
+    private TableView<SearchCompany> resultsTable;
 
+    @FXML
+    private TableColumn<SearchCompany, String> colJob;
+    @FXML
+    private TableColumn<SearchCompany, String> colStatus;
+    @FXML
+    private TableColumn<SearchCompany, String> colName;
+    @FXML
+    private TableColumn<SearchCompany, String> colSkills;
+    @FXML
+    private TableColumn<SearchCompany, Integer> colExp;
+    @FXML
+    private TableColumn<SearchCompany, String> colEmail;
+    @FXML
+    private TableColumn<SearchCompany, String> colResume;
 
-    @FXML private TableColumn<SearchCompany, String> colJob;
-    @FXML private TableColumn<SearchCompany, String> colStatus;
-    @FXML private TableColumn<SearchCompany, String> colName;
-    @FXML private TableColumn<SearchCompany, String> colSkills;
-    @FXML private TableColumn<SearchCompany, Integer> colExp;
-    @FXML private TableColumn<SearchCompany, String> colEmail;
-    @FXML private TableColumn<SearchCompany, String> colResume;
-
-    // DAOs
     private ApplicationsDAO appDAO = ApplicationsDAO.getInstance();
     private ApplicantDAO applicantDAO = ApplicantDAO.getInstance();
     private JobDAO jobDAO = JobDAO.getInstance();
@@ -47,25 +59,22 @@ public class SearchCompanyController {
     private ObservableList<SearchCompany> tableData = FXCollections.observableArrayList();
     private int companyId;
 
-   @FXML
+    @FXML
     public void initialize() {
 
-       jobComboBox.valueProperty().addListener((obs, oldJob, newJob) -> {
-           if (newJob != null) {
-               skillComboBox.setDisable(false);
-               expComboBox.setDisable(false);
+        jobComboBox.valueProperty().addListener((obs, oldJob, newJob) -> {
+            if (newJob != null) {
+                skillComboBox.setDisable(false);
+                expComboBox.setDisable(false);
 
-               skillComboBox.getSelectionModel().clearSelection();
-               expComboBox.getSelectionModel().clearSelection();
+                skillComboBox.getSelectionModel().clearSelection();
+                expComboBox.getSelectionModel().clearSelection();
 
-               loadSkillsForJob(newJob.getId());
-               loadAllCandidatesForJob(newJob.getId());
-           }
-       });
+                loadSkillsForJob(newJob.getId());
+                loadAllCandidatesForJob(newJob.getId());
+            }
+        });
 
-
-
-       // 1. Setup Table Columns
         colJob.setCellValueFactory(new PropertyValueFactory<>("jobTitle"));
         colStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
         colName.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -76,7 +85,6 @@ public class SearchCompanyController {
 
         resultsTable.setItems(tableData);
 
-        // 2. Load Filter Data
         loadFilterData();
     }
 
@@ -105,7 +113,6 @@ public class SearchCompanyController {
         tableData.setAll(results);
     }
 
-
     private void loadFilterData() {
         this.companyId = SessionManager.getInstance().getCurrentUserId();
 
@@ -127,21 +134,16 @@ public class SearchCompanyController {
             }
         });
 
-        // 🔹 Disable filters until job selected
         skillComboBox.setDisable(true);
         expComboBox.setDisable(true);
 
-        // 🔹 Placeholders
         jobComboBox.setPromptText("Select Job");
         skillComboBox.setPromptText("Select Skill");
         expComboBox.setPromptText("Experience");
 
-        // Load Distinct Experience Years
         List<Integer> years = applicantDAO.getDistinctExperienceYears();
         expComboBox.setItems(FXCollections.observableArrayList(years));
     }
-
-
 
     @FXML
     private void handleSearch() {
@@ -169,7 +171,6 @@ public class SearchCompanyController {
 
         tableData.setAll(results);
     }
-
 
     private void showAlert(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);

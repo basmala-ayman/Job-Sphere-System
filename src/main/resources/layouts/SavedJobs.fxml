@@ -13,17 +13,14 @@
       stylesheets="@../Styles/savedJobs.css"
       styleClass="root">
 
-    <!-- Page Title -->
     <Label text="Saved Jobs"
            styleClass="header-label"/>
 
-    <!-- Saved Jobs List -->
     <ListView fx:id="savedJobList"
               prefWidth="550"
               prefHeight="300"
               styleClass="list-view"/>
 
-    <!-- Hint -->
     <Label text="Double-click a job to view details"
            style="-fx-text-fill: gray; -fx-font-size: 12px;"/>
 

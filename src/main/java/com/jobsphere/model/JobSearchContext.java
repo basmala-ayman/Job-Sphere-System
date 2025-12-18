@@ -1,4 +1,5 @@
 package com.jobsphere.model;
+
 import com.jobsphere.dao.JobDAO;
 
 import java.util.List;

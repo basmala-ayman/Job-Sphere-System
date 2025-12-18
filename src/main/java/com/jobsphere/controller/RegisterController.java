@@ -3,20 +3,16 @@ package com.jobsphere.controller;
 import com.jobsphere.model.User;
 import com.jobsphere.service.auth.Authentication;
 import com.jobsphere.service.auth.RegistrationResult;
-import com.jobsphere.service.auth.SessionManager;
 import com.jobsphere.service.creator.UserCreator;
 import com.jobsphere.service.creator.UserCreatorFactory;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import javafx.event.ActionEvent;
 
 import java.io.IOException;
 
@@ -180,13 +176,16 @@ public class RegisterController {
         registerBtn.setDisable(true);
 
         try {
+            // create suitable user object without creating his profile (just create object)
             UserCreator userCreator = UserCreatorFactory.getUserCreator(selectedRole);
-            User user = userCreator.createUser(this);
+            User user = userCreator.createUser(this); // applicant or company object
+
             user.setUsername(name);
             user.setEmail(mail);
             user.setPassword(pass);
             user.setRole(selectedRole);
 
+            // create suitable profile for user according to his role
             RegistrationResult result = auth.registerUserAuth(user, selectedRole);
             if (result.isSuccess()) {
 
@@ -194,8 +193,8 @@ public class RegisterController {
                 msg.setText("Registration successfully!!");
                 clearForm();
                 msg.setText("");
-                goToLogin();
 
+                goToLogin();
             } else {
                 msg.setText("Registration failed!! Email may already exist! Please try to login.");
             }

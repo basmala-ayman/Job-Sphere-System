@@ -21,12 +21,6 @@ public class SessionManager {
         this.currentUser = currentUser;
     }
 
-    // SessionManager.getInstance().getCurrentUserRole()
-    public String getCurrentUserRole() {
-        return currentUser.getRole();
-    }
-
-    // SessionManager.getInstance().getCurrentUserId()
     public int getCurrentUserId() {
         return currentUser.getId();
     }

@@ -12,8 +12,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-import javafx.util.Callback;
-import javafx.beans.value.ObservableValue;
 
 import java.io.IOException;
 
@@ -21,22 +19,16 @@ public class ApplicationController {
 
     @FXML
     private TableView<ApplicationFullInfo> applicationsTable;
-
     @FXML
     private TableColumn<ApplicationFullInfo, String> userNameColumn;
-
     @FXML
     private TableColumn<ApplicationFullInfo, String> emailColumn;
-
     @FXML
     private TableColumn<ApplicationFullInfo, String> jobTitleColumn;
-
     @FXML
     private TableColumn<ApplicationFullInfo, String> skillsColumn;
-
     @FXML
     private TableColumn<ApplicationFullInfo, String> statusColumn;
-
     @FXML
     private TableColumn<ApplicationFullInfo, Void> saveColumn;
 
@@ -48,32 +40,24 @@ public class ApplicationController {
 
         applicationService = new ApplicationsService();
 
-        // -------------------------------
-        // Bind columns to ObservableValue<String>
-        // -------------------------------
         userNameColumn.setCellValueFactory(cellData -> cellData.getValue().userNameProperty());
         emailColumn.setCellValueFactory(cellData -> cellData.getValue().emailProperty());
         jobTitleColumn.setCellValueFactory(cellData -> cellData.getValue().jobTitleProperty());
         skillsColumn.setCellValueFactory(cellData -> cellData.getValue().skillsProperty());
         statusColumn.setCellValueFactory(cellData -> cellData.getValue().statusProperty());
 
-        // Setup ComboBox for status per row
         setupStatusComboBox();
 
-        // Setup Save button per row
         setupSaveButtonColumn();
 
         setCompanyId();
-
     }
 
     //this is just taking the data based on the dynamic id i will take after log in 
     public void setCompanyId() {
-
         this.companyId = SessionManager.getInstance().getCurrentUserId();
         loadApplications();
     }
-
 
     private void loadApplications() {
         applicationsTable.setItems(FXCollections.observableArrayList(

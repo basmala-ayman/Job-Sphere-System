@@ -33,10 +33,8 @@ public class JobDetailsController {
     private TextArea jobResponsibilities;
     @FXML
     private Label jobSalary;
-
     @FXML
     private TextField resumeLinkField;
-
     @FXML
     private Button applyButton;
     @FXML
@@ -60,7 +58,6 @@ public class JobDetailsController {
         applyButton.setOnAction(e -> applyJob());
         saveButton.setOnAction(e -> saveJob());
     }
-
 
     @FXML
     private void applyJob() {
@@ -126,7 +123,6 @@ public class JobDetailsController {
         alert.setContentText("Job has been saved successfully!");
         alert.showAndWait();
     }
-
 
     private void showJobDetails(Job job) {
         jobTitle.setText(job.getTitle());

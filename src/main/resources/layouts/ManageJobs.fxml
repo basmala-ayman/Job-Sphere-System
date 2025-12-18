@@ -10,14 +10,13 @@
            stylesheets="@../Styles/manage-jobs.css"
            styleClass="root"
            prefWidth="800.0" prefHeight="850.0">
-    <!-- ScrollPane fills whole window -->
+
     <ScrollPane fitToWidth="true"
                 fitToHeight="true"
                 hbarPolicy="NEVER"
                 vbarPolicy="AS_NEEDED">
 
         <content>
-            <!-- Wrapper fills available height -->
             <VBox alignment="CENTER"
                   spacing="0"
                   minHeight="0"
@@ -26,7 +25,6 @@
                     <Insets top="30" bottom="30" left="30" right="30"/>
                 </padding>
 
-                <!-- Main Card -->
                 <VBox styleClass="table-card"
                       spacing="20"
                       maxWidth="Infinity"
@@ -37,16 +35,14 @@
                             <Button fx:id="backBtn" text="← Back" onAction="#handleBack" styleClass="back-btn"/>
                         </left>
                         <right>
-                            <Region prefWidth="80" />
+                            <Region prefWidth="80"/>
                         </right>
                     </BorderPane>
-                    <!-- Title -->
                     <Label text="Manage Your Jobs"
                            styleClass="header-label"
                            maxWidth="Infinity"
                            alignment="CENTER"/>
 
-                    <!-- Table fills vertical space -->
                     <TableView fx:id="jobTable"
                                VBox.vgrow="ALWAYS"
                                maxWidth="Infinity"
@@ -64,7 +60,6 @@
                         </columns>
                     </TableView>
 
-                    <!-- Action Buttons (fixed height) -->
                     <HBox spacing="15"
                           alignment="CENTER_RIGHT"
                           maxWidth="Infinity"
@@ -85,7 +80,6 @@
                                 onAction="#onDeleteJob"
                                 styleClass="danger-button"/>
                     </HBox>
-
                 </VBox>
             </VBox>
         </content>

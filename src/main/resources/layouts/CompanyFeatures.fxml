@@ -22,10 +22,8 @@
             <Insets top="40" right="40" bottom="40" left="40"/>
         </padding>
 
-        <!-- Title -->
         <Label text="Company Portal" styleClass="header-label"/>
 
-        <!-- Buttons -->
         <VBox spacing="15" alignment="CENTER" fillWidth="true">
 
             <Button text="Add New Job"

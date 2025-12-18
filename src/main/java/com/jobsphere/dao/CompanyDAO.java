@@ -17,7 +17,6 @@ public class CompanyDAO {
             stmt.setString(4, company.getIndustry());
 
             stmt.executeUpdate();
-
         }
     }
 
